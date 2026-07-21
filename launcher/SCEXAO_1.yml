@@ -17,13 +17,13 @@ launchers:
     label: "Coro FPM"
     cmd: EXEC SCEXAO FPM SLOT=$VAL01
     params:
-      - [ VAL01, LIST, [ "ZERNIKE", "8OPM", "VAPP11", "VAPP12", "VAPP13", "VAPP14", "VAPP21", "VAPP22", "VVC", "OPEN", "LYOT78", "LYOT92", "LYOT113", "LYOT139", "LYOT165", "LYOT198", "LYOT228", "LYOT262", "LYOT310", "PIAACMCA1", "PIAACMCA2", "PIAACMCA3", "PIAACMCA4", "PIAACMCA5", "PIAACMCA6", "PIAACMCA7", "PIAACMCA8", "PIAACMCA9", "PIAACMCB1", "PIAACMCB2", "PIAACMCB3", "PIAACMCB4", "PIAACMCB5", "PIAACMCB6", "PIACCMCB7", "PIAACMCB8", "PIAACMCB9", "MSWC"], "Slot" ]
+      - [ VAL01, LIST, [ "VVC", "OPEN", "LYOT78", "LYOT92", "LYOT113", "LYOT139", "LYOT165", "LYOT198", "LYOT228", "LYOT262", "LYOT310"], "Slot" ]
 
   -
     label: "Coro Lyot"
     cmd: EXEC SCEXAO LYOT SLOT=$VAL01
     params:
-      - [ VAL01, LIST, [ "OPEN", "LYOT", "8OPM", "VVC", "PIAACMC", "MPIAA1", "MPIAA2", "MIRROR" ], "Slot" ]
+      - [ VAL01, LIST, [ "OPEN", "LYOT", "VVC", "MIRROR" ], "Slot" ]
 
   - sep
 
@@ -40,13 +40,13 @@ launchers:
     label: "CHARIS Pickoff"
     cmd: EXEC SCEXAO CHARIS_PICKOFF SLOT=$VAL01
     params:
-      - [ VAL01, LIST, [ "T10R90", "T90R10", "ARWINDOW", "MIRROR", "1.12UMLP", "1.35UMLP", "1.88UMLP", "OPEN" ], "Slot" ]
+      - [ VAL01, LIST, [ "T10R90", "T90R10", "ARWINDOW", "MIRROR", "1.12UMLP", "1.35UMLP", "1.88UMLP" ], "Slot" ]
 
   -
     label: "MEC Pickoff"
     cmd: EXEC SCEXAO MKIDS_PICKOFF SLOT=$VAL01
     params:
-      - [ VAL01, LIST, [ "OPEN", "ARWINDOW", "MIRROR", "T10R90", "T90R10", "1.35UMSP" ], "Slot" ]
+      - [ VAL01, LIST, [ "ARWINDOW", "MIRROR", "T10R90", "T90R10", "1.35UMSP" ], "Slot" ]
 
   -
     label: "CHARIS Filter"
