@@ -9,7 +9,7 @@ launchers:
     label: "Source fiber"
     cmd: EXEC SCEXAO SRC_FIB POSITION=$VAL01
     params:
-      - [ VAL01, LIST, [ "IN", "OUT" ] ]
+      - [ VAL01, LIST, [ "IN", "OUT", "PINHOLE" ] ]
 
   - sep
 
@@ -47,7 +47,7 @@ launchers:
     cmd: EXEC SCEXAO MKIDS_PICKOFF SLOT=$VAL01
     params:
       - [ VAL01, LIST, [ "OPEN", "ARWINDOW", "MIRROR", "T10R90", "T90R10", "1.35UMSP" ], "Slot" ]
-      
+
   -
     label: "CHARIS Filter"
     cmd: EXEC SCEXAO CHARIS_FILTER SLOT=$VAL01
