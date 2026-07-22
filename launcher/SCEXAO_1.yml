@@ -11,6 +11,12 @@ launchers:
     params:
       - [ VAL01, LIST, [ "IN", "OUT", "PINHOLE" ] ]
 
+  -
+    label: "OAP1"
+    cmd: EXEC SCEXAO OAP1 POSITION=$VAL01
+    params:
+      - [ VAL01, LIST, [ "INT", "CWFS", "NIRWFS" ] ]
+
   - sep
 
   -
