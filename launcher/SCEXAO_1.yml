@@ -7,10 +7,17 @@ tabname: "SCEXAO Setup"
 launchers:
 
   -
-    label: "superk"
-    cmd: EXEC SCEXAO superk POWER=$VAL01
+    label: "Superk"
+    cmd: EXEC SCEXAO SUPERK POWER=$VAL01
     params:
-      - [ VAL01, LIST, [ "ON", "OFF" ], "Power" ]
+      - [ VAL01, LIST, [ "ON", "OFF" ], "POWER" ]
 
   - sep
 
+  -
+    label: "Source Flux"
+    cmd: EXEC SCEXAO SRC_FLUX CONFIG=$VAL01
+    params:
+      - [ VAL01, LIST, [ "ON", "OFF" ], "CONFIG" ]
+
+  - sep

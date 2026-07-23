@@ -80,12 +80,6 @@ launchers:
     params:
       - [ VAL01, LIST, [ "IN", "OUT" ], "Position" ]
 
-  -
-    label: "IRCam FLC"
-    cmd: EXEC SCEXAO IRCAM_FLC POSITION=$VAL01
-    params:
-      - [ VAL01, LIST, [ "IN", "OUT" ], "Position" ]
-
   - sep
 
   -

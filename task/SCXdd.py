@@ -49,6 +49,9 @@ ddcmd_tbl = {
     'src_fib': Bunch(fmtstr='EXEC SCEXAO SRC_FIB POSITION=%(position)s',
                 parakey=('SCEXAO', 'SRC_FIB')),
 
+    'src_flux': Bunch(fmtstr='EXEC SCEXAO SRC_FLUX CONFIG=%(config)s',
+                parakey=('SCEXAO', 'SRC_FLUX')),
+
     'superk': Bunch(fmtstr='EXEC SCEXAO SUPERK POWER=%(power)s',
                 parakey=('SCEXAO', 'SUPERK')),
     }
@@ -129,6 +132,10 @@ class Sleep(SCEXAOTask):
 class Src_Fib(SCEXAOTask):
     def __init__(self, position=None):
         super(Src_Fib, self).__init__('Src_Fib', position=position)
+
+class Src_Flux(SCEXAOTask):
+    def __init__(self, config=None):
+        super(Src_Flux, self).__init__('Src_Flux', config=config)
 
 class Superk(SCEXAOTask):
     def __init__(self, power=None):
