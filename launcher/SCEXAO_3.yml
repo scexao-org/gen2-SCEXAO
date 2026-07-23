@@ -1,0 +1,97 @@
+# 
+# SCEXAO.yml -- SCEXAO launchers file 
+#
+# This is a YAML file
+
+tabname: "SCEXAO Vis"
+launchers:
+  -
+    label: "Source fiber"
+    cmd: EXEC SCEXAO SRC_FIB POSITION=$VAL01
+    params:
+      - [ VAL01, LIST, [ "IN", "OUT", "PINHOLE" ] ]
+
+  -
+    label: "OAP1"
+    cmd: EXEC SCEXAO OAP1 POSITION=$VAL01
+    params:
+      - [ VAL01, LIST, [ "INT", "CWFS", "NIRWFS" ] ]
+
+  - sep
+
+  -
+    label: "Coro FPM"
+    cmd: EXEC SCEXAO FPM SLOT=$VAL01
+    params:
+      - [ VAL01, LIST, [ "VVC", "OPEN", "LYOT78", "LYOT92", "LYOT113", "LYOT139", "LYOT165", "LYOT198", "LYOT228", "LYOT262", "LYOT310"], "Slot" ]
+
+  -
+    label: "Coro Lyot"
+    cmd: EXEC SCEXAO LYOT SLOT=$VAL01
+    params:
+      - [ VAL01, LIST, [ "OPEN", "LYOT", "VVC", "MIRROR" ], "Slot" ]
+
+  - sep
+
+  -
+    label: "IRCam Steering"
+    cmd: EXEC SCEXAO IRCAM_STEERING MODE=$VAL01 A=$VAL02 B=$VAL03 MOTION=$VAL04
+    params:
+      - [ VAL01, LIST, [ "ONAXIS", "PALILAXY", "PALILAANGLE", "SKYANGLE"], "Mode" ]
+      - [ VAL02, INPUT, 6, 2, "SEP X or R (arcsec)" ]
+      - [ VAL03, INPUT, 6, 2, "SEP Y (arcsec) or Angle (deg)" ]
+      - [ VAL04, LIST, [ ["Absolute", ABS], "Relative", REL], "Motion" ]
+
+  -
+    label: "CHARIS Pickoff"
+    cmd: EXEC SCEXAO CHARIS_PICKOFF SLOT=$VAL01
+    params:
+      - [ VAL01, LIST, [ "T10R90", "T90R10", "ARWINDOW", "MIRROR", "1.12UMLP", "1.35UMLP", "1.88UMLP" ], "Slot" ]
+
+  -
+    label: "MEC Pickoff"
+    cmd: EXEC SCEXAO MKIDS_PICKOFF SLOT=$VAL01
+    params:
+      - [ VAL01, LIST, [ "ARWINDOW", "MIRROR", "T10R90", "T90R10", "1.35UMSP" ], "Slot" ]
+
+  -
+    label: "CHARIS Filter"
+    cmd: EXEC SCEXAO CHARIS_FILTER SLOT=$VAL01
+    params:
+      - [ VAL01, LIST, [ "J", "H", "K", "OUT" ], "Slot" ]
+
+  -
+    label: "IRCam Filter"
+    cmd: EXEC SCEXAO IRCAM_FILTER SLOT=$VAL01
+    params:
+      - [ VAL01, LIST, [ "OPEN", "Y", "1550NM25NM", "1550NM50NM", "J", "H" ], "Slot" ]
+                                                                              
+  - sep
+  
+  -
+    label: "IR Field Stop"
+    cmd: EXEC SCEXAO FIELD_STOP POSITION=$VAL01
+    params:
+      - [ VAL01, LIST, [ "IN", "OUT" ], "Position" ]
+      
+  -
+    label: "CHARIS Wollaston"
+    cmd: EXEC SCEXAO CHARIS_WOLLASTON POSITION=$VAL01
+    params:
+      - [ VAL01, LIST, [ "IN", "OUT" ], "Position" ]
+
+  -
+    label: "IRCam FLC"
+    cmd: EXEC SCEXAO IRCAM_FLC POSITION=$VAL01
+    params:
+      - [ VAL01, LIST, [ "IN", "OUT" ], "Position" ]
+
+  - sep
+
+  -
+    label: "Sleep"
+    cmd: EXEC SCEXAO SLEEP SLEEP_TIME=$VAL01
+    params:
+      - [ VAL01, INPUT, 3, 2, "Seconds" ]
+
+  - sep
