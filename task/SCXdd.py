@@ -31,9 +31,6 @@ ddcmd_tbl = {
     'ircam_filter': Bunch(fmtstr='EXEC SCEXAO IRCAM_FILTER SLOT=%(slot)s',
                 parakey=('SCEXAO', 'IRCAM_FILTER')),
 
-    'ircam_flc': Bunch(fmtstr='EXEC SCEXAO IRCAM_FLC POSITION=%(position)s',
-                parakey=('SCEXAO', 'IRCAM_FLC')),
-
     'ircam_steering': Bunch(fmtstr='EXEC SCEXAO IRCAM_STEERING MODE=%(mode)s A=%(a)s B=%(b)s MOTION=%(motion)s',
                 parakey=('SCEXAO', 'IRCAM_STEERING')),
 
@@ -51,6 +48,9 @@ ddcmd_tbl = {
 
     'src_fib': Bunch(fmtstr='EXEC SCEXAO SRC_FIB POSITION=%(position)s',
                 parakey=('SCEXAO', 'SRC_FIB')),
+
+    'superk': Bunch(fmtstr='EXEC SCEXAO SUPERK POWER=%(power)s',
+                parakey=('SCEXAO', 'SUPERK')),
     }
     
 
@@ -106,10 +106,6 @@ class Ircam_Filter(SCEXAOTask):
     def __init__(self, slot=None):
         super(Ircam_Filter, self).__init__('Ircam_Filter', slot=slot)
 
-class Ircam_Flc(SCEXAOTask):
-    def __init__(self, position=None):
-        super(Ircam_Flc, self).__init__('Ircam_Flc', position=position)
-
 class Ircam_Steering(SCEXAOTask):
     def __init__(self, mode=None, a=None, b=None, motion=None):
         super(Ircam_Steering, self).__init__('Ircam_Steering', mode=mode, a=a, b=b, motion=motion)
@@ -134,3 +130,6 @@ class Src_Fib(SCEXAOTask):
     def __init__(self, position=None):
         super(Src_Fib, self).__init__('Src_Fib', position=position)
 
+class Superk(SCEXAOTask):
+    def __init__(self, power=None):
+        super(Src_Fib, self).__init__('Src_Fib', power=power)
