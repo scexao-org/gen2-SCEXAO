@@ -12,6 +12,9 @@ SUBSYS = 'SCEXAO'
 
 
 ddcmd_tbl = {
+
+    'apapane_pickoff':Bunch(fmtstr='EXEC SCEXAO APAPNE_PICKOFF position=%(position)s',
+                parakey=('SCEXAO', 'APAPANE_PICKOFF')),
     
     'charis_filter': Bunch(fmtstr='EXEC SCEXAO CHARIS_FILTER SLOT=%(slot)s',
                 parakey=('SCEXAO', 'CHARIS_FILTER')),
@@ -27,6 +30,9 @@ ddcmd_tbl = {
 
     'fpm': Bunch(fmtstr='EXEC SCEXAO FPM SLOT=%(slot)s',
                 parakey=('SCEXAO', 'FPM')),
+
+    'ircam_fcs': Bunch(fmtstr='EXEC SCEXAO IRCAM_FCS MODE=%(mode)s',
+                parakey=('SCEXAO', 'IRCAM_FCS')),
 
     'ircam_filter': Bunch(fmtstr='EXEC SCEXAO IRCAM_FILTER SLOT=%(slot)s',
                 parakey=('SCEXAO', 'IRCAM_FILTER')),
@@ -84,6 +90,9 @@ class SCEXAOTask(g2Task.INSintTask):
     # SCEXAO INSTRUMENT COMMANDS
     #######################################
 
+class Apapane_Pickoff(SCEXAOTask):
+    def __init__(self, position=None):
+        super(Apapane_Pickoff, self).__init__('Apapane_Pickoff', position=position)
 
 class Charis_Filter(SCEXAOTask):
     def __init__(self, slot=None):
@@ -104,6 +113,10 @@ class Field_Stop(SCEXAOTask):
 class Fpm(SCEXAOTask):
     def __init__(self, slot=None):
         super(Fpm, self).__init__('Fpm', slot=slot)
+
+class Ircam_Fcs(SCEXAOTask):
+    def __init__(self, mode=None):
+        super(Ircam_Fcs, self).__init__('Ircam_Fcs', mode=mode)
 
 class Ircam_Filter(SCEXAOTask):
     def __init__(self, slot=None):

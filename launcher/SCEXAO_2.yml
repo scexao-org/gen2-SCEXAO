@@ -67,7 +67,19 @@ launchers:
       - [ VAL01, LIST, [ "OPEN", "Y", "1550NM25NM", "1550NM50NM", "J", "H" ], "Slot" ]
                                                                               
   - sep
-  
+
+  -
+    label: "IRCam Focus"
+    cmd: EXEC SCEXAO IRCAM_FCS MODE=$VAL01
+    params:
+      - [ VAL01, LIST, [ "PALILA", "APAPANE"], "Mode" ]
+
+  -
+    label: "Apapane Pickoff"
+    cmd: EXEC SCEXAO APAPNE_PICKOFF MODE=$VAL01
+    params:
+      - [ VAL01, LIST, [ "IN", "OUT"], "Position" ]
+
   -
     label: "IR Field Stop"
     cmd: EXEC SCEXAO FIELD_STOP POSITION=$VAL01
