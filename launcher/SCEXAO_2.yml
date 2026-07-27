@@ -9,13 +9,13 @@ launchers:
     label: "Source fiber"
     cmd: EXEC SCEXAO SRC_FIB POSITION=$VAL01
     params:
-      - [ VAL01, LIST, [ "IN", "OUT", "PINHOLE" ] ]
+      - [ VAL01, LIST, [ "IN", "OUT", "PINHOLE" ], "Position" ]
 
   -
     label: "OAP1"
     cmd: EXEC SCEXAO OAP1 POSITION=$VAL01
     params:
-      - [ VAL01, LIST, [ "INT", "CWFS", "NIRWFS" ] ]
+      - [ VAL01, LIST, [ "INT", "CWFS", "NIRWFS" ], "Position" ]
 
   - sep
 
@@ -92,7 +92,19 @@ launchers:
     params:
       - [ VAL01, LIST, [ "IN", "OUT" ], "Position" ]
 
+  -
+    label: "IRCam Wollaston"
+    cmd: EXEC SCEXAO IRCAM_WOLLASTON POSITION=$VAL01
+    params:
+      - [ VAL01, LIST, [ "IN", "OUT" ], "Position" ]
+
   - sep
+
+  -
+    label: "Reach Pickoff"
+    cmd: EXEC SCEXAO REACH_PICKOFF POSITION=$VAL01
+    params:
+      - [ VAL01, LIST, [ "IN", "OUT" ], "Position" ]
 
   -
     label: "Sleep"

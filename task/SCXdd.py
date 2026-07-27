@@ -28,6 +28,9 @@ ddcmd_tbl = {
     'field_stop': Bunch(fmtstr='EXEC SCEXAO FIELD_STOP POSITION=%(position)s',
                 parakey=('SCEXAO', 'FIELD_STOP')),
 
+    'firstpl_pickoff': Bunch(fmtstr='EXEC SCEXAO FIRSTPL_PICKOFF POSITION=%(position)s',
+                parakey=('SCEXAO', 'FIRSTPL_PICKOFF')),
+
     'fpm': Bunch(fmtstr='EXEC SCEXAO FPM SLOT=%(slot)s',
                 parakey=('SCEXAO', 'FPM')),
 
@@ -48,6 +51,15 @@ ddcmd_tbl = {
 
     'mkids_pickoff': Bunch(fmtstr='EXEC SCEXAO MKIDS_PICKOFF SLOT=%(slot)s',
                 parakey=('SCEXAO', 'MKIDS_PICKOFF')),
+
+    'pywfs_pickoff': Bunch(fmtstr='EXEC SCEXAO PYWFS_PICKOFF SLOT=%(slot)s',
+                parakey=('SCEXAO', 'PYWFS_PICKOFF')),
+
+    'pywfs_filter': Bunch(fmtstr='EXEC SCEXAO PYWFS_FILTER SLOT=%(slot)s',
+                parakey=('SCEXAO', 'PYWFS_FILTER')),
+
+    'reach_pickoff': Bunch(fmtstr='EXEC SCEXAO REACH_PICKOFF POSITION=%(position)s',
+                parakey=('SCEXAO', 'REACH_PICKOFF')),
 
     'sleep': Bunch(fmtstr='EXEC SCEXAO SLEEP SLEEP_TIME=%(sleep_time)s',
                 parakey=('SCEXAO', 'SLEEP')),
@@ -110,6 +122,10 @@ class Field_Stop(SCEXAOTask):
     def __init__(self, position=None):
         super(Field_Stop, self).__init__('Field_Stop', position=position)
 
+class Firstpl_Pickoff(SCEXAOTask):
+    def __init__(self, position=None):
+        super(Firstpl_Pickoff, self).__init__('Firstpl_Pickoff', position=position)
+
 class Fpm(SCEXAOTask):
     def __init__(self, slot=None):
         super(Fpm, self).__init__('Fpm', slot=slot)
@@ -137,6 +153,18 @@ class Lyot(SCEXAOTask):
 class Mkids_Pickoff(SCEXAOTask):
     def __init__(self, slot=None):
         super(Mkids_Pickoff, self).__init__('Mkids_Pickoff', slot=slot)
+
+class PYWFS_Pickoff(SCEXAOTask):
+    def __init__(self, slot=None):
+        super(PYWFS_Pickoff, self).__init__('PYWFS_Pickoff', slot=slot)
+
+class PYWFS_Filter(SCEXAOTask):
+    def __init__(self, slot=None):
+        super(PYWFS_Filter, self).__init__('PYWFS_Filter', slot=slot)
+
+class Reach_Pickoff(SCEXAOTask):
+    def __init__(self, position=None):
+        super(Reach_Pickoff, self).__init__('Reach_Pickoff', position=position)
 
 class Sleep(SCEXAOTask):
     def __init__(self, sleep_time=None):
