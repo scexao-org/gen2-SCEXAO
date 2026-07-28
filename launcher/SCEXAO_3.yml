@@ -17,6 +17,51 @@ launchers:
     params:
       - [ VAL01, LIST, [ "OPEN", "BLOCK" ], "Slot" ]
 
+  -
+    label: "Setup_PYWFS"
+    cmd: EXEC SCEXAO SETUP_PYWFS FREQUENCY=$VAL01 MOD_AMP=$VAL02
+    params:
+      - [ VAL01, LIST, [ "0.5KHZ","1.0KHZ", "1.5KHZ", "2.0KHZ", "2.5KHZ", "3.0KHZ", "3.5KHZ" ], "Frequency" ]
+      - [ VAL02, LIST, [ "0.1", "0.2", "0.3", "0.4" ], "Mod_Amp" ]
+
+  -
+    label: "Pueo_EM_Gain"
+    cmd: EXEC SCEXAO PYWFS_GAIN EM_GAIN=$VAL01
+    params:
+      - [ VAL01, LIST, [ "AUTO","1", "2", "4", "8", "16", "32", "64", "128", "256", "600" ], "EM_Gain" ]
+
+  - sep
+
+  -
+    label: "Set_PYWFS_Gain"
+    cmd: EXEC SCEXAO SET_PYWFS_GAIN GAIN=$VAL01
+    params:
+      - [ VAL01, LIST, [ "NA"], "Gain"]
+
+  -
+    label: "Set_Multi_Factor"
+    cmd: EXEC SCEXAO SET_MULTI_FACTOR FACTOR=$VAL01
+    params:
+      - [ VAL01, LIST, [ "NA"], "Factor"]
+
+  -
+    label: "Set_Modal_Gains"
+    cmd: EXEC SCEXAO SET_MODAL_GAINS NOP=$VAL01
+    params:
+      - [ VAL01, LIST, [ "NA"], "NOP"]
+
+  -
+    label: "Loop"
+    cmd: EXEC SCEXAO LOOP STATE=$VAL01
+    params:
+      - [ VAL01, LIST, [ "CLOSE", "OPEN", "ZERO"], "State"]
+
+  -
+    label: "DM_Offload"
+    cmd: EXEC SCEXAO DM_OFFLOAD STATE=$VAL01
+    params:
+      - [ VAL01, LIST, [ "ON", "OFF"], "State"]
+
   - sep
 
   -

@@ -40,7 +40,7 @@ launchers:
       - [ VAL01, LIST, [ "ONAXIS", "PALILAXY", "PALILAANGLE", "SKYANGLE"], "Mode" ]
       - [ VAL02, INPUT, 6, 2, "SEP X or R (arcsec)" ]
       - [ VAL03, INPUT, 6, 2, "SEP Y (arcsec) or Angle (deg)" ]
-      - [ VAL04, LIST, [ ["Absolute", ABS], "Relative", REL], "Motion" ]
+      - [ VAL04, LIST, [ ["Absolute", ABS],["Relative", REL], "Motion" ]
 
   -
     label: "CHARIS Pickoff"
@@ -65,7 +65,7 @@ launchers:
     cmd: EXEC SCEXAO IRCAM_FILTER SLOT=$VAL01
     params:
       - [ VAL01, LIST, [ "OPEN", "Y", "1550NM25NM", "1550NM50NM", "J", "H" ], "Slot" ]
-                                                                              
+
   - sep
 
   -
@@ -85,7 +85,7 @@ launchers:
     cmd: EXEC SCEXAO FIELD_STOP POSITION=$VAL01
     params:
       - [ VAL01, LIST, [ "IN", "OUT" ], "Position" ]
-      
+
   -
     label: "CHARIS Wollaston"
     cmd: EXEC SCEXAO CHARIS_WOLLASTON POSITION=$VAL01

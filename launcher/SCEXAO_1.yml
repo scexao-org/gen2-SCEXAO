@@ -7,15 +7,50 @@ tabname: "SCEXAO Setup"
 launchers:
 
   -
+    label: "Startup SCExAO"
+    cmd: EXEC SCEXAO STARTUP_SCEXAO MODE=$VAL01
+    params:
+      - [ VAL01, LIST, [ "CALIBRATION","ON-SKY" ], "Mode" ]
+
+  -
+    label: "Shutdown SCExAO"
+    cmd: EXEC SCEXAO SHUTDOWN_SCEXAO =$VAL01
+    params:
+      - [ VAL01, LIST, [ "NA" ], "NA" ]
+
+  -
+    label: "Set Mode"
+    cmd: EXEC SCEXAO SET_MODE MODE=$VAL01
+    params:
+      - [ VAL01, LIST, ["CHARIS", "CHARISPDI", "CHARISPDI+FPDI", "REACH" ], "Mode" ]
+
+  - sep
+
+  -
     label: "Superk"
     cmd: EXEC SCEXAO SUPERK POWER=$VAL01
     params:
-      - [ VAL01, LIST, [ "ON", "OFF" ], "Power" ]
+      - [ VAL01, LIST, [ "ON","OFF" ], "Power" ]
 
   -
     label: "Source Flux"
-    cmd: EXEC SCEXAO SRC_FLUX CONFIG=$VAL01
+    cmd: EXEC SCEXAO SRC_FLUX MODE=$VAL01
     params:
-      - [ VAL01, LIST, [ "DEFAULT","CHARIS" ], "Config" ]
+      - [ VAL01, LIST, [ "DEFAULT","CHARIS" ], "Mode" ]
 
   - sep
+
+  -
+    label: "Astrogrid"
+    cmd: EXEC SCEXAO ASTROGRID STATE=$VAL01 AMPLITUDE=$VAL02 MODE=$VAL03
+    params:
+      - [ VAL01, LIST, [ "ON", "OFF" ], "State" ]
+      - [ VAL02, LIST, [ "NA" ], "Amplitude" ]
+      - [ VAL03, LIST, [ "PDI", "IMAGING" ], "Mode" ]
+
+  -
+    label: "SCExAO DM"
+    cmd: EXEC SCEXAO SCEXAODM STATE=$VAL01
+    params:
+      - [ VAL01, LIST, [ "FLAT", "ZERO", "PINHOLES" ], "State" ]
+

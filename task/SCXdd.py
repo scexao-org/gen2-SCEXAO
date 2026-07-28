@@ -67,8 +67,20 @@ ddcmd_tbl = {
     'src_fib': Bunch(fmtstr='EXEC SCEXAO SRC_FIB POSITION=%(position)s',
                 parakey=('SCEXAO', 'SRC_FIB')),
 
-    'src_flux': Bunch(fmtstr='EXEC SCEXAO SRC_FLUX CONFIG=%(config)s',
+    'src_flux': Bunch(fmtstr='EXEC SCEXAO SRC_FLUX MODE=%(mode)s',
                 parakey=('SCEXAO', 'SRC_FLUX')),
+
+    'startup_scexao': Bunch(fmtstr='EXEC SCEXAO STARTUP_SCEXAO MODE=%(mode)s',
+                parakey=('SCEXAO', 'STARTUP_SCEXAO')),
+
+    'shutdown_scexao': Bunch(fmtstr='EXEC SCEXAO SHUTDOWN_SCEXAO NOP=%(NOP)s',
+                parakey=('SCEXAO', 'SHUTDOWN_SCEXAO')),
+
+    'set_mode': Bunch(fmtstr='EXEC SCEXAO SET_MODE MODE=%(mode)s',
+                parakey=('SCEXAO', 'SET_MODE')),
+
+    'setup_pywfs': Bunch(fmtstr='EXEC SCEXAO SETUP_PYWFS FREQUENCY=%(frequency)s' 'MOD_AMP=%(mod_amp)s',
+                parakey=('SCEXAO', 'SETUP_PYWFS')),
 
     'superk': Bunch(fmtstr='EXEC SCEXAO SUPERK POWER=%(power)s',
                 parakey=('SCEXAO', 'SUPERK')),
@@ -175,8 +187,24 @@ class Src_Fib(SCEXAOTask):
         super(Src_Fib, self).__init__('Src_Fib', position=position)
 
 class Src_Flux(SCEXAOTask):
-    def __init__(self, config=None):
-        super(Src_Flux, self).__init__('Src_Flux', config=config)
+    def __init__(self, mode=None):
+        super(Src_Flux, self).__init__('Src_Flux', mode=mode)
+
+class Startup_Scexao(SCEXAOTask):
+    def __init__(self, mode=None):
+        super(Startup_Scexao, self).__init__('Startup_Scexao', mode=mode)
+
+class Shutdown_Scexao(SCEXAOTask):
+    def __init__(self, NOP=None):
+        super(Shutdown_Scexao, self).__init__('Shutdown_Scexao', NOP=NOP)
+
+class Set_Mode(SCEXAOTask):
+    def __init__(self, mode=None):
+        super(Set_Mode, self).__init__('Set_Mode', mode=mode)
+
+class Setup_PYWFS(SCEXAOTask):
+    def __init__(self, frequency=None, mod_amp=None):
+        super(Setup_PYWFS, self).__init__('Setup_PYWFS', frequency=frequency, mod_amp=mod_amp)
 
 class Superk(SCEXAOTask):
     def __init__(self, power=None):
