@@ -73,7 +73,7 @@ ddcmd_tbl = {
     'startup_scexao': Bunch(fmtstr='EXEC SCEXAO STARTUP_SCEXAO MODE=%(mode)s',
                 parakey=('SCEXAO', 'STARTUP_SCEXAO')),
 
-    'shutdown_scexao': Bunch(fmtstr='EXEC SCEXAO SHUTDOWN_SCEXAO NOP=%(NOP)s',
+    'shutdown_scexao': Bunch(fmtstr='EXEC SCEXAO SHUTDOWN_SCEXAO',
                 parakey=('SCEXAO', 'SHUTDOWN_SCEXAO')),
 
     'set_mode': Bunch(fmtstr='EXEC SCEXAO SET_MODE MODE=%(mode)s',
@@ -195,8 +195,8 @@ class Startup_Scexao(SCEXAOTask):
         super(Startup_Scexao, self).__init__('Startup_Scexao', mode=mode)
 
 class Shutdown_Scexao(SCEXAOTask):
-    def __init__(self, NOP=None):
-        super(Shutdown_Scexao, self).__init__('Shutdown_Scexao', NOP=NOP)
+    def __init__(self):
+        super(Shutdown_Scexao, self).__init__('Shutdown_Scexao')
 
 class Set_Mode(SCEXAOTask):
     def __init__(self, mode=None):
@@ -208,4 +208,4 @@ class Setup_PYWFS(SCEXAOTask):
 
 class Superk(SCEXAOTask):
     def __init__(self, power=None):
-        super(Src_Fib, self).__init__('Src_Fib', power=power)
+        super(Superk, self).__init__('Superk', power=power)

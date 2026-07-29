@@ -106,6 +106,27 @@ launchers:
     params:
       - [ VAL01, LIST, [ "IN", "OUT" ], "Position" ]
 
+  - sep
+
+
+  -
+    label: "Palila Parameters"
+    cmd: EXEC SCEXAO PALILA_PARAMETERS NDR=$VAL01
+    params:
+      - [ VAL01, LIST, [ "1", "2", "4", "8", "16", "32", "64", "128", "255" ], "NDR" ]
+
+  -
+    label: "Apapane Parameters"
+    cmd: EXEC SCEXAO APAPANE_PARAMETERS WINDOW=$VAL01 FPS_HZ=$VAL02 EM_GAIN=$VAL03
+    params:
+      - [ VAL01, LIST, [ "FULL", "PDI" ], "Window" ]
+      - [ VAL01, LIST, [ "MAX", "2000", "1000", "500", "200", "100", "50", "20", "10", "5", "2" ], "FPS_HZ" ]
+      - [ VAL01, LIST, [ "1", "2", "4", "8", "16", "32", "64", "104" ], "EM_Gain" ]
+
+  -
+    label: "EM_Gain_Reset"
+    cmd: EXEC SCEXAO EM_GAIN_RESET
+
   -
     label: "Sleep"
     cmd: EXEC SCEXAO SLEEP SLEEP_TIME=$VAL01

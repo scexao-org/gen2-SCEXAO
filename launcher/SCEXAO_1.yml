@@ -14,9 +14,7 @@ launchers:
 
   -
     label: "Shutdown SCExAO"
-    cmd: EXEC SCEXAO SHUTDOWN_SCEXAO =$VAL01
-    params:
-      - [ VAL01, LIST, [ "NA" ], "NA" ]
+    cmd: EXEC SCEXAO SHUTDOWN_SCEXAO
 
   -
     label: "Set Mode"
@@ -36,7 +34,7 @@ launchers:
     label: "Source Flux"
     cmd: EXEC SCEXAO SRC_FLUX MODE=$VAL01
     params:
-      - [ VAL01, LIST, [ "DEFAULT","CHARIS" ], "Mode" ]
+      - [ VAL01, LIST, [ "DEFAULT","CHARIS", "MIN" ], "Mode" ]
 
   - sep
 
@@ -45,7 +43,7 @@ launchers:
     cmd: EXEC SCEXAO ASTROGRID STATE=$VAL01 AMPLITUDE=$VAL02 MODE=$VAL03
     params:
       - [ VAL01, LIST, [ "ON", "OFF" ], "State" ]
-      - [ VAL02, LIST, [ "NA" ], "Amplitude" ]
+      - [ VAL02, INPUT, "Amplitude" ]
       - [ VAL03, LIST, [ "PDI", "IMAGING" ], "Mode" ]
 
   -

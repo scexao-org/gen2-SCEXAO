@@ -30,25 +30,28 @@ launchers:
     params:
       - [ VAL01, LIST, [ "AUTO","1", "2", "4", "8", "16", "32", "64", "128", "256", "600" ], "EM_Gain" ]
 
-  - sep
+
+  -
+    label: "EM_Gain_Reset"
+    cmd: EXEC SCEXAO PYWFS_GAIN_RESET
 
   -
     label: "Set_PYWFS_Gain"
     cmd: EXEC SCEXAO SET_PYWFS_GAIN GAIN=$VAL01
     params:
-      - [ VAL01, LIST, [ "NA"], "Gain"]
+      - [ VAL01, INPUT, "Gain"]
 
   -
     label: "Set_Multi_Factor"
     cmd: EXEC SCEXAO SET_MULTI_FACTOR FACTOR=$VAL01
     params:
-      - [ VAL01, LIST, [ "NA"], "Factor"]
+      - [ VAL01, INPUT, "Factor"]
 
   -
     label: "Set_Modal_Gains"
     cmd: EXEC SCEXAO SET_MODAL_GAINS NOP=$VAL01
     params:
-      - [ VAL01, LIST, [ "NA"], "NOP"]
+      - [ VAL01, LIST, "NOP"]
 
   -
     label: "Loop"
