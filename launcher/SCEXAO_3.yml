@@ -71,4 +71,4 @@ launchers:
     label: "FirstPL_Pickoff"
     cmd: EXEC SCEXAO FIRSTPL_PICKOFF POSITION=$VAL01
     params:
-      - [ VAL01, LIST, [ "IN", "OUT" ], "Position" ]
+      - [ VAL01, LIST, [ "'IN'", "OUT" ], "Position" ]

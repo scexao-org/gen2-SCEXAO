@@ -6,20 +6,6 @@
 tabname: "SCEXAO IR"
 launchers:
   -
-    label: "Source fiber"
-    cmd: EXEC SCEXAO SRC_FIB POSITION=$VAL01
-    params:
-      - [ VAL01, LIST, [ "'IN'", "OUT", "PINHOLE" ], "Position" ]
-
-  -
-    label: "OAP1"
-    cmd: EXEC SCEXAO OAP1 POSITION=$VAL01
-    params:
-      - [ VAL01, LIST, [ "INT", "CWFS", "NIRWFS" ], "Position" ]
-
-  - sep
-
-  -
     label: "Coro FPM"
     cmd: EXEC SCEXAO FPM SLOT=$VAL01
     params:
@@ -78,25 +64,25 @@ launchers:
     label: "Apapane Pickoff"
     cmd: EXEC SCEXAO APAPNE_PICKOFF MODE=$VAL01
     params:
-      - [ VAL01, LIST, [ "IN", "OUT"], "Position" ]
+      - [ VAL01, LIST, [ "'IN'", "OUT"], "Position" ]
 
   -
     label: "IR Field Stop"
     cmd: EXEC SCEXAO FIELD_STOP POSITION=$VAL01
     params:
-      - [ VAL01, LIST, [ "IN", "OUT" ], "Position" ]
+      - [ VAL01, LIST, [ "'IN'", "OUT" ], "Position" ]
 
   -
     label: "CHARIS Wollaston"
     cmd: EXEC SCEXAO CHARIS_WOLLASTON POSITION=$VAL01
     params:
-      - [ VAL01, LIST, [ "IN", "OUT" ], "Position" ]
+      - [ VAL01, LIST, [ "'IN'", "OUT" ], "Position" ]
 
   -
     label: "IRCam Wollaston"
     cmd: EXEC SCEXAO IRCAM_WOLLASTON POSITION=$VAL01
     params:
-      - [ VAL01, LIST, [ "IN", "OUT" ], "Position" ]
+      - [ VAL01, LIST, [ "'IN'", "OUT" ], "Position" ]
 
   - sep
 
@@ -104,7 +90,7 @@ launchers:
     label: "Reach Pickoff"
     cmd: EXEC SCEXAO REACH_PICKOFF POSITION=$VAL01
     params:
-      - [ VAL01, LIST, [ "IN", "OUT" ], "Position" ]
+      - [ VAL01, LIST, [ "'IN'", "OUT" ], "Position" ]
 
   - sep
 
