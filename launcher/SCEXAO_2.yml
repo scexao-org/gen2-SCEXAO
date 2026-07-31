@@ -9,7 +9,7 @@ launchers:
     label: "Source fiber"
     cmd: EXEC SCEXAO SRC_FIB POSITION=$VAL01
     params:
-      - [ VAL01, LIST, [ "IN", "OUT", "PINHOLE" ], "Position" ]
+      - [ VAL01, LIST, [ "'IN'", "OUT", "PINHOLE" ], "Position" ]
 
   -
     label: "OAP1"
