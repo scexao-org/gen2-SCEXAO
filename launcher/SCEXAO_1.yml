@@ -62,7 +62,7 @@ launchers:
 
   -
     label: "SCExAO DM"
-    cmd: EXEC SCEXAO SCEXAODM STATE=$VAL01
+    cmd: EXEC SCEXAO SCEXAO_DM STATE=$VAL01
     params:
       - [ VAL01, LIST, [ "FLAT", "ZERO", "PINHOLES" ], "State" ]
 

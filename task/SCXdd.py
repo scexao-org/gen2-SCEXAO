@@ -138,3 +138,6 @@ class Superk(SCEXAOTask):
     def __init__(self, power=None):
         super(Superk, self).__init__('Superk', power=power)
 
+class Scexao_Dm(SCEXAOTask):
+    def __init__(self, state=None):
+        super(Scexao_Dm, self).__init__('Scexao_Dm', state=state)
