@@ -24,8 +24,8 @@ launchers:
     cmd: EXEC SCEXAO IRCAM_STEERING MODE=$VAL01 A=$VAL02 B=$VAL03 MOTION=$VAL04
     params:
       - [ VAL01, LIST, [ "ONAXIS", "PALILAXY", "PALILAANGLE", "SKYANGLE"], "Mode" ]
-      - [ VAL02, INPUT, 6, 2, "SEP X or R (arcsec)" ]
-      - [ VAL03, INPUT, 6, 2, "SEP Y (arcsec) or Angle (deg)" ]
+      - [ VAL02, INPUT, 6, 0, "SEP X or R (arcsec)" ]
+      - [ VAL03, INPUT, 6, 0, "SEP Y (arcsec) or Angle (deg)" ]
       - [ VAL04, LIST, [ ["Absolute", ABS], ["Relative", REL]], "Motion" ]
 
   -
