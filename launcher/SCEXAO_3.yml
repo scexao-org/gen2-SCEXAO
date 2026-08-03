@@ -39,13 +39,13 @@ launchers:
     label: "Set_PYWFS_Gain"
     cmd: EXEC SCEXAO SET_PYWFS_GAIN GAIN=$VAL01
     params:
-      - [ VAL01, INPUT, 6, 2, "Gain"]
+      - [ VAL01, INPUT, 6, 0, "Gain"]
 
   -
     label: "Set_Multi_Factor"
     cmd: EXEC SCEXAO SET_MULTI_FACTOR FACTOR=$VAL01
     params:
-      - [ VAL01, INPUT, 6, 2, "Factor"]
+      - [ VAL01, INPUT, 6, 0, "Factor"]
 
   -
     label: "Set_Modal_Gains"
