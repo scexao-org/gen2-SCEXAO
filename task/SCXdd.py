@@ -34,6 +34,10 @@ class SCEXAOTask(InsTask.Ins2Task):
     #######################################
 
 
+class Astrogrid(SCEXAOTask):
+    def __init__(self, state=None, amplitude=None, mode=None):
+        super(Astrogrid, self).__init__('Astrogrid', state=state, amplitude=amplitude, mode=mode)
+
 class Apapane_Pickoff(SCEXAOTask):
     def __init__(self, position=None):
         super(Apapane_Pickoff, self).__init__('Apapane_Pickoff', position=position)
