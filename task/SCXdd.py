@@ -106,6 +106,14 @@ class Pywfs_Pickoff(SCEXAOTask):
     def __init__(self, slot=None):
         super(Pywfs_Pickoff, self).__init__('Pywfs_Pickoff', slot=slot)
 
+class Pywfs_Gain(SCEXAOTask):
+    def __init__(self, em_gain=None):
+        super(Pywfs_Gain, self).__init__('Pywfs_Gain', em_gain=em_gain)
+
+class Pywfs_Gain_Reset(SCEXAOTask):
+    def __init__(self):
+        super(Pywfs_Gain_Reset, self).__init__('Pywfs_Gain_Reset')
+
 class Reach_Pickoff(SCEXAOTask):
     def __init__(self, position=None):
         super(Reach_Pickoff, self).__init__('Reach_Pickoff', position=position)
