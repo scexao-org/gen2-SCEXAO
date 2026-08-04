@@ -34,6 +34,10 @@ class SCEXAOTask(InsTask.Ins2Task):
     #######################################
 
 
+class Test(SCEXAOTask):
+    def __init__(self):
+        super(Test, self).__init__('Test')
+
 class Astrogrid(SCEXAOTask):
     def __init__(self, state=None, amplitude=None, mode=None):
         super(Astrogrid, self).__init__('Astrogrid', state=state, amplitude=amplitude, mode=mode)

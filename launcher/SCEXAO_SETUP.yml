@@ -7,6 +7,10 @@ tabname: "SCEXAO Setup"
 launchers:
 
   -
+    label: "Test"
+    cmd: EXEC SCEXAO TEST
+
+  -
     label: "Startup SCExAO"
     cmd: EXEC SCEXAO STARTUP_SCEXAO MODE=$VAL01
     params:
