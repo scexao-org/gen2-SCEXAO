@@ -1,5 +1,5 @@
 :Header
-    OBE_ID=gen2-SCEXAO
+    OBE_ID=SCEXAO
     OBE_MODE=SETUP
     COMMAND=OAP1
     Script_ID=SETUP02
@@ -18,11 +18,11 @@
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="TESTING OAP1" ObsInfo2=Clear ObsInfo3="CMD: Position=$POSITION" ObsInfo4=Clear ObsInfo5=Clear 
 
 :main_start
-    *IF
+    *IF "$POSITION" == "CWFS"
         EXEC SCEXAO OAP1 POSITION=$POSITION;
         EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=10 C1=[!SCX.OAP1 EQ "AO188-CWFS"];
         Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Position= !SCX.OAP1";
-    *ELIF
+    *ELIF "$POSITION" == "NIRWFS"
         EXEC SCEXAO OAP1 POSITION=$POSITION;
         EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=10 C1=[!SCX.OAP1 EQ "AO3k-NIRWFS"];
         Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Position= !SCX.OAP1";
