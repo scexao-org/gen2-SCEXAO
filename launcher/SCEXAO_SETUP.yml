@@ -36,7 +36,7 @@ launchers:
 
   -
     label: "OAP1"
-    cmd: EXEC SCEXAO OAP1 POSITION=$VAL01
+    cmd: OAP1 OBE_ID=gen2-SCEXAO OBE_MODE=SETUP POSITION=$VAL01
     params:
       - [ VAL01, LIST, [ "INT", "CWFS", "NIRWFS" ], "Position" ]
 
@@ -69,4 +69,5 @@ launchers:
     cmd: EXEC SCEXAO SCEXAO_DM STATE=$VAL01
     params:
       - [ VAL01, LIST, [ "FLAT", "ZERO", "PINHOLES" ], "State" ]
+
 

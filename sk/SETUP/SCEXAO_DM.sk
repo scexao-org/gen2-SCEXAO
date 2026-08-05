@@ -1,0 +1,29 @@
+:Header
+    OBE_ID=gen2-SCEXAO
+    OBE_MODE=SETUP
+    COMMAND=SCEXAO_DM
+    Script_ID=SETUP01
+    Script_Version=1.0
+    Script_Author=Axel
+    Script_Update=2026/08/05
+
+:Parameter
+    STATE=PINHOLES
+    *STATE=FLAT,ZERO,PINHOLES
+
+:Command
+
+:start
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="TESTING SCEXAO DM" ObsInfo2=Clear ObsInfo3="CMD: State=$STATE" ObsInfo4=Clear ObsInfo5=Clear 
+
+:main_start
+    EXEC SCEXAO SCEXAO_DM STATE=$STATE;
+    # status alias still not implemented so cannot check status
+    # EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=10 C1=[*status alias for state* EQ $STATE];
+    # Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: State= *status alias for state*";
+:main_end
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+
+:end
