@@ -1,5 +1,5 @@
 :Header
-    OBE_ID=gen2-SCEXAO
+    OBE_ID=SCEXAO
     OBE_MODE=SETUP
     COMMAND=SCEXAO_DM
     Script_ID=SETUP01
@@ -15,7 +15,7 @@
 
 :start
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="TESTING SCEXAO DM" ObsInfo2=Clear ObsInfo3="CMD: State=$STATE" ObsInfo4=Clear ObsInfo5=Clear 
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="TESTING SCEXAO DM" ObsInfo2=Clear ObsInfo3="CMD: State=$STATE" ObsInfo4=Clear ObsInfo5=Clear; 
 
 :main_start
     EXEC SCEXAO SCEXAO_DM STATE=$STATE;

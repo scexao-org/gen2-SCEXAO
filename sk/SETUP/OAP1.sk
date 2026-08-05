@@ -15,7 +15,7 @@
 
 :start
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="TESTING OAP1" ObsInfo2=Clear ObsInfo3="CMD: Position=$POSITION" ObsInfo4=Clear ObsInfo5=Clear 
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="TESTING OAP1" ObsInfo2=Clear ObsInfo3="CMD: Position=$POSITION" ObsInfo4=Clear ObsInfo5=Clear; 
 
 :main_start
     *IF "$POSITION" == "CWFS"
