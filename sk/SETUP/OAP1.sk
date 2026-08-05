@@ -28,7 +28,6 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="TESTING OAP1" ObsInfo2=Cle
         Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Position= !SCX.OAP1";
     *ELSE
         EXEC SCEXAO OAP1 POSITION=$POSITION;
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo
         EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=10 C1=[SCX.OAP1 EQ $POSITION];
         Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Position= !SCX.OAP1";
     *ENDIF
