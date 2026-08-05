@@ -36,7 +36,7 @@ launchers:
 
   -
     label: "OAP1"
-    cmd  : OAP1 OBE_ID=gen2-SCEXAO OBE_MODE=SETUP POSITION=$VAL01
+    cmd: OAP1 OBE_ID=gen2-SCEXAO OBE_MODE=SETUP POSITION=$VAL01
     params:
       - [ VAL01, LIST, [ "INT", "CWFS", "NIRWFS" ], "Position" ]
 
