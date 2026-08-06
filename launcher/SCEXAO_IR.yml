@@ -36,7 +36,7 @@ launchers:
 
   -
     label: "MEC Pickoff"
-    cmd: EXEC SCEXAO MKIDS_PICKOFF SLOT=$VAL01
+    cmd: MKIDS_PICKOFF OBE_ID=SCEXAO OBE_MODE=INFRA_RED SLOT=$VAL01
     params:
       - [ VAL01, LIST, [ "ARWINDOW", "MIRROR", "T10R90", "T90R10", "1.35UMSP" ], "Slot" ]
 
