@@ -20,23 +20,23 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="MEC Pickoff Slot Change" O
 :main_start
     *IF "$SLOT" == "ARWINDOW"
         EXEC SCEXAO MKIDS_PICKOFF SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=15 C1="[SCX.MKIDS.PKO EQ AR window]";
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.MKIDS.PKO EQ AR window]";
         Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.MKIDS.PKO";
     *ELIF "$SLOT" == "MIRROR"
         EXEC SCEXAO MKIDS_PICKOFF SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=15 C1="[SCX.MKIDS.PKO EQ Gold mirror]";
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.MKIDS.PKO EQ Gold mirror]";
         Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.MKIDS.PKO";
     *ELIF "$SLOT" == "T10R90"
         EXEC SCEXAO MKIDS_PICKOFF SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=15 C1="[SCX.MKIDS.PKO EQ T10/R90]";
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.MKIDS.PKO EQ T10/R90]";
         Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.MKIDS.PKO";
     *ELIF "$SLOT" == "T90R10"
         EXEC SCEXAO MKIDS_PICKOFF SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=15 C1="[SCX.MKIDS.PKO EQ T90/R10]";
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.MKIDS.PKO EQ T90/R10]";
         Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.MKIDS.PKO";
     *ELIF "$SLOT" == "1.35UMSP"
         EXEC SCEXAO MKIDS_PICKOFF SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=15 C1="[SCX.MKIDS.PKO EQ J-band dichiro]";
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.MKIDS.PKO EQ J-band dichiro]";
         Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.MKIDS.PKO";
     *ENDIF
 :main_end

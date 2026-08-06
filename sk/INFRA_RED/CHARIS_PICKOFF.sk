@@ -1,0 +1,54 @@
+:Header
+    OBE_ID=SCEXAO
+    OBE_MODE=INFRA_RED
+    COMMAND=CHARIS_PICKOFF
+    Script_ID=INFRA_RED02
+    Script_Version=1.0
+    Script_Author=Axel
+    Script_Update=2026/08/06
+
+:Parameter
+    SLOT=1.12UMLP
+    *SLOT=T10R90,T90R10,ARWINDOW,MIRROR,1.12UMLP,1.35UMLP,1.88UMLP
+
+:Command
+
+:start
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="CHARIS Pickoff Slot Change" ObsInfo2=Clear ObsInfo3="CMD: Slot=$SLOT" ObsInfo4=Clear ObsInfo5=Clear;
+
+:main_start
+    *IF "$SLOT" == "T10R90"
+        EXEC SCEXAO CHARIS_PICKOFF SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.CHARIS.PKO EQ T10/R90]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.CHARIS.PKO";
+    *ELIF "$SLOT" == "T90R10"
+        EXEC SCEXAO CHARIS_PICKOFF SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.CHARIS.PKO EQ T90/R10]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.CHARIS.PKO";
+    *ELIF "$SLOT" == "ARWINDOW"
+        EXEC SCEXAO CHARIS_PICKOFF SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.CHARIS.PKO EQ #fixAR window]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.CHARIS.PKO";
+    *ELIF "$SLOT" == "MIRROR"
+        EXEC SCEXAO CHARIS_PICKOFF SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.CHARIS.PKO EQ #fixGold mirror]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.CHARIS.PKO";
+    *ELIF "$SLOT" == "1.12UMLP"
+        EXEC SCEXAO CHARIS_PICKOFF SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.CHARIS.PKO EQ #fix1.12 um LP]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.CHARIS.PKO";
+    *ELIF "$SLOT" == "1.35UMLP"
+        EXEC SCEXAO CHARIS_PICKOFF SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.CHARIS.PKO EQ #fix1.35 um LP]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.CHARIS.PKO";
+    *ELIF "$SLOT" == "1.88UMLP"
+        EXEC SCEXAO CHARIS_PICKOFF SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.CHARIS.PKO EQ #fix1.88 um LP]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.CHARIS.PKO";
+    *ENDIF
+:main_end
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+
+:end

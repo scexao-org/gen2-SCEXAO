@@ -1,0 +1,42 @@
+:Header
+    OBE_ID=SCEXAO
+    OBE_MODE=INFRA_RED
+    COMMAND=CHARIS_FILTER
+    Script_ID=INFRA_RED03
+    Script_Version=1.0
+    Script_Author=Axel
+    Script_Update=2026/08/06
+
+:Parameter
+    SLOT=OUT
+    *SLOT=J,H,K,OUT
+
+:Command
+
+:start
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="CHARIS FILTER Slot Change" ObsInfo2=Clear ObsInfo3="CMD: Slot=$SLOT" ObsInfo4=Clear ObsInfo5=Clear;
+
+:main_start
+    *IF "$SLOT" == "J"
+        EXEC SCEXAO CHARIS_FILTER SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[#status_alias_for_charis_filter EQ j]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !#status_alias_for_charis_filter";
+    *ELIF "$SLOT" == "H"
+        EXEC SCEXAO CHARIS_FILTER SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[#status_alias_for_charis_filter EQ h]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !#status_alias_for_charis_filter";
+    *ELIF "$SLOT" == "K"
+        EXEC SCEXAO CHARIS_FILTER SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[#status_alias_for_charis_filter EQ k]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !#status_alias_for_charis_filter";
+    *ELIF "$SLOT" == "OUT"
+        EXEC SCEXAO CHARIS_FILTER SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[#status_alias_for_charis_filter EQ out]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !#status_alias_for_charis_filter";
+    *ENDIF
+:main_end
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+
+:end

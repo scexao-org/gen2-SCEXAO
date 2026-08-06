@@ -1,0 +1,42 @@
+:Header
+    OBE_ID=SCEXAO
+    OBE_MODE=INFRA_RED
+    COMMAND=LYOT
+    Script_ID=INFRA_RED02
+    Script_Version=1.0
+    Script_Author=Axel
+    Script_Update=2026/08/06
+
+:Parameter
+    SLOT=OPEN
+    *SLOT=OPEN,LYOT,VVC,MIRROR
+
+:Command
+
+:start
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Coronograph LYOT Slot Change" ObsInfo2=Clear ObsInfo3="CMD: Slot=$SLOT" ObsInfo4=Clear ObsInfo5=Clear;
+
+:main_start
+    *IF "$SLOT" == "OPEN"
+        EXEC SCEXAO LYOT SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.LYOT EQ Open]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.LYOT";
+    *ELIF "$SLOT" == "LYOT"
+        EXEC SCEXAO LYOT SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.LYOT EQ #fixLyot coro stop]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.LYOT";
+    *ELIF "$SLOT" == "VVC"
+        EXEC SCEXAO LYOT SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.LYOT EQ #fixVect vortex stp]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.LYOT";
+    *ELIF "$SLOT" == "MIRROR"
+        EXEC SCEXAO LYOT SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.LYOT EQ Mirror]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.LYOT";
+    *ENDIF
+:main_end
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+
+:end

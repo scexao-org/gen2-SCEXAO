@@ -13,7 +13,7 @@ launchers:
 
   -
     label: "Coro Lyot"
-    cmd: EXEC SCEXAO LYOT SLOT=$VAL01
+    cmd: LYOT OBE_ID=SCEXAO OBE_MODE=INFRA_RED SLOT=$VAL01
     params:
       - [ VAL01, LIST, [ "OPEN", "LYOT", "VVC", "MIRROR" ], "Slot" ]
 
@@ -30,7 +30,7 @@ launchers:
 
   -
     label: "CHARIS Pickoff"
-    cmd: EXEC SCEXAO CHARIS_PICKOFF SLOT=$VAL01
+    cmd: CHARIS_PICKOFF OBE_ID=SCEXAO OBE_MODE=INFRA_RED SLOT=$VAL01
     params:
       - [ VAL01, LIST, [ "T10R90", "T90R10", "ARWINDOW", "MIRROR", "1.12UMLP", "1.35UMLP", "1.88UMLP" ], "Slot" ]
 
@@ -42,7 +42,7 @@ launchers:
 
   -
     label: "CHARIS Filter"
-    cmd: EXEC SCEXAO CHARIS_FILTER SLOT=$VAL01
+    cmd: CHARIS_FILTER OBE_ID=SCEXAO OBE_MODE=INFRA_RED SLOT=$VAL01
     params:
       - [ VAL01, LIST, [ "J", "H", "K", "OUT" ], "Slot" ]
 
