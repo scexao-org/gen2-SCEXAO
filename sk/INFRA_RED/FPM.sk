@@ -1,0 +1,70 @@
+:Header
+    OBE_ID=SCEXAO
+    OBE_MODE=INFRA_RED
+    COMMAND=FPM
+    Script_ID=INFRA_RED05
+    Script_Version=1.0
+    Script_Author=Axel
+    Script_Update=2026/08/06
+
+:Parameter
+    SLOT=OPEN
+    *SLOT=VVC,OPEN,LYOT78,LYOT92,LYOT113,LYOT139,LYOT165,LYOT198,LYOT228,LYOT262,LYOT310
+
+:Command
+
+:start
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Coronograph FPM Slot Change" ObsInfo2=Clear ObsInfo3="CMD: Slot=$SLOT" ObsInfo4=Clear ObsInfo5=Clear;
+
+:main_start
+    *IF "$SLOT" == "VVC"
+        EXEC SCEXAO FPM SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixVect vortex msk]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+    *ELIF "$SLOT" == "OPEN"
+        EXEC SCEXAO FPM SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ Open]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+    *ELIF "$SLOT" == "LYOT78"
+        EXEC SCEXAO FPM SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 78mas]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+    *ELIF "$SLOT" == "LYOT92"
+        EXEC SCEXAO FPM SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 92mas]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+    *ELIF "$SLOT" == "LYOT113"
+        EXEC SCEXAO FPM SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 113mas]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+    *ELIF "$SLOT" == "LYOT139"
+        EXEC SCEXAO FPM SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 139mas]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+    *ELIF "$SLOT" == "LYOT165"
+        EXEC SCEXAO FPM SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 165mas]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+    *ELIF "$SLOT" == "LYOT198"
+        EXEC SCEXAO FPM SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 198mas]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+    *ELIF "$SLOT" == "LYOT228"
+        EXEC SCEXAO FPM SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 228mas]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+    *ELIF "$SLOT" == "LYOT262"
+        EXEC SCEXAO FPM SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 262mas]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+    *ELIF "$SLOT" == "LYOT310"
+        EXEC SCEXAO FPM SLOT=$SLOT;
+        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 310mas]";
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+    *ENDIF
+:main_end
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+
+:end

@@ -2,7 +2,7 @@
     OBE_ID=SCEXAO
     OBE_MODE=INFRA_RED
     COMMAND=LYOT
-    Script_ID=INFRA_RED02
+    Script_ID=INFRA_RED04
     Script_Version=1.0
     Script_Author=Axel
     Script_Update=2026/08/06
