@@ -7,7 +7,7 @@ tabname: "SCEXAO IR"
 launchers:
   -
     label: "Coro FPM"
-    cmd: EXEC SCEXAO FPM SLOT=$VAL01
+    cmd: FPM OBE_ID=SCEXAO OBE_MODE=INFRA_RED SLOT=$VAL01
     params:
       - [ VAL01, LIST, [ "VVC", "OPEN", "LYOT78", "LYOT92", "LYOT113", "LYOT139", "LYOT165", "LYOT198", "LYOT228", "LYOT262", "LYOT310"], "Slot" ]
 
