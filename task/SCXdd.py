@@ -81,13 +81,13 @@ class check_status(SCXTask):
 # The function will excecute until the condition(s) are satisfied
 # This function supports up to four conditionals, meaning up to two conditional statements
     def __init__(self, timeout_counter=0, condition=None, status_var1=None, comparison1=None, status_var2=None, comparison2=None):
-        super(CHECK_STATUS, self).__init__('CHECK_STATUS', timeout_counter = timeout_counter, condition=condition, status_var1=status_var1, comparison1=comparison1, status_var2=status_var2, comparison2=comparison2
+        super(check_status, self).__init__('check_status', timeout_counter = timeout_counter, condition=condition, status_var1=status_var1, comparison1=comparison1, status_var2=status_var2, comparison2=comparison2)
 
     def execute(self):
 
         # print params
         self.self_validate()
-        self.logger.debug("SCX check_status params<%s>" self.params)
+        self.logger.debug("SCX check_status params<%s>" % str(self.params))
 
         # begin parameter checking:
 
