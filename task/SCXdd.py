@@ -121,7 +121,7 @@ class check_status(SCXTask):
                     timeout_counter = timeout_counter - 1
                     # check status of alias
                     status_var1_val = self.fetchOne(status_var1).strip()
-                if status_var1_val.strip == comparison1:
+                if status_var1_val.strip() == comparison1:
                     return 0
                 elif timeout_counter == 0:
                     raise g2Task.g2TaskError(f"error: timeout in string comparison: {status_var1_val} still does not equal {comparison1}")
