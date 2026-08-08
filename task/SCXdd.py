@@ -30,20 +30,21 @@ class SCEXAOTask(InsTask.Ins2Task):
         # general task initialization
         super(SCEXAOTask, self).__init__('SCEXAO', cmdname, **kwdargs)
 
-class SCXTaskError(g2Task.g2TaskError):
-    pass
-
 
 ####################################################################
 # GEN2 SCEXAO TASKS !!!
 ####################################################################
 #
 
+class SCXTaskError(g2Task.g2TaskError):
+    pass
+
+
 class SCXTask(g2Task.g2Task):
 
     def __init__(self, cmdname, **kwdargs):
-        self.parakey = ('SCX', ddcmd_key.upper())
-        super(SCXTask, self).__init__('SCX', cmdname, **kwdargs)
+        self.parakey = ('SCEXAO', cmdname.upper())
+        super(SCXTask, self).__init__(**kwdargs)
 
     def self_validate(self, nop=None):
         # Populate and validate parameters if we have a parakey defined
