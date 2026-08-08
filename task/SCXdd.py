@@ -93,7 +93,7 @@ class check_status(SCXTask):
         # begin parameter checking:
 
         # check timeount_counter parameter
-        timeout_counter = self.params[timeout_counter]
+        timeout_counter = self.params["timeout_counter"]
         try:
             timeout_counter = float(timeout_counter)
         except (TypeError, ValueError):
@@ -104,13 +104,13 @@ class check_status(SCXTask):
             return None
 
         # check comparison parameter
-        comparison1 = self.params[comparison1]
+        comparison1 = self.params["comparison1"]
         if comparison1 is None:
             raise "error: missing comparison"
             return None
 
         # check condition parameter
-        condition = self.params[condition]
+        condition = self.params["condition"]
         condition = condition.lower()
         if condition is None:
             raise "error: missing condition"
@@ -119,9 +119,9 @@ class check_status(SCXTask):
             raise f"error: unsupported parameter on condition: {condition}"
 
         # get other params
-        comparison2 = self.params[comparison2]
-        status_var1 = fetchOne(self, self.params[status_var1])
-        status_var2 = fetchOne(self, self.params[status_var2])
+        comparison2 = self.params["comparison2"]
+        status_var1 = fetchOne(self, self.params["status_var1"])
+        status_var2 = fetchOne(self, self.params["status_var2"])
 
         # begin function:
         if comparison2 is None:
@@ -131,7 +131,7 @@ class check_status(SCXTask):
                     self.sleep(1)
                     timeout_counter = timeout_counter - 1
                     # check status of alias
-                    status_var1 = fetchOne(self, self.params[status_var1])
+                    status_var1 = fetchOne(status_var1)
                 if status_var1 == comparison1:
                     return "Loop exited: condition satisfied"
                 elif timeout_counter == 0:
@@ -146,7 +146,7 @@ class check_status(SCXTask):
                     self.sleep(1)
                     timeout_counter = timeout_counter - 1
                     # check status of alias
-                    status_var1 = fetchOne(self, self.params[status_var1])
+                    status_var1 = fetchOne(status_var1)
                 if status_var1 != comparison1:
                     return "Loop exited: condition satisfied"
                 elif timeout_counter == 0:
@@ -162,8 +162,8 @@ class check_status(SCXTask):
                     self.sleep(1)
                     timeout_counter = timeout_counter - 1
                     # check status of both alias'
-                    status_var1 = fetchOne(self, self.params[status_var1])
-                    status_var2 = fetchOne(self, self.params[status_var2])
+                    status_var1 = fetchOne(status_var1)
+                    status_var2 = fetchOne(status_var2)
                 if status_var1 == comparison1 and status_var2 == comparison2:
                     return "Loop exited: conditions satisfied"
                 elif timeout_counter == 0:
@@ -178,8 +178,8 @@ class check_status(SCXTask):
                     self.sleep(1)
                     timeout_counter = timeout_counter - 1
                     # check status of both alias'
-                    status_var1 = fetchOne(self, self.params[status_var1])
-                    status_var2 = fetchOne(self, self.params[status_var2])
+                    status_var1 = fetchOne(status_var1)
+                    status_var2 = fetchOne(status_var2)
                 if status_var1 != comparison1 and status_var2 != comparison2:
                     return "Loop exited: condition satisfied"
                 elif timeout_counter == 0:
