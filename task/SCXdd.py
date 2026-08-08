@@ -120,70 +120,73 @@ class check_status(SCXTask):
 
         # get other params
         comparison2 = self.params["comparison2"]
-        status_var1 = fetchOne(self, self.params["status_var1"])
-        status_var2 = fetchOne(self, self.params["status_var2"])
+        status_var1 = self.params["status_var1"])
+        status_var2 = self.params["status_var2"])
 
         # begin function:
         if comparison2 is None:
+            status_var1_val = self.fetchOne(status_var1)
             if condition == 'equals':
-                while status_var1 != comparison1 and timeout_counter > 0:
+                while status_var1_val != comparison1 and timeout_counter > 0:
                     # sleep for one second
                     self.sleep(1)
                     timeout_counter = timeout_counter - 1
                     # check status of alias
-                    status_var1 = fetchOne(status_var1)
-                if status_var1 == comparison1:
+                    status_var1_val = self.fetchOne(status_var1)
+                if status_var1_val == comparison1:
                     return "Loop exited: condition satisfied"
                 elif timeout_counter == 0:
-                    raise f"error: timeout in string comparison: {status_var1} still does not equal {comparison1}"
+                    raise f"error: timeout in string comparison: {status_var1_val} still does not equal {comparison1}"
                     return None
                 else:
                     raise "critical error in loop"
                     return None
             elif condition == 'notequals':
-                while status_var1 == comparison1 and timeout_counter > 0:
+                while status_var1_val == comparison1 and timeout_counter > 0:
                     # sleep for one second
                     self.sleep(1)
                     timeout_counter = timeout_counter - 1
                     # check status of alias
-                    status_var1 = fetchOne(status_var1)
-                if status_var1 != comparison1:
+                    status_var1_val = self.fetchOne(status_var1)
+                if status_var1_val != comparison1:
                     return "Loop exited: condition satisfied"
                 elif timeout_counter == 0:
-                    raise f"error: timeout in string comparison: {status_var1} still equals {comparison1}"
+                    raise f"error: timeout in string comparison: {status_var1_val} still equals {comparison1}"
                     return None
                 else:
                     raise "critical error in loop"
                     return None
         else:
+            status_var1_val = self.fetchOne(status_var1)
+            status_var2_val = self.fetchOne(status_var2
             if condition == 'equals':
-                while (status_var1 != comparison1 or status_var2 != comparison2) and timeout_counter > 0:
+                while (status_var1_val != comparison1 or status_var2_val != comparison2) and timeout_counter > 0:
                     # sleep for one second
                     self.sleep(1)
                     timeout_counter = timeout_counter - 1
                     # check status of both alias'
-                    status_var1 = fetchOne(status_var1)
-                    status_var2 = fetchOne(status_var2)
-                if status_var1 == comparison1 and status_var2 == comparison2:
+                    status_var1_val = self.fetchOne(status_var1)
+                    status_var2_val = self.fetchOne(status_var2)
+                if status_var1_val == comparison1 and status_var2_val == comparison2:
                     return "Loop exited: conditions satisfied"
                 elif timeout_counter == 0:
-                    raise f"error: timeout in string comparison: either {status_var1} still does not equal {comparison1} or {status_var2} still does not equal {comparison2}"
+                    raise f"error: timeout in string comparison: either {status_var1_val} still does not equal {comparison1} or {status_var2_val} still does not equal {comparison2}"
                     return None
                 else:
                     raise "critical error in loop"
                     return None
             elif condition == 'notequals':
-                while (status_var1 == comparison1 or status_var2 == comparison2) and timeout_counter > 0:
+                while (status_var1_val == comparison1 or status_var2_val == comparison2) and timeout_counter > 0:
                     # sleep for one second
                     self.sleep(1)
                     timeout_counter = timeout_counter - 1
                     # check status of both alias'
-                    status_var1 = fetchOne(status_var1)
-                    status_var2 = fetchOne(status_var2)
-                if status_var1 != comparison1 and status_var2 != comparison2:
+                    status_var1_val = self.fetchOne(status_var1)
+                    status_var2_val = self.fetchOne(status_var2)
+                if status_var1_val != comparison1 and status_var2_val != comparison2:
                     return "Loop exited: condition satisfied"
                 elif timeout_counter == 0:
-                    raise f"error: timeout in string comparison: either {status_var1} still equals {comparison1} or {status_var2} still equals {comparison2}"
+                    raise f"error: timeout in string comparison: either {status_var1_val} still equals {comparison1} or {status_var2_val} still equals {comparison2}"
                     return None
                 else:
                     raise "critical error in loop"
