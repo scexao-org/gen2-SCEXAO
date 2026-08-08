@@ -3,6 +3,7 @@
 
 
 import InsTask
+import g2Task
 
 # Special module-level constant to tell task manager what default subsystem
 # these tasks are for
@@ -28,6 +29,168 @@ class SCEXAOTask(InsTask.Ins2Task):
         # This copies all keyword arguments to self.params and does
         # general task initialization
         super(SCEXAOTask, self).__init__('SCEXAO', cmdname, **kwdargs)
+
+class SCXTaskError(g2Task.g2TaskError):
+    pass
+
+
+####################################################################
+# GEN2 SCEXAO TASKS !!!
+####################################################################
+#
+
+class SCXTask(g2Task.g2Task):
+
+    def __init__(self, cmdname, **kwdargs):
+        self.parakey = ('SCX', ddcmd_key.upper())
+        super(SCXTask, self).__init__('SCX', cmdname, **kwdargs)
+
+    def self_validate(self, nop=None):
+        # Populate and validate parameters if we have a parakey defined
+        try:
+            if self.parakey:
+                self.populate(self.parakey)
+                self.convert(self.parakey)
+                self.validate(self.parakey)
+
+                # Announce full command string
+                try:
+                    command_string = self.param2str(self.parakey)
+                    self.setMy(cmd_str=command_string)
+                except Exception as err:
+                    self.logger.error("Error setting command_string: %s" % str(err))
+
+                self.convert(self.parakey, subst_nop=nop)
+
+        except Exception as err:
+            raise SCXTaskError("Parameter validation error: %s" % str(err))
+
+    def excecute(self):
+        self.self_validate()
+
+        return 0
+
+    #######################################
+    # SCX COMMANDS
+    #######################################
+
+class check_status(SCXTask):
+# this function enters a while loop for the time in seconds given by timeout_counter,an integer
+# escaping only when one (or both) of the conditions are met.
+# the third parameter, condition, is a string that has two allowed inputs: 'equals' and 'nonequals'.
+# The function will excecute until the condition(s) are satisfied
+# This function supports up to four conditionals, meaning up to two conditional statements
+    def __init__(self, timeout_counter=0, condition=None, status_var1=None, comparison1=None, status_var2=None, comparison2=None):
+        super(CHECK_STATUS, self).__init__('CHECK_STATUS', timeout_counter = timeout_counter, condition=condition, status_var1=status_var1, comparison1=comparison1, status_var2=status_var2, comparison2=comparison2
+
+    def execute(self):
+
+        # print params
+        self.self_validate()
+        self.logger.debug("SCX check_status params<%s>" self.params)
+
+        # begin parameter checking:
+
+        # check timeount_counter parameter
+        timeout_counter = self.params[timeout_counter]
+        try:
+            timeout_counter = float(timeout_counter)
+        except (TypeError, ValueError):
+            raise f"command 'check_status_local' {timeout_counter} must be a number"
+            return None
+        if timeout_counter <= 0 or timeout_counter > 10000:
+            raise "error: timeout_counter must be greater than 0 and less than or equal to 10,000"
+            return None
+
+        # check comparison parameter
+        comparison1 = self.params[comparison1]
+        if comparison1 is None:
+            raise "error: missing comparison"
+            return None
+
+        # check condition parameter
+        condition = self.params[condition]
+        condition = condition.lower()
+        if condition is None:
+            raise "error: missing condition"
+            return None
+        elif condition not in ('equals','nonequals'):
+            raise f"error: unsupported parameter on condition: {condition}"
+
+        # get other params
+        comparison2 = self.params[comparison2]
+        status_var1 = fetchOne(self, self.params[status_var1])
+        status_var2 = fetchOne(self, self.params[status_var2])
+
+        # begin function:
+        if comparison2 is None:
+            if condition == 'equals':
+                while status_var1 != comparison1 and timeout_counter > 0:
+                    # sleep for one second
+                    self.sleep(1)
+                    timeout_counter = timeout_counter - 1
+                    # check status of alias
+                    status_var1 = fetchOne(self, self.params[status_var1])
+                if status_var1 == comparison1:
+                    return "Loop exited: condition satisfied"
+                elif timeout_counter == 0:
+                    raise f"error: timeout in string comparison: {status_var1} still does not equal {comparison1}"
+                    return None
+                else:
+                    raise "critical error in loop"
+                    return None
+            elif condition == 'notequals':
+                while status_var1 == comparison1 and timeout_counter > 0:
+                    # sleep for one second
+                    self.sleep(1)
+                    timeout_counter = timeout_counter - 1
+                    # check status of alias
+                    status_var1 = fetchOne(self, self.params[status_var1])
+                if status_var1 != comparison1:
+                    return "Loop exited: condition satisfied"
+                elif timeout_counter == 0:
+                    raise f"error: timeout in string comparison: {status_var1} still equals {comparison1}"
+                    return None
+                else:
+                    raise "critical error in loop"
+                    return None
+        else:
+            if condition == 'equals':
+                while (status_var1 != comparison1 or status_var2 != comparison2) and timeout_counter > 0:
+                    # sleep for one second
+                    self.sleep(1)
+                    timeout_counter = timeout_counter - 1
+                    # check status of both alias'
+                    status_var1 = fetchOne(self, self.params[status_var1])
+                    status_var2 = fetchOne(self, self.params[status_var2])
+                if status_var1 == comparison1 and status_var2 == comparison2:
+                    return "Loop exited: conditions satisfied"
+                elif timeout_counter == 0:
+                    raise f"error: timeout in string comparison: either {status_var1} still does not equal {comparison1} or {status_var2} still does not equal {comparison2}"
+                    return None
+                else:
+                    raise "critical error in loop"
+                    return None
+            elif condition == 'notequals':
+                while (status_var1 == comparison1 or status_var2 == comparison2) and timeout_counter > 0:
+                    # sleep for one second
+                    self.sleep(1)
+                    timeout_counter = timeout_counter - 1
+                    # check status of both alias'
+                    status_var1 = fetchOne(self, self.params[status_var1])
+                    status_var2 = fetchOne(self, self.params[status_var2])
+                if status_var1 != comparison1 and status_var2 != comparison2:
+                    return "Loop exited: condition satisfied"
+                elif timeout_counter == 0:
+                    raise f"error: timeout in string comparison: either {status_var1} still equals {comparison1} or {status_var2} still equals {comparison2}"
+                    return None
+                else:
+                    raise "critical error in loop"
+                    return None
+
+    ###
+    # End of Gen2 SCX Commands
+    ###
 
     #######################################
     # SCEXAO INSTRUMENT COMMANDS
