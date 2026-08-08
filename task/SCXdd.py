@@ -54,15 +54,6 @@ class SCXTask(g2Task.g2Task):
                 self.convert(self.parakey)
                 self.validate(self.parakey)
 
-                # Announce full command string
-                try:
-                    command_string = self.param2str(self.parakey)
-                    self.setMy(cmd_str=command_string)
-                except Exception as err:
-                    self.logger.error("Error setting command_string: %s" % str(err))
-
-                self.convert(self.parakey, subst_nop=nop)
-
         except Exception as err:
             raise SCXTaskError("Parameter validation error: %s" % str(err))
 
@@ -97,99 +88,99 @@ class check_status(SCXTask):
         try:
             timeout_counter = float(timeout_counter)
         except (TypeError, ValueError):
-            raise f"command 'check_status_local' {timeout_counter} must be a number"
+            raise g2Task.g2TaskError(f"command 'check_status_local' {timeout_counter} must be a number")
             return None
         if timeout_counter <= 0 or timeout_counter > 10000:
-            raise "error: timeout_counter must be greater than 0 and less than or equal to 10,000"
+            raise g2Task.g2TaskError("error: timeout_counter must be greater than 0 and less than or equal to 10,000")
             return None
 
         # check comparison parameter
         comparison1 = self.params["comparison1"]
         if comparison1 is None:
-            raise "error: missing comparison"
+            raise g2Task.g2TaskError("error: missing comparison")
             return None
 
         # check condition parameter
         condition = self.params["condition"]
         condition = condition.lower()
         if condition is None:
-            raise "error: missing condition"
+            raise g2Task.g2TaskError("error: missing condition")
             return None
         elif condition not in ('equals','nonequals'):
-            raise f"error: unsupported parameter on condition: {condition}"
+            raise g2Task.g2TaskError(f"error: unsupported parameter on condition: {condition.strip()}")
 
         # get other params
         comparison2 = self.params["comparison2"]
-        status_var1 = self.params["status_var1"])
-        status_var2 = self.params["status_var2"])
+        status_var1 = self.params["status_var1"]
+        status_var2 = self.params["status_var2"]
 
         # begin function:
         if comparison2 is None:
             status_var1_val = self.fetchOne(status_var1)
             if condition == 'equals':
-                while status_var1_val != comparison1 and timeout_counter > 0:
+                while status_var1_val.strip() != comparison1.strip() and timeout_counter > 0:
                     # sleep for one second
                     self.sleep(1)
                     timeout_counter = timeout_counter - 1
                     # check status of alias
                     status_var1_val = self.fetchOne(status_var1)
-                if status_var1_val == comparison1:
+                if status_var1_val.strip() == comparison1.strip():
                     return "Loop exited: condition satisfied"
                 elif timeout_counter == 0:
-                    raise f"error: timeout in string comparison: {status_var1_val} still does not equal {comparison1}"
+                    raise g2Task.g2TaskError(f"error: timeout in string comparison: {status_var1_val.strip()} still does not equal {comparison1.strip()}")
                     return None
                 else:
-                    raise "critical error in loop"
+                    raise g2Task.g2TaskError("critical error in loop")
                     return None
             elif condition == 'notequals':
-                while status_var1_val == comparison1 and timeout_counter > 0:
+                while status_var1_val.strip() == comparison1.strip() and timeout_counter > 0:
                     # sleep for one second
                     self.sleep(1)
                     timeout_counter = timeout_counter - 1
                     # check status of alias
                     status_var1_val = self.fetchOne(status_var1)
-                if status_var1_val != comparison1:
+                if status_var1_val.strip() != comparison1.strip():
                     return "Loop exited: condition satisfied"
                 elif timeout_counter == 0:
-                    raise f"error: timeout in string comparison: {status_var1_val} still equals {comparison1}"
+                    raise g2Task.g2TaskError(f"error: timeout in string comparison: {status_var1_val}.strip() still equals {comparison1.strip()}")
                     return None
                 else:
-                    raise "critical error in loop"
+                    raise g2Task.g2TaskError("critical error in loop")
                     return None
         else:
             status_var1_val = self.fetchOne(status_var1)
-            status_var2_val = self.fetchOne(status_var2
+            status_var2_val = self.fetchOne(status_var2)
             if condition == 'equals':
-                while (status_var1_val != comparison1 or status_var2_val != comparison2) and timeout_counter > 0:
+                while (status_var1_val.strip() != comparison1.strip() or status_var2_val.strip() != comparison2.strip()) and timeout_counter > 0:
                     # sleep for one second
                     self.sleep(1)
                     timeout_counter = timeout_counter - 1
                     # check status of both alias'
                     status_var1_val = self.fetchOne(status_var1)
                     status_var2_val = self.fetchOne(status_var2)
-                if status_var1_val == comparison1 and status_var2_val == comparison2:
+                if status_var1_val.strip() == comparison1.strip() and status_var2_val.strip() == comparison2.strip():
                     return "Loop exited: conditions satisfied"
                 elif timeout_counter == 0:
-                    raise f"error: timeout in string comparison: either {status_var1_val} still does not equal {comparison1} or {status_var2_val} still does not equal {comparison2}"
+                    raise g2Task.g2TaskError(f"error: timeout in string comparison: either {status_var1_val.strip()} still does not equal {comparison1.strip()} or {status_var2_val.strip()} still does not equal {comparison2.strip()}")
                     return None
                 else:
-                    raise "critical error in loop"
+                    raise g2Task.g2TaskError("critical error in loop")
                     return None
             elif condition == 'notequals':
-                while (status_var1_val == comparison1 or status_var2_val == comparison2) and timeout_counter > 0:
+                while (status_var1_val.strip() == comparison1.strip() or status_var2_val.strip() == comparison2.strip()) and timeout_counter > 0:
                     # sleep for one second
                     self.sleep(1)
                     timeout_counter = timeout_counter - 1
                     # check status of both alias'
                     status_var1_val = self.fetchOne(status_var1)
                     status_var2_val = self.fetchOne(status_var2)
-                if status_var1_val != comparison1 and status_var2_val != comparison2:
+                if status_var1_val.strip() != comparison1.strip() and status_var2_val.strip() != comparison2.strip():
                     return "Loop exited: condition satisfied"
                 elif timeout_counter == 0:
-                    raise f"error: timeout in string comparison: either {status_var1_val} still equals {comparison1} or {status_var2_val} still equals {comparison2}"
+                    raise g2Task.g2TaskError(f"error: timeout in string comparison: either {status_var1_val.strip()} still equals {comparison1.strip()} or {status_var2_val.strip()} still equals {comparison2.strip()}")
                     return None
                 else:
-                    raise "critical error in loop"
+                    raise g2Task.g2TaskError("critical error in loop")
                     return None
 
     ###
