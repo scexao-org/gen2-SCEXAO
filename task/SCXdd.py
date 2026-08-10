@@ -4,7 +4,6 @@
 
 import InsTask
 import g2Task
-import OBSdd
 
 # Special module-level constant to tell task manager what default subsystem
 # these tasks are for
@@ -116,8 +115,6 @@ class check_status(SCXTask):
         if comparison2 is None:
             status_var1_val = self.fetchOne(status_var1).strip()
             if condition == 'equals':
-                self.run(OBSdd.Set_Message(instrument_name="SCEXAO", obsinfo3=clear))
-                self.run(OBSdd.Set_Message(instrument_name="SCEXAO", obsinfo3='Changing...'))
                 while status_var1_val != comparison1 and timeout_counter > 0:
                     # sleep for one second
                     self.sleep(1)
@@ -125,15 +122,12 @@ class check_status(SCXTask):
                     # check status of alias
                     status_var1_val = self.fetchOne(status_var1).strip()
                 if status_var1_val.strip() == comparison1:
-                    self.run(OBSdd.Set_Message(instrument_name="SCEXAO", obsinfo3=clear))
                     return 0
                 elif timeout_counter == 0:
                     raise g2Task.g2TaskError(f"error: timeout in string comparison: {status_var1_val} still does not equal {comparison1}")
                 else:
                     raise g2Task.g2TaskError("critical error in loop")
             elif condition == 'notequals':
-                self.run(OBSdd.Set_Message(instrument_name="SCEXAO", obsinfo3=clear))
-                self.run(OBSdd.Set_Message(instrument_name="SCEXAO", obsinfo3='Changing...'))
                 while status_var1_val == comparison1 and timeout_counter > 0:
                     # sleep for one second
                     self.sleep(1)
@@ -141,7 +135,6 @@ class check_status(SCXTask):
                     # check status of alias
                     status_var1_val = self.fetchOne(status_var1).strip()
                 if status_var1_val != comparison1:
-                    self.run(OBSdd.Set_Message(instrument_name="SCEXAO", obsinfo3=clear))
                     return 0
                 elif timeout_counter == 0:
                     raise g2Task.g2TaskError(f"error: timeout in string comparison: {status_var1_val} still equals {comparison1}")
@@ -151,8 +144,6 @@ class check_status(SCXTask):
             status_var1_val = self.fetchOne(status_var1).strip()
             status_var2_val = self.fetchOne(status_var2).strip()
             if condition == 'equals':
-                self.run(OBSdd.Set_Message(instrument_name="SCEXAO", obsinfo3=clear))
-                self.run(OBSdd.Set_Message(instrument_name="SCEXAO", obsinfo3='Changing...'))
                 while (status_var1_val != comparison1 or status_var2_val != comparison2) and timeout_counter > 0:
                     # sleep for one second
                     self.sleep(1)
@@ -161,15 +152,12 @@ class check_status(SCXTask):
                     status_var1_val = self.fetchOne(status_var1).strip()
                     status_var2_val = self.fetchOne(status_var2).strip()
                 if status_var1_val == comparison1 and status_var2_val == comparison2:
-                    self.run(OBSdd.Set_Message(instrument_name="SCEXAO", obsinfo3=clear))
                     return 0
                 elif timeout_counter == 0:
                     raise g2Task.g2TaskError(f"error: timeout in string comparison: either {status_var1_val} still does not equal {comparison1} or {status_var2_val} still does not equal {comparison2}")
                 else:
                     raise g2Task.g2TaskError("critical error in loop")
             elif condition == 'notequals':
-                self.run(OBSdd.Set_Message(instrument_name="SCEXAO", obsinfo3=clear))
-                self.run(OBSdd.Set_Message(instrument_name="SCEXAO", obsinfo3='Changing...'))
                 while (status_var1_val == comparison1 or status_var2_val == comparison2) and timeout_counter > 0:
                     # sleep for one second
                     self.sleep(1)
@@ -178,7 +166,6 @@ class check_status(SCXTask):
                     status_var1_val = self.fetchOne(status_var1).strip()
                     status_var2_val = self.fetchOne(status_var2).strip()
                 if status_var1_val != comparison1 and status_var2_val != comparison2:
-                    self.run(OBSdd.Set_Message(instrument_name="SCEXAO", obsinfo3=clear))
                     return 0
                 elif timeout_counter == 0:
                     raise g2Task.g2TaskError(f"error: timeout in string comparison: either {status_var1_val} still equals {comparison1} or {status_var2_val} still equals {comparison2}")
