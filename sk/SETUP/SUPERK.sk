@@ -1,0 +1,49 @@
+:Header
+    OBE_ID=SCEXAO
+    OBE_MODE=SETUP
+    COMMAND=SUPERK
+    Script_ID=SETUP06
+    Script_Version=1.0
+    Script_Author=Axel
+    Script_Update=2026/08/11
+
+:Parameter
+    POWER=OFF
+    *POWER=ON,OFF
+
+:Command
+:start
+
+# local function
+def execute_command(comparison){
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+    EXEC SCEXAO SUPERK POWER=$POWER;
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.EN" COMPARISON1="@comparison";
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.SRC.EN";
+}
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing Superk" ObsInfo2=Clear ObsInfo3="CMD: Power=$POWER" ObsInfo4=Clear ObsInfo5=Clear;
+
+:main_start
+
+    *IF "$POWER" == "ON"
+
+        # must assign to variable to excetue local function
+        # double-check case
+        asn why_do_I_exist = @execute_command(comparison="ON")
+
+    *ELIF "$POWER" == "OFF"
+
+        # must assign to variable to excetue local function
+        # double-check case
+        asn why_do_I_exist = @execute_command(comparison="OFF")
+
+    *ENDIF
+:main_end
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+
+:end

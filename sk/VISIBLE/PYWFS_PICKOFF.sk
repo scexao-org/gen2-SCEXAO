@@ -1,0 +1,56 @@
+Header
+    OBE_ID=SCEXAO
+    OBE_MODE=VISIBLE
+    COMMAND=PYWFS_PICKOFF
+    Script_ID=VISIBLE01
+    Script_Version=1.0
+    Script_Author=Axel
+    Script_Update=2026/08/11
+
+:Parameter
+    SLOT=800NMSP
+    *SLOT=MIRROR,700NMSP,750NMSP,800NMSP
+
+:Command
+:start
+
+# local function
+def execute_command(comparison){
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+    EXEC SCEXAO PYWFS_PICKOFF SLOT=$SLOT;
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.PKO" COMPARISON1="@comparison";
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.PYWFS.PKO";
+}
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing PyWFS Pickoff" ObsInfo2=Clear ObsInfo3="CMD: Slot=$SLOT" ObsInfo4=Clear ObsInfo5=Clear;
+
+:main_start
+    *IF "$SLOT" == "MIRROR"
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="Silver mirror")
+
+    *ELIF "$SLOT" == "700NMSP"
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="700 nm SP")
+
+    *ELIF "$SLOT" == "750NMSP"
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="750 nm SP")
+
+    *ELIF "$SLOT" == "800NMSP"
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="800 nm SP")
+
+    *ENDIF
+:main_end
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+
+:end

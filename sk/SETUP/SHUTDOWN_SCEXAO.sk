@@ -1,11 +1,11 @@
 :Header
     OBE_ID=SCEXAO
-    OBE_MODE=INFRA_RED
-    COMMAND=EM_GAIN_RESET
-    Script_ID=INFRA_RED15
+    OBE_MODE=SETUP
+    COMMAND=SHUTDOWN_SCEXAO
+    Script_ID=SETUP04
     Script_Version=1.0
     Script_Author=Axel
-    Script_Update=2026/08/10
+    Script_Update=2026/08/11
 
 :Parameter
 
@@ -19,18 +19,16 @@
 
 # local function
 def execute_command(comparison){
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Resetting...";
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Shutting down...";
+    EXEC SCEXAO SHUTDOWN_SCEXAO;
 
-    EXEC SCEXAO EM_GAIN_RESET;
-
-#    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="status aliasL" COMPARISON1="@comparison";
+#    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="status alias" COMPARISON1=@comparison;
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: status alias";
 }
 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="EM Gain Reset" ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Shutdown SCExAO Procedure";
 
 :main_start
 

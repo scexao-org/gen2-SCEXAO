@@ -1,19 +1,15 @@
 :Header
     OBE_ID=SCEXAO
-    OBE_MODE=INFRA_RED
-    COMMAND=IRCAM_STEERING
-    Script_ID=INFRA_RED06
+    OBE_MODE=SETUP
+    COMMAND=SET_MODE
+    Script_ID=SETUP05
     Script_Version=1.0
     Script_Author=Axel
-    Script_Update=2026/08/10
+    Script_Update=2026/08/11
 
 :Parameter
-    MODE=ONAXIS
-    *MODE=ONAXIS, PALILAXY, PALILAANGLE, SKYANGLE
-    A=0
-    B=0
-    MOTION=ABS
-    *MOTION=ABS,REL
+    MODE=NOP
+    *MODE=CHARIS,CHARISPDI,CHARISPDI+FPDI,REACH
 
 ###############################
 # WITHOUT STATUS ALIAS
@@ -27,41 +23,40 @@ def execute_command(comparison){
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
 
-    EXEC SCEXAO IRCAM_STEERING SLOT=$SLOT A=$A B=$B MOTION=$MOTION;
+    EXEC SCEXAO SET_MODE MODE=$MODE;
 
-# for now no status alias avaliable
 #    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="status alias" COMPARISON1="@comparison";
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
 
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Mode= $MODE" ObsInfo4="a=$A, b=$B" ObsInfo5="Motion=$MOTION";
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Position= !$POSITION";
 }
 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="IRcam Steering Mode Change" ObsInfo2=Clear ObsInfo3="CMD: Mode=$MODE" ObsInfo4="a=$A, b=$B" ObsInfo5="Motion=$MOTION";
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Set Mode" ObsInfo2=Clear ObsInfo3="CMD: MODE=$MODE" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
-    *IF "$MODE" == "ONAXIS"
+    *IF "$MODE" == "CHARIS"
 
         # must assign to variable to excetue local function
-        # 'none' to be filled in with value of status alias
+        # replace 'none' with value of status alias 
         asn why_do_I_exist = @execute_command(comparison="none")
 
-    *ELIF "$MODE" == "PALILAXY"
+    *ELIF "$MODE" == "CHARISPDI"
 
         # must assign to variable to excetue local function
-        # 'none' to be filled in with value of status alias
+        # replace 'none' with value of status alias 
         asn why_do_I_exist = @execute_command(comparison="none")
 
-    *ELIF "$MODE" == "PALILAANGLE"
+    *ELIF "$MODE" == "CHARISPDI+FPDI"
 
         # must assign to variable to excetue local function
-        # 'none' to be filled in with value of status alias
+        # replace 'none' with value of status alias  
         asn why_do_I_exist = @execute_command(comparison="none")
 
-    *ELIF "$MODE" == "SKYANGLE"
+    *ELIF "$MODE" == "REACH"
 
         # must assign to variable to excetue local function
-        # 'none' to be filled in with value of status alias
+        # replace 'none' with value of status alias
         asn why_do_I_exist = @execute_command(comparison="none")
 
     *ENDIF

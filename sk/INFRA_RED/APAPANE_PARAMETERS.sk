@@ -27,11 +27,12 @@ def execute_command(comparison){
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
 
-    EXEC SCEXAO APAPANE_PARAMETERS NDR=$NDR;
+    EXEC SCEXAO APAPANE_PARAMETERS WINDOW=$WINDOW FPS_HZ=$FPS_HZ EM_GAIN=$EM_GAIN;
 
 #    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="status alias" COMPARISON1="@comparison";
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Window= !status alias";
+
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Window= $WINDOW" ObsInfo4=FPS HZ:$FPS_HZ ObsInfo5=EM GAIN:$EM_GAIN;
 }
 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
