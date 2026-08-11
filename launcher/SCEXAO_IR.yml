@@ -21,7 +21,7 @@ launchers:
 
   -
     label: "IRCam Steering"
-    cmd: EXEC SCEXAO IRCAM_STEERING MODE=$VAL01 A=$VAL02 B=$VAL03 MOTION=$VAL04
+    cmd: IRCAM_STEERING OBE_ID=SCEXAO OBE_MODE=INFRA_RED MODE=$VAL01 A=$VAL02 B=$VAL03 MOTION=$VAL04
     params:
       - [ VAL01, LIST, [ "ONAXIS", "PALILAXY", "PALILAANGLE", "SKYANGLE"], "Mode" ]
       - [ VAL02, INPUT, 6, 0, "SEP X or R (arcsec)" ]
@@ -48,7 +48,7 @@ launchers:
 
   -
     label: "IRCam Filter"
-    cmd: EXEC SCEXAO IRCAM_FILTER SLOT=$VAL01
+    cmd: IRCAM_FILTER OBE_ID=SCEXAO OBE_MODE=INFRA_RED SLOT=$VAL01
     params:
       - [ VAL01, LIST, [ "OPEN", "Y", "1550NM25NM", "1550NM50NM", "J", "H" ], "Slot" ]
 
@@ -56,31 +56,31 @@ launchers:
 
   -
     label: "IRCam Focus"
-    cmd: EXEC SCEXAO IRCAM_FCS MODE=$VAL01
+    cmd: IRCAM_FCS OBE_ID=SCEXAO OBE_MODE=INFRA_RED MODE=$VAL01
     params:
       - [ VAL01, LIST, [ "PALILA", "APAPANE"], "Mode" ]
 
   -
     label: "Apapane Pickoff"
-    cmd: EXEC SCEXAO APAPNE_PICKOFF MODE=$VAL01
+    cmd: APAPANE_PICKOFF OBE_ID=SCEXAO OBE_MODE=INFRA_RED POSITION=$VAL01
     params:
       - [ VAL01, LIST, [ "'IN'", "OUT"], "Position" ]
 
   -
     label: "IR Field Stop"
-    cmd: EXEC SCEXAO FIELD_STOP POSITION=$VAL01
+    cmd: FIELD_STOP OBE_ID=SCEXAO OBE_MODE=INFRA_RED POSITION=$VAL01
     params:
       - [ VAL01, LIST, [ "'IN'", "OUT" ], "Position" ]
 
   -
     label: "CHARIS Wollaston"
-    cmd: EXEC SCEXAO CHARIS_WOLLASTON POSITION=$VAL01
+    cmd: CHARIS_WOLLASTON OBE_ID=SCEXAO OBE_MODE=INFRA_RED POSITION=$VAL01
     params:
       - [ VAL01, LIST, [ "'IN'", "OUT" ], "Position" ]
 
   -
     label: "IRCam Wollaston"
-    cmd: EXEC SCEXAO IRCAM_WOLLASTON POSITION=$VAL01
+    cmd: IRCAM_WOLLASTON OBE_ID=SCEXAO OBE_MODE=INFRA_RED POSITION=$VAL01
     params:
       - [ VAL01, LIST, [ "'IN'", "OUT" ], "Position" ]
 
@@ -88,7 +88,7 @@ launchers:
 
   -
     label: "Reach Pickoff"
-    cmd: EXEC SCEXAO REACH_PICKOFF POSITION=$VAL01
+    cmd: REACH_PICKOFF OBE_ID=SCEXAO OBE_MODE=INFRA_RED  POSITION=$VAL01
     params:
       - [ VAL01, LIST, [ "'IN'", "OUT" ], "Position" ]
 
@@ -97,13 +97,15 @@ launchers:
 
   -
     label: "Palila Parameters"
-    cmd: EXEC SCEXAO PALILA_PARAMETERS NDR=$VAL01
+    cmd: PALILA_PARAMETERS OBE_ID=SCEXAO OBE_MODE=INFRA_RED NDR=$VAL01
+# ask Garima or Olivier for default
     params:
       - [ VAL01, LIST, [ "1", "2", "4", "8", "16", "32", "64", "128", "255" ], "NDR" ]
 
   -
     label: "Apapane Parameters"
-    cmd: EXEC SCEXAO APAPANE_PARAMETERS WINDOW=$VAL01 FPS_HZ=$VAL02 EM_GAIN=$VAL03
+    cmd: APAPANE_PARAMETERS OBE_ID=SCEXAO OBE_MODE=INFRA_RED WINDOW=$VAL01 FPS_HZ=$VAL02 EM_GAIN=$VAL03
+# ask Garima or Olivier for defaults
     params:
       - [ VAL01, LIST, [ "FULL", "PDI" ], "Window" ]
       - [ VAL01, LIST, [ "MAX", "2000", "1000", "500", "200", "100", "50", "20", "10", "5", "2" ], "FPS_HZ" ]
@@ -111,11 +113,11 @@ launchers:
 
   -
     label: "EM_Gain_Reset"
-    cmd: EXEC SCEXAO EM_GAIN_RESET
+    cmd: EM_GAIN_RESET OBE_ID=SCEXAO OBE_MODE=INFRA_RED EM_GAIN_RESET
 
   -
     label: "Sleep"
-    cmd: EXEC SCEXAO SLEEP SLEEP_TIME=$VAL01
+    cmd: SLEEP OBE_ID=SCEXAO OBE_MODE=INFRA_RED SLEEP_TIME=$VAL01
     params:
       - [ VAL01, INPUT, 3, 2, "Seconds" ]
 

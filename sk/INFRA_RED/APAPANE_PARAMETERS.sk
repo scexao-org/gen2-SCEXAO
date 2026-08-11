@@ -1,0 +1,58 @@
+:Header
+    OBE_ID=SCEXAO
+    OBE_MODE=INFRA_RED
+    COMMAND=APAPANE_PARAMETERS
+    Script_ID=INFRA_RED15
+    Script_Version=1.0
+    Script_Author=Axel
+    Script_Update=2026/08/10
+
+:Parameter
+    WINDOW=NOP
+    *WINDOW=FULL,PDI
+    FPS_HZ=NOP
+    *FPS_HZ=MAX,2000,1000,500,200,100,50,20,10,5,2
+    EM_GAIN=NOP
+    EM_GAIN=1,2,4,16,32,64,104
+
+:Command
+:start
+
+################################
+# UNIMPLEMENTED COMMAND
+################################
+
+# local function
+def execute_command(comparison){
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+
+    EXEC SCEXAO APAPANE_PARAMETERS NDR=$NDR;
+
+#    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="status alias" COMPARISON1="@comparison";
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Window= !status alias";
+}
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="APAPANE Parameters Change" ObsInfo2=Clear ObsInfo3="CMD: WINDOW=$WINDOW" ObsInfo4=FPS HZ:$FPS_HZ ObsInfo5=EM GAIN:$EM_GAIN;
+
+:main_start
+    *IF "$WINDOW" == "FULL"
+
+        # must assign to variable to excetue local function
+        # fill in 'none' with value of status alias
+        asn why_do_I_exist = @execute_command(comparison="none")
+
+    *ELIF "$WINDOW" == "PDI"
+
+        # must assign to variable to excetue local function
+        # fill in 'none' with value of status alias
+        asn why_do_I_exist = @execute_command(comparison="none")
+
+    *ENDIF
+:main_end
+
+#Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+
+:end

@@ -1,0 +1,40 @@
+:Header
+    OBE_ID=SCEXAO
+    OBE_MODE=INFRA_RED
+    COMMAND=SLEEP
+    Script_ID=INFRA_RED16
+    Script_Version=1.0
+    Script_Author=Axel
+    Script_Update=2026/08/10
+
+:Parameter
+    SLEEP_TIME=0
+
+:Command
+:start
+
+# local function
+def execute_command(comparison){
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Going to sleep...";
+    EXEC SCEXAO SLEEP SLEEP_TIME=$SLEEP_TIME;
+
+# figure out how to check if it sleep command has worked sucessfully
+
+#    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="status aliasL" COMPARISON1="@comparison";
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: status alias";
+}
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo4=Clear ObsInfo5=Clear;
+
+:main_start
+
+    # must assign to variable to excetue local function
+    asn why_do_I_exist = @execute_command(comparison="none")
+
+:main_end
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+
+:end

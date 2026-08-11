@@ -12,56 +12,77 @@
     *SLOT=VVC,OPEN,LYOT78,LYOT92,LYOT113,LYOT139,LYOT165,LYOT198,LYOT228,LYOT262,LYOT310
 
 :Command
-
 :start
+
+# local function
+def execute_command(comparison){
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+    EXEC SCEXAO FPM SLOT=$SLOT;
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.FPM" COMPARISON1="@comparison";
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+}
+
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Coronograph FPM Slot Change" ObsInfo2=Clear ObsInfo3="CMD: Slot=$SLOT" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
     *IF "$SLOT" == "VVC"
-        EXEC SCEXAO FPM SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixVect vortex msk]";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="Vect vortex msk")
+
     *ELIF "$SLOT" == "OPEN"
-        EXEC SCEXAO FPM SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ Open]";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="Open")
+
     *ELIF "$SLOT" == "LYOT78"
-        EXEC SCEXAO FPM SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 78mas]";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="Occulter 78mas")
+
     *ELIF "$SLOT" == "LYOT92"
-        EXEC SCEXAO FPM SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 92mas]";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="Occulter 92mas")
+
     *ELIF "$SLOT" == "LYOT113"
-        EXEC SCEXAO FPM SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 113mas]";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="Occulter 113mas")
+
     *ELIF "$SLOT" == "LYOT139"
-        EXEC SCEXAO FPM SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 139mas]";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="Occulter 139mas")
+
     *ELIF "$SLOT" == "LYOT165"
-        EXEC SCEXAO FPM SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 165mas]";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="Occulter 165mas")
+
     *ELIF "$SLOT" == "LYOT198"
-        EXEC SCEXAO FPM SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 198mas]";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="Occulter 198mas")
+
     *ELIF "$SLOT" == "LYOT228"
-        EXEC SCEXAO FPM SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 228mas]";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="Occulter 228mas")
+
     *ELIF "$SLOT" == "LYOT262"
-        EXEC SCEXAO FPM SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 262mas]";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="Occulter 262mas")
+
     *ELIF "$SLOT" == "LYOT310"
-        EXEC SCEXAO FPM SLOT=$SLOT;
-        EXEC OBS CHECK_STATUS MODE=AND TIMEOUT=100 C1="[SCX.FPM EQ #fixOcculter 310mas]";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.FPM";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="Occulter 310mas")
+
     *ENDIF
 :main_end
 

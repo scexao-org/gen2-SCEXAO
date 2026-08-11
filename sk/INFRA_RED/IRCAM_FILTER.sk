@@ -1,0 +1,68 @@
+:Header
+    OBE_ID=SCEXAO
+    OBE_MODE=INFRA_RED
+    COMMAND=IRCAM_FILTER
+    Script_ID=INFRA_RED07
+    Script_Version=1.0
+    Script_Author=Axel
+    Script_Update=2026/08/10
+
+:Parameter
+    SLOT=OPEN
+    *SLOT=OPEN,Y,1550NM25NM,1550NM50NM,J,H
+
+:Command
+:start
+
+# local function
+def execute_command(comparison){
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+    EXEC SCEXAO IRCAM_FILTER SLOT=$SLOT;
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.IRCAM.FLT" COMPARISON1="@comparison";
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.IRCAM.FLT";
+}
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="IRCam Filter Slot Change" ObsInfo2=Clear ObsInfo3="CMD: Slot=$SLOT" ObsInfo4=Clear ObsInfo5=Clear;
+
+:main_start
+    *IF "$SLOT" == "OPEN"
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="OPEN")
+
+    *ELIF "$SLOT" == "Y"
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="y-band")
+
+    *ELIF "$SLOT" == "1550NM25NM"
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="1550nm, 25nm BW")
+
+    *ELIF "$SLOT" == "1550NM50NM"
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="1550nm, 50nm BW")
+
+    *ELIF "$SLOT" == "J"
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="J-band")
+
+
+    *ELIF "$SLOT" == "H"
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="H-band")
+
+
+    *ENDIF
+:main_end
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+
+:end

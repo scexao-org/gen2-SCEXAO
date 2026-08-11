@@ -30,37 +30,37 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="CHARIS Pickoff Slot Change
 :main_start
     *IF "$SLOT" == "T10R90"
 
-        # must assign to variable to excetue local function (i know)
+        # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="T10/R90")
 
     *ELIF "$SLOT" == "T90R10"
 
-        # must assign to variable to excetue local function (i know)
+        # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="T90/R10")
 
     *ELIF "$SLOT" == "ARWINDOW"
 
-        # must assign to variable to excetue local function (i know)
+        # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="AR window")
 
     *ELIF "$SLOT" == "MIRROR"
 
-        # must assign to variable to excetue local function (i know)
+        # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="Gold mirror")
 
     *ELIF "$SLOT" == "1.12UMLP"
 
-        # must assign to variable to excetue local function (i know)
+        # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="1.12 um LP")
 
     *ELIF "$SLOT" == "1.35UMLP"
 
-        # must assign to variable to excetue local function (i know)
+        # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="1.35 um LP")
 
     *ELIF "$SLOT" == "1.88UMLP"
 
-        # must assign to variable to excetue local function (i know)
+        # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="1.88 um LP")
 
     *ENDIF

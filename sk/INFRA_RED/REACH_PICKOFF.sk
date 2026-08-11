@@ -1,0 +1,46 @@
+:Header
+    OBE_ID=SCEXAO
+    OBE_MODE=INFRA_RED
+    COMMAND=REACH_PICKOFF
+    Script_ID=INFRA_RED13
+    Script_Version=1.0
+    Script_Author=Axel
+    Script_Update=2026/08/10
+
+:Parameter
+    POSITION=OUT
+    *POSITION=IN,OUT
+
+:Command
+:start
+
+# local function
+def execute_command(comparison){
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+    EXEC SCEXAO REACH_PICKOFF POSITION=$POSITION;
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.REACH.PKO" COMPARISON1="@comparison";
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Position= !SCX.REACH.PKO";
+}
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Reach Pickoff Position Change" ObsInfo2=Clear ObsInfo3="CMD: POSITION=$POSITION" ObsInfo4=Clear ObsInfo5=Clear;
+
+:main_start
+    *IF "$POSITION" == "OUT"
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="OUT")
+
+    *ELIF "$POSITION" == "IN"
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="IN")
+
+    *ENDIF
+:main_end
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+
+:end

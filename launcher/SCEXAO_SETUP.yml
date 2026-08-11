@@ -30,7 +30,7 @@ launchers:
 
   -
     label: "Source fiber"
-    cmd: EXEC SCEXAO SRC_FIB POSITION=$VAL01
+    cmd: SRC_FIB OBE_ID=SCEXAO OBE_MODE=SETUP POSITION=$VAL01
     params:
       - [ VAL01, LIST, [ "'IN'", "OUT", "PINHOLE" ], "Position" ]
 
@@ -66,7 +66,7 @@ launchers:
 
   -
     label: "SCExAO DM"
-    cmd: EXEC SCEXAO SCEXAO_DM STATE=$VAL01
+    cmd: SCEXAO_DM OBE_ID=SCEXAO OBE_MODE=SETUP STATE=$VAL01
     params:
       - [ VAL01, LIST, [ "FLAT", "ZERO", "PINHOLES" ], "State" ]
 

@@ -12,47 +12,47 @@
     *SLOT=ARWINDOW,MIRROR,T10R90,T90R10,1.35UMSP
 
 :Command
-
 :start
+
+# local function
+def execute_command(comparison){
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+    EXEC SCEXAO MKIDS_PICKOFF SLOT=$SLOT;
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.MKIDS.PKO" COMPARISON1="@comparison";
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.MKIDS.PKO";
+}
+
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="MEC Pickoff Slot Change" ObsInfo2=Clear ObsInfo3="CMD: Slot=$SLOT" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
     *IF "$SLOT" == "ARWINDOW"
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
-        EXEC SCEXAO MKIDS_PICKOFF SLOT=$SLOT;
-        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.MKIDS.PKO" COMPARISON1="AR window";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.MKIDS.PKO";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="AR window")
+
     *ELIF "$SLOT" == "MIRROR"
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
-        EXEC SCEXAO MKIDS_PICKOFF SLOT=$SLOT;
-        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.MKIDS.PKO" COMPARISON1="Gold mirror";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.MKIDS.PKO";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="Gold mirror")
+
     *ELIF "$SLOT" == "T10R90"
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
-        EXEC SCEXAO MKIDS_PICKOFF SLOT=$SLOT;
-        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.MKIDS.PKO" COMPARISON1="T10/R90";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.MKIDS.PKO";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="T10/R90")
+
     *ELIF "$SLOT" == "T90R10"
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
-        EXEC SCEXAO MKIDS_PICKOFF SLOT=$SLOT;
-        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.MKIDS.PKO" COMPARISON1="T90/R10";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.MKIDS.PKO";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="T90/R10")
+
     *ELIF "$SLOT" == "1.35UMSP
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";"
-        EXEC SCEXAO MKIDS_PICKOFF SLOT=$SLOT;
-        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.MKIDS.PKO" COMPARISON1="J-band dichiro";
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.MKIDS.PKO";
+
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="J-band dichiro")
+
     *ENDIF
 :main_end
 
