@@ -94,12 +94,12 @@ class check_status_changed(SCXTask):
                     timeout = timeout - 1
                     # check status of alias
                     status_var_val = str(self.fetchOne(status_var)).strip()
-                if status_var_val.strip() != status_var_val0:
-                    return 0
-                elif timeout_counter == 0:
-                    raise g2Task.g2TaskError(f"error: timeout in string comparison: {status_var_val0} still hasn't changed")
-                else:
-                    raise g2Task.g2TaskError("critical error in loop")
+            if status_var_val.strip() != status_var_val0:
+                return 0
+            elif timeout_counter == 0:
+                raise g2Task.g2TaskError(f"error: timeout in string comparison: {status_var_val0} still hasn't changed")
+            else:
+                raise g2Task.g2TaskError("critical error in loop")
 
 
 class check_status(SCXTask):
