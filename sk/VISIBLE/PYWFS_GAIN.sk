@@ -1,0 +1,39 @@
+Header
+    OBE_ID=SCEXAO
+    OBE_MODE=VISIBLE
+    COMMAND=PYWFS_GAIN
+    Script_ID=VISIBLE07
+    Script_Version=1.0
+    Script_Author=Axel
+    Script_Update=2026/08/11
+
+:Parameter
+    EM_GAIN=1
+    *EM_GAIN=AUTO,1,2,4,8,16,32,64,128,256,600
+
+:Command
+:start
+
+# local function
+def execute_command(comparison){
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+    EXEC SCEXAO PYWFS_GAIN EM_GAIN=$EM_GAIN;
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.GAIN" COMPARISON1="@comparison";
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Gain= !SCX.PYWFS.GAIN";
+}
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing PyWFS EM Gain" ObsInfo2=Clear ObsInfo3="CMD: Gain=$EM_GAIN" ObsInfo4=Clear ObsInfo5=Clear;
+
+:main_start
+
+    # must assign to variable to excetue local function
+    asn why_do_I_exist = @execute_command(comparison="$EM_GAIN")
+
+:main_end
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+
+:end

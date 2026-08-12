@@ -7,19 +7,19 @@ tabname: "SCEXAO Vis"
 launchers:
   -
     label: "PYWFS_Pickoff"
-    cmd: EXEC SCEXAO PYWFS_PICKOFF SLOT=$VAL01
+    cmd: PYWFS_PICKOFF OBE_ID=SCEXAO OBE_MODE=VISIBLE SLOT=$VAL01
     params:
       - [ VAL01, LIST, [ "MIRROR", "700NMSP", "750NMSP", "800NMSP" ], "Slot" ]
 
   -
     label: "PYWFS_Filter"
-    cmd: EXEC SCEXAO PYWFS_FILTER SLOT=$VAL01
+    cmd: PYWFS_FILTER OBE_ID=SCEXAO OBE_MODE=VISIBLE SLOT=$VAL01
     params:
       - [ VAL01, LIST, [ "OPEN", "BLOCK" ], "Slot" ]
 
   -
     label: "Setup_PYWFS"
-    cmd: EXEC SCEXAO SETUP_PYWFS FREQUENCY=$VAL01 MOD_AMP=$VAL02
+    cmd: SETUP_PYWFS OBE_ID=SCEXAO OBE_MODE=VISIBLE FREQUENCY=$VAL01 MOD_AMP=$VAL02
     params:
       - [ VAL01, LIST, [ "0.5KHZ","1.0KHZ", "1.5KHZ", "2.0KHZ", "2.5KHZ", "3.0KHZ", "3.5KHZ" ], "Frequency" ]
       - [ VAL02, LIST, [ "0.1", "0.2", "0.3", "0.4" ], "Mod_Amp" ]
@@ -67,6 +67,6 @@ launchers:
 
   -
     label: "FirstPL_Pickoff"
-    cmd: EXEC SCEXAO FIRSTPL_PICKOFF POSITION=$VAL01
+    cmd: FIRSTPL_PICKOFF OBE_ID=SCEXAO OBE_MODE=VISIBLE POSITION=$VAL01
     params:
       - [ VAL01, LIST, [ "'IN'", "OUT" ], "Position" ]
