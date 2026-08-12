@@ -49,9 +49,7 @@ launchers:
 
   -
     label: "Set_Modal_Gains"
-    cmd: EXEC SCEXAO SET_MODAL_GAINS NOP=$VAL01
-    params:
-      - [ VAL01, LIST, "NOP"]
+    cmd: EXEC SCEXAO SET_MODAL_GAINS
 
   -
     label: "Loop"

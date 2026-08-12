@@ -29,7 +29,7 @@ def execute_command(comparison){
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing PyWFS Pickoff" ObsInfo2=Clear ObsInfo3="CMD: Slot=$SLOT" ObsInfo4=Clear ObsInfo5=Clear;
 
-# ADVISORY: for now, only frequency change verification is supported. Checking for changes in Mod_Amp required further implementation
+# ADVISORY: for now, only frequency change verification is supported. Checking for changes in Mod_Amp requires further implementation
 
 :main_start
     *IF "$SLOT" == "0.5KHZ"

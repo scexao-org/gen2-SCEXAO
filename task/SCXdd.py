@@ -67,12 +67,46 @@ class SCXTask(g2Task.g2Task):
     # SCX COMMANDS
     #######################################
 
+class check_status_changed(SCXTask):
+# enters a loop that exits either when the timer runs out or when the  status variable inputted changes
+    def __init__(self, timeout=0, status_var=None):
+        super(check_status_changed, self).__init__('check_status_changed', timeout=timeout, status_var=status_var)
+
+    def execute(self):
+
+        self.self_validate()
+        self.logger.debug("SCX check_status_changed params<%s>" % str(self.params))
+
+        timeout=self.params["timeout"]
+        try:
+            timeout = float(timeout)
+        except (TypeError, ValueError):
+            raise g2Task.g2TaskError(f"command 'check_status_changed' {timeout} must be a number")
+        if timeout <= 0 or timeout > 10000:
+            raise g2Task.g2TaskError("error: timeout must be greater than 0 and less than or equal to 10,000")
+
+        status_var = self.params["status_var"]
+        status_var_val0 = str(self.fetchOne(status_var)).strip()
+        status_var_val = status_var_val0
+        while status_var_val == status_var_val0 and timeout > 0:
+                    # sleep for one second
+                    self.sleep(1)
+                    timeout = timeout - 1
+                    # check status of alias
+                    status_var_val = str(self.fetchOne(status_var)).strip()
+                if status_var_val.strip() != status_var_val0:
+                    return 0
+                elif timeout_counter == 0:
+                    raise g2Task.g2TaskError(f"error: timeout in string comparison: {status_var_val0} still hasn't changed")
+                else:
+                    raise g2Task.g2TaskError("critical error in loop")
+
+
 class check_status(SCXTask):
-# this function enters a while loop for the time in seconds given by timeout_counter,an integer
-# escaping only when one (or both) of the conditions are met.
-# the third parameter, condition, is a string that has two allowed inputs: 'equals' and 'nonequals'.
-# The function will excecute until the condition(s) are satisfied
-# This function supports up to four conditionals, meaning up to two conditional statements
+# This function enters a while loop for the time in seconds given by timeout_counter,an integer escaping only when one (or both) of the conditions are met.
+# The third parameter, condition, is a string that has two allowed inputs: 'equals' and 'nonequals'.
+# The function will excecute until the condition(s) are satisfied.
+# This function supports up to four conditionals, meaning up to two conditional statements.
     def __init__(self, timeout_counter=0, condition=None, status_var1=None, comparison1=None, status_var2=None, comparison2=None):
         super(check_status, self).__init__('check_status', timeout_counter = timeout_counter, condition=condition, status_var1=status_var1, comparison1=comparison1, status_var2=status_var2, comparison2=comparison2)
 
@@ -89,7 +123,7 @@ class check_status(SCXTask):
         try:
             timeout_counter = float(timeout_counter)
         except (TypeError, ValueError):
-            raise g2Task.g2TaskError(f"command 'check_status_local' {timeout_counter} must be a number")
+            raise g2Task.g2TaskError(f"command 'check_status' {timeout_counter} must be a number")
         if timeout_counter <= 0 or timeout_counter > 10000:
             raise g2Task.g2TaskError("error: timeout_counter must be greater than 0 and less than or equal to 10,000")
 
