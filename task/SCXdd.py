@@ -89,11 +89,11 @@ class check_status_changed(SCXTask):
         status_var_val0 = str(self.fetchOne(status_var)).strip()
         status_var_val = status_var_val0
         while status_var_val == status_var_val0 and timeout > 0:
-                    # sleep for one second
-                    self.sleep(1)
-                    timeout = timeout - 1
-                    # check status of alias
-                    status_var_val = str(self.fetchOne(status_var)).strip()
+            # sleep for one second
+            self.sleep(1)
+            timeout = timeout - 1
+            # check status of alias
+            status_var_val = str(self.fetchOne(status_var)).strip()
             if status_var_val.strip() != status_var_val0:
                 return 0
             elif timeout_counter == 0:
@@ -239,6 +239,10 @@ class Charis_Wollaston(SCEXAOTask):
     def __init__(self, position=None):
         super(Charis_Wollaston, self).__init__('Charis_Wollaston', position=position)
 
+class Dm_Offload(SCEXAOTask):
+    def __init__(self, state=None):
+        super(Dm_Offload, self).__init__('Dm_Offload', state=state)
+
 class Field_Stop(SCEXAOTask):
     def __init__(self, position=None):
         super(Field_Stop, self).__init__('Field_Stop', position=position)
@@ -270,6 +274,10 @@ class Ircam_Steering(SCEXAOTask):
 class Ircam_Wollaston(SCEXAOTask):
     def __init__(self, position=None):
         super(Ircam_Wollaston, self).__init__('Ircam_Wollaston', position=position)
+
+class Loop(SCEXAOTask):
+    def __init__(self, state=None):
+        super(Loop, self).__init__('Loop', state=state)
 
 class Lyot(SCEXAOTask):
     def __init__(self, slot=None):
@@ -306,6 +314,18 @@ class Reach_Pickoff(SCEXAOTask):
 class Setup_Pywfs(SCEXAOTask):
     def __init__(self, frequency=None, mod_amp=None):
         super(Setup_Pywfs, self).__init__('Setup_Pywfs', frequency=frequency, mod_amp=mod_amp)
+
+class Set_Pywfs_Gain(SCEXAOTask):
+    def __init__(self, gain=None):
+        super(Set_Pywfs_Gain, self).__init__('Set_Pywfs_Gain', gain=gain)
+
+class Set_Mult_Factor(SCEXAOTask):
+    def __init__(self, factor=None):
+        super(Set_Mult_Factor, self).__init__('Set_Mult_Factor', factor=factor)
+
+class Set_Modal_Gains(SCEXAOTask):
+    def __init__(self, gain=None):
+        super(Set_Modal_Gains, self).__init__('Set_Modal_Gains', gain=gain)
 
 class Set_Mode(SCEXAOTask):
     def __init__(self, mode=None):
