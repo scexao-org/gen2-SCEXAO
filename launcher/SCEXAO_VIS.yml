@@ -32,11 +32,11 @@ launchers:
 
   -
     label: "EM_Gain_Reset"
-    cmd: EXEC SCEXAO PYWFS_GAIN_RESET
+    cmd: OBE_ID=SCEXAP OBE_MODE=VISIBLE PYWFS_GAIN_RESET
 
   -
     label: "Set_PYWFS_Gain"
-    cmd: EXEC SCEXAO SET_PYWFS_GAIN GAIN=$VAL01
+    cmd: SET_PYWFS_GAIN OBE_ID=SCEXAO OBE_MODE=VISIBLE GAIN=$VAL01
     params:
       - [ VAL01, INPUT, 6, 0, "Gain"]
 
