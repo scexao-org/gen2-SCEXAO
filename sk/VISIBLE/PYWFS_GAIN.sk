@@ -30,7 +30,7 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing PyWFS EM Gain" Ob
 :main_start
 
     # must assign to variable to excetue local function
-    asn why_do_I_exist = @execute_command(comparison="$EM_GAIN")
+    asn why_do_I_exist = @execute_command(comparison=$EM_GAIN)
 
 :main_end
 
