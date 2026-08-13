@@ -151,7 +151,7 @@ class check_status(SCXTask):
         # begin function:
         if comparison2 is None:
             status_var1_val = self.fetchOne(status_var1).strip()
-            status_var1_val = str(status_val1_val)
+            status_var1_val = str(status_var1_val)
             if condition == 'equals':
                 while status_var1_val != comparison1 and timeout_counter > 0:
                     # sleep for one second
@@ -159,7 +159,7 @@ class check_status(SCXTask):
                     timeout_counter = timeout_counter - 1
                     # check status of alias
                     status_var1_val = self.fetchOne(status_var1).strip()
-                    status_var1_val = str(status_val1_val)
+                    status_var1_val = str(status_var1_val)
                 if status_var1_val.strip() == comparison1:
                     return 0
                 elif timeout_counter == 0:
@@ -173,7 +173,7 @@ class check_status(SCXTask):
                     timeout_counter = timeout_counter - 1
                     # check status of alias
                     status_var1_val = self.fetchOne(status_var1).strip()
-                    status_var1_val = str(status_val1_val)
+                    status_var1_val = str(status_var1_val)
                 if status_var1_val != comparison1:
                     return 0
                 elif timeout_counter == 0:

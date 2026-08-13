@@ -30,7 +30,6 @@ launchers:
     params:
       - [ VAL01, LIST, [ "AUTO","1", "2", "4", "8", "16", "32", "64", "128", "256", "600" ], "EM_Gain" ]
 
-
   -
     label: "EM_Gain_Reset"
     cmd: EXEC SCEXAO PYWFS_GAIN_RESET
