@@ -9,7 +9,7 @@ launchers:
 
   -
     label: "Startup SCExAO"
-    cmd: EXEC SCEXAO STARTUP_SCEXAO MODE=$VAL01
+    cmd: STARTUP_SCEXAO OBE_ID=SCEXAO OBE_MODE=SETUP MODE=$VAL01
     params:
       - [ VAL01, LIST, [ "CALIBRATION","ON-SKY" ], "Mode" ]
 
@@ -48,7 +48,7 @@ launchers:
 
   -
     label: "Source Flux"
-    cmd: EXEC SCEXAO SRC_FLUX MODE=$VAL01
+    cmd: SRC_FLUX OBE_ID=SCEXAO OBE_MODE=SETUP MODE=$VAL01
     params:
       - [ VAL01, LIST, [ "DEFAULT","CHARIS", "MIN" ], "Mode" ]
 

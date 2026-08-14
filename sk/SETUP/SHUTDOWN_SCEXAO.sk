@@ -19,8 +19,9 @@
 
 # local function
 def execute_command(comparison){
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Shutting down...";
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Shutting down...";
+
     EXEC SCEXAO SHUTDOWN_SCEXAO;
 
 #    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="status alias" COMPARISON1=@comparison;
@@ -38,6 +39,6 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Shutdown SCExAO Procedure"
 
 :main_end
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+#Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
 
 :end

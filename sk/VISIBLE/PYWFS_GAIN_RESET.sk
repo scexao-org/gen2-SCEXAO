@@ -18,7 +18,7 @@
 
 
 # local function
-def execute_command(comparison){
+def execute_command(){
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Resetting...";
 
@@ -30,17 +30,17 @@ def execute_command(comparison){
 }
 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="EM Gain Reset" ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="PyWFS Gain Reset" ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
 
     # must assign to variable to excetue local function
     # unimplemented command
-    asn why_do_I_exist = @execute_command(comparison="none")
+    asn why_do_I_exist = @execute_command()
 
 :main_end
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+#Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
 
 :end
 

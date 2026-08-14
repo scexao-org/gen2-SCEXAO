@@ -31,8 +31,8 @@ launchers:
       - [ VAL01, LIST, [ "AUTO","1", "2", "4", "8", "16", "32", "64", "128", "256", "600" ], "EM_Gain" ]
 
   -
-    label: "EM_Gain_Reset"
-    cmd: OBE_ID=SCEXAP OBE_MODE=VISIBLE PYWFS_GAIN_RESET
+    label: "PyWFS_Gain_Reset"
+    cmd: PYWFS_GAIN_RESET OBE_ID=SCEXAO OBE_MODE=VISIBLE
 
   -
     label: "Set_PYWFS_Gain"
@@ -41,24 +41,24 @@ launchers:
       - [ VAL01, INPUT, 6, 0, "Gain"]
 
   -
-    label: "Set_Multi_Factor"
-    cmd: EXEC SCEXAO SET_MULTI_FACTOR FACTOR=$VAL01
+    label: "Set_Mult_Factor"
+    cmd: SET_MULT_FACTOR OBE_ID=SCEXAO OBE_MODE=VISIBLE FACTOR=$VAL01
     params:
       - [ VAL01, INPUT, 6, 0, "Factor"]
 
   -
     label: "Set_Modal_Gains"
-    cmd: EXEC SCEXAO SET_MODAL_GAINS
+    cmd: SET_MODAL_GAINS OBE_ID=SCEXAO OBE_MODE=VISIBLE
 
   -
     label: "Loop"
-    cmd: EXEC SCEXAO LOOP STATE=$VAL01
+    cmd: LOOP OBE_ID=SCEXAO OBE_MODE=VISIBLE STATE=$VAL01
     params:
       - [ VAL01, LIST, [ "CLOSE", "OPEN", "ZERO"], "State"]
 
   -
     label: "DM_Offload"
-    cmd: EXEC SCEXAO DM_OFFLOAD STATE=$VAL01
+    cmd: DM_OFFLOAD OBE_ID=SCEXAO OBE_MODE=VISIBLE STATE=$VAL01
     params:
       - [ VAL01, LIST, [ "ON", "OFF"], "State"]
 

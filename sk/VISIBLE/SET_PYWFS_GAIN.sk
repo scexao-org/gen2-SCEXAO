@@ -13,6 +13,10 @@
 :Command
 :start
 
+#####################################
+# WARNING: UNIMPLEMENTED COMMAND
+#####################################
+
 # local function
 def execute_command(){
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;

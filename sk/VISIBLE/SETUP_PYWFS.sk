@@ -10,7 +10,7 @@
 :Parameter
     FREQUENCY=2.0KHZ
     *FREQUENCY=0.5KHZ,1.0KHZ,2.0KHZ,2.5KHZ,3.0KHZ,3.5KHZ
-    MODE_AMP=0.1
+    MOD_AMP=0.1
     *MOD_AMP=0.1,0.2,0.3,0.4
 
 :Command
@@ -20,45 +20,45 @@
 def execute_command(comparison){
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
-    EXEC SCEXAO PYWFS_PICKOFF SLOT=$SLOT;
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.PKO" COMPARISON1="@comparison";
+    EXEC SCEXAO SETUP_PYWFS FREQUENCY=$FREQUENCY MOD_AMP=$MOD_AMP;
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.FREQ" COMPARISON1="@comparison";
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !SCX.PYWFS.PKO";
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Frequency=!SCX.PYWFS.FREQ, Mod. Amp.=$MOD_AMP";
 }
 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing PyWFS Pickoff" ObsInfo2=Clear ObsInfo3="CMD: Slot=$SLOT" ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Setting-up PyWFS" ObsInfo2=Clear ObsInfo3="CMD: Frequency=$FREQUENCY" ObsInfo4="Modulation Amplitude: $MOD_AMP" ObsInfo5=Clear;
 
 # ADVISORY: for now, only frequency change verification is supported. Checking for changes in Mod_Amp requires further implementation
 
 :main_start
-    *IF "$SLOT" == "0.5KHZ"
+    *IF "$FREQUENCY" == "0.5KHZ"
 
         # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="500")
 
-    *ELIF "$SLOT" == "1.0KHZ"
+    *ELIF "$FREQUENCY" == "1.0KHZ"
 
         # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="1000")
 
-    *ELIF "$SLOT" == "2.0KHZ"
+    *ELIF "$FREQUENCY" == "2.0KHZ"
 
         # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="2000")
 
-    *ELIF "$SLOT" == "2.5KHZ"
+    *ELIF "$FREQUENCY" == "2.5KHZ"
 
         # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="2500")
 
-    *ELIF "$SLOT" == "3.0KHZ"
+    *ELIF "$FREQUENCY" == "3.0KHZ"
 
         # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="3000")
 
 
-    *ELIF "$SLOT" == "3.5KHZ"
+    *ELIF "$FREQUENCY" == "3.5KHZ"
 
         # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="3500")
