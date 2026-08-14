@@ -1,0 +1,44 @@
+:Header
+    OBE_ID=SCEXAO
+    OBE_MODE=VISIBLE
+    COMMAND=SET_MODAL_GAINS
+    Script_ID=VISIBLE10
+    Script_Version=1.0
+    Script_Author=Axel
+    Script_Update=2026/08/14
+
+:Parameter
+    # button
+
+:Command
+:start
+
+###########################
+# MISSING STATUS ALIAS
+###########################
+
+# local function
+def execute_command(){
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+
+    EXEC SCEXAO PYWFS_PICKOFF;
+
+#    EXEC SCEXAO CHECK_STATUS_CHANGED TIMEOUT=100 STATUS_VAR="status alias";
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !status alias";
+}
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing Modal Gains" ObsInfo2=Clear ObsInfo3="CMD: Button" ObsInfo4=Clear ObsInfo5=Clear;
+
+:main_start
+
+    # must assign to variable to excetue local function
+    asn why_do_I_exist = @execute_command()
+
+:main_end
+
+#Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+
+:end
