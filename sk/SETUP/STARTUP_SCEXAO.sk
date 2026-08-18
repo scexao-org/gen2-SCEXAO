@@ -14,28 +14,31 @@
 :Command
 :start
 
-#############################
-# MISSING STATUS ALIAS
-#############################
-
 # local function
-def execute_command(comparison){
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+def execute_on-sky(){
+# start text
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Setting-up on-sky...";
 
-    EXEC SCEXAO STARTUP_SCEXAO MODE=$MODE;
+# commands    
+    EXEC SCEXAO WFS_ACQUISITION MODE="START";
+    # no status
+    EXEC SCEXAO PYWFS_FILTER SLOT="OPEN";
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.FLT" COMPARISON1="OPEN";
+    EXEC SCEXAO SETUP_PYWFS FREQUENCY="1000" MOD_AMP="0.4";
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.FREQ" COMPARISON1="1000";
+    # ask about mod. amp. check
+    EXEC SCEXAO PYWFS_GAIN EM_GAIN="1";
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.GAIN" COMPARISON1="1";
 
-#    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="status alias" COMPARISON1="@comparison";
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Mode= !status alias";
+# end text
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Setup complete";
 }
 
-# commadns to call:
-# turn on acquisition wfs
-# pywfs filter = open
-# set mod freq = 1khz
-# set mod amp = 0.4
-# set emgain = 1
+def execute_calibration(){
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="ERROR: Command unimplemented";
+}
 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Starting-up SCExAO" ObsInfo2=Clear ObsInfo3="CMD: Mode=$MODE" ObsInfo4=Clear ObsInfo5=Clear;
@@ -45,17 +48,17 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Starting-up SCExAO" ObsInf
 
         # must assign to variable to excetue local function
         # replace 'none' with the value of the status alias  
-        asn why_do_I_exist = @execute_command(comparison="none")
+        asn why_do_I_exist = @execute_calibration()
 
     *ELIF "$MODE" == "ON-SKY"
 
         # must assign to variable to excetue local function
         # replace 'none' with the value of the status alias
-        asn why_do_I_exist = @execute_command(comparison="none")
+        asn why_do_I_exist = @execute_on-sky()
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
 
     *ENDIF
-:main_end
 
-#Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+:main_end
 
 :end
