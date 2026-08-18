@@ -21,7 +21,7 @@ launchers:
     label: "Setup_PYWFS"
     cmd: SETUP_PYWFS OBE_ID=SCEXAO OBE_MODE=VISIBLE FREQUENCY=$VAL01 MOD_AMP=$VAL02
     params:
-      - [ VAL01, LIST, [ "0.5KHZ","1.0KHZ", "1.5KHZ", "2.0KHZ", "2.5KHZ", "3.0KHZ", "3.5KHZ" ], "Frequency" ]
+      - [ VAL01, LIST, [ "500","1000", "1500", "2000", "2500", "3000", "3500" ], "Frequency" ]
       - [ VAL02, LIST, [ "0.1", "0.2", "0.3", "0.4" ], "Mod_Amp" ]
 
   -
