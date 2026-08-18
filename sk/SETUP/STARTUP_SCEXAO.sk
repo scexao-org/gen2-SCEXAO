@@ -30,6 +30,13 @@ def execute_command(comparison){
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Mode= !status alias";
 }
 
+# commadns to call:
+# turn on acquisition wfs
+# pywfs filter = open
+# set mod freq = 1khz
+# set mod amp = 0.4
+# set emgain = 1
+
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Starting-up SCExAO" ObsInfo2=Clear ObsInfo3="CMD: Mode=$MODE" ObsInfo4=Clear ObsInfo5=Clear;
 

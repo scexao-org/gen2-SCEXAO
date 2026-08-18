@@ -370,3 +370,7 @@ class Superk(SCEXAOTask):
 class Scexao_Dm(SCEXAOTask):
     def __init__(self, state=None):
         super(Scexao_Dm, self).__init__('Scexao_Dm', state=state)
+
+class Wfs_Acquisition(SCEXAOTask):
+    def __init__(self, mode=None):
+        super(Wfs_Acquisition, self).__init__('Wfs_Acquisition', mode=mode)

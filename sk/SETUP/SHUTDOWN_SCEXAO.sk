@@ -28,6 +28,15 @@ def execute_command(comparison){
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
 }
 
+# shutdown commands:
+# open the loop
+# zero the loop
+# set emgain=1
+# set mod freq = 1khz
+# set mod amp = 0.1
+# pywfs filter = block
+# turn off acquisition wfs
+
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Shutdown SCExAO Procedure";
 

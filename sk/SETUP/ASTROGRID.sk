@@ -22,32 +22,36 @@
 :start
 
 # local function
-def execute_command(comparison){
+def execute_command(comparison, status){
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
     EXEC SCEXAO ASTROGRID STATE=$STATE AMPlITUDE=$AMPLITUDE MODE=$MODE;
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.GRID.STAT" COMPARISON1="@comparison";
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="@status" COMPARISON1="@comparison";
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Position= !SCX.GRID.STAT";
 }
 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing ASTROGRID" ObsInfo2=Clear ObsInfo3="CMD: State=$STATE" ObsInfo4=Clear ObsInfo5=Clear;
 
-# ADVISORY: only checks when the state changes, amplitude and mode change verification is as of yet unimplemented
+# ADVISORY: only checks when the state and amplitude changes, mode change verification is as of yet unimplemented
 
 :main_start
+# state check
     *IF "$STATE" == "OFF"
 
         # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="OFF")
+        asn why_do_I_exist = @execute_command(comparison="OFF", status="SCX.GRID.STAT")
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: State= !SCX.GRID.STAT, Amplitude= !SCX.GRID.AMP";
 
     *ELIF "$STATE" == "ON"
 
         # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="ON")
+        asn why_do_I_exist = @execute_command(comparison="ON", status="SCX.GRID.STAT")
+        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: State= !SCX.GRID.STAT, Amplitude= !SCX.GRID.AMP";
 
     *ENDIF
+# amplitude check
+
 :main_end
 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";

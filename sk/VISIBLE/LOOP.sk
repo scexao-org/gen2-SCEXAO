@@ -13,7 +13,6 @@
 
 :Command
 :start
-
 # this loop function checks for changes in the pywfs loop (make sure this is what the LOOP command does)
 
 # local function
