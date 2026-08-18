@@ -1,0 +1,45 @@
+:Header
+    OBE_ID=SCEXAO
+    OBE_MODE=SETUP
+    COMMAND=WFS_ACQUISITION
+    Script_ID=SETUP09
+    Script_Version=1.0
+    Script_Author=Axel
+    Script_Update=2026/08/18
+
+:Parameter
+    MODE=START
+    *MODE=START,STOP
+
+:Command
+:start
+
+##########################
+# WITHOUT STATUS ALIAS
+##########################
+
+# local function
+def execute_command(comparison){
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+
+     EXEC SCEXAO WFS_ACQUISITION MODE=$MODE;
+
+#    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.OAP1" COMPARISON1="@comparison";
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Position= !SCX.OAP1";
+}
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing WFS_Acquisition Mode" ObsInfo2=Clear ObsInfo3="CMD: MODE=$MODE";
+
+:main_start
+
+    # must assign to variable to excetue local function
+    asn why_do_I_exist = @execute_command(comparison="none")
+
+:main_end
+
+#Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+
+:end

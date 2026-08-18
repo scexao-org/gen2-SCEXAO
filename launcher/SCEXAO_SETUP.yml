@@ -33,7 +33,7 @@ launchers:
       - [ VAL01, LIST, [ "'IN'", "OUT", "PINHOLE" ], "Position" ]
 
   -
-    label: "Wavefront Sensor Acquisition"
+    label: "WFS Acquisition"
     cmd: WFS_ACQUISITION OBE_ID=SCEXAO OBE_MODE=SETUP MODE=$VAL01
     params:
       - [ VAL01, LIST, [ "START", "STOP" ], "Mode" ]
