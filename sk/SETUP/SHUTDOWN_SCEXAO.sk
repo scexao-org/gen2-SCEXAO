@@ -3,51 +3,50 @@
     OBE_MODE=SETUP
     COMMAND=SHUTDOWN_SCEXAO
     Script_ID=SETUP04
-    Script_Version=1.0
+    Script_Version=2.0
     Script_Author=Axel
-    Script_Update=2026/08/11
+    Script_Update=2026/08/14
 
 :Parameter
+# button
 
 :Command
 :start
 
-################################
-# UNIMPLEMENTED COMMAND
-################################
-
-
 # local function
-def execute_command(comparison){
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Shutting down...";
+def execute_on-sky(){
+# start text
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Shutting down...";
 
-    EXEC SCEXAO SHUTDOWN_SCEXAO;
+# commands    
+    EXEC SCEXAO LOOP STATE="OPEN";
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.LOOP" COMPARISON1="OPEN";
+    EXEC SCEXAO LOOP STATE="ZERO";
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.LOOP" COMPARISON1="ZERO";
+    EXEC SCEXAO PYWFS_GAIN EM_GAIN="1";
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.GAIN" COMPARISON1="1";
+    EXEC SCEXAO SETUP_PYWFS FREQUENCY="1000" MOD_AMP="0.1";
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.FREQ" COMPARISON1="1000";
+    # ask about mod. amp. check
+    EXEC SCEXAO PYWFS_FILTER SLOT="BLOCK";
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.FLT" COMPARISON1="BLOCK";
+    EXEC SCEXAO WFS_ACQUISITION MODE="STOP";
+    # no status
 
-#    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="status alias" COMPARISON1=@comparison;
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+# end text
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Shutdown complete";
 }
 
-# shutdown commands:
-# open the loop
-# zero the loop
-# set emgain=1
-# set mod freq = 1khz
-# set mod amp = 0.1
-# pywfs filter = block
-# turn off acquisition wfs
-
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Shutdown SCExAO Procedure";
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Shutting-down SCExAO";
 
 :main_start
 
     # must assign to variable to excetue local function
-    # unimplemented command
-    asn why_do_I_exist = @execute_command(comparison="none")
+    asn why_do_I_exist = @execute_shutdown()
 
 :main_end
-
-#Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
 
 :end

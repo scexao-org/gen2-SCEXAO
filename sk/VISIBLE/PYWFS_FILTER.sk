@@ -28,17 +28,10 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInf
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing PyWFS Filter" ObsInfo2=Clear ObsInfo3="CMD: Slot=$SLOT" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
-    *IF "$SLOT" == "OPEN"
 
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="OPEN")
+    # must assign to variable to excetue local function
+    asn why_do_I_exist = @execute_command(comparison="$SLOT")
 
-    *ELIF "$SLOT" == "BLOCK"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="BLOCK")
-
-    *ENDIF
 :main_end
 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";

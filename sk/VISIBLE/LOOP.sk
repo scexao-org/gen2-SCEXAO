@@ -7,13 +7,13 @@
     Script_Author=Axel
     Script_Update=2026/08/14
 
+# ask olivier for default
 :Parameter
     STATE=NOP
     *STATE=CLOSE,OPEN,ZERO
 
 :Command
 :start
-# this loop function checks for changes in the pywfs loop (make sure this is what the LOOP command does)
 
 # local function
 def execute_command(comparison){
@@ -29,22 +29,10 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInf
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing PyWFS Loop Status" ObsInfo2=Clear ObsInfo3="CMD: State=$STATE" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
-    *IF "$STATE" == "CLOSE"
 
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="CLOSE")
+    # must assign to variable to excetue local function
+    asn why_do_I_exist = @execute_command(comparison="$STATE")
 
-    *ELIF "$STATE" == "OPEN"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="OPEN")
-
-    *ELIF "$STATE" == "ZERO"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="ZERO")
-
-    *ENDIF
 :main_end
 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
