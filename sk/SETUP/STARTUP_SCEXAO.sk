@@ -9,13 +9,13 @@
 
 :Parameter
     MODE=NOP
-    *MODE=CALIBRATION,ON-SKY
+    *MODE=CALIBRATION,ONSKY
 
 :Command
 :start
 
 # local function
-def execute_on-sky(){
+def execute_onsky(){
 # start text
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Setting-up on-sky...";
@@ -50,11 +50,11 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Starting-up SCExAO" ObsInf
         # replace 'none' with the value of the status alias  
         asn why_do_I_exist = @execute_calibration()
 
-    *ELIF "$MODE" == "ON-SKY"
+    *ELIF "$MODE" == "ONSKY"
 
         # must assign to variable to excetue local function
         # replace 'none' with the value of the status alias
-        asn why_do_I_exist = @execute_on-sky()
+        asn why_do_I_exist = @execute_onsky()
         Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
 
     *ENDIF

@@ -11,7 +11,7 @@ launchers:
     label: "Startup SCExAO"
     cmd: STARTUP_SCEXAO OBE_ID=SCEXAO OBE_MODE=SETUP MODE=$VAL01
     params:
-      - [ VAL01, LIST, [ "CALIBRATION","ON-SKY" ], "Mode" ]
+      - [ VAL01, LIST, [ "CALIBRATION","ONSKY" ], "Mode" ]
 
   -
     label: "Shutdown SCExAO"
