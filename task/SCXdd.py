@@ -303,6 +303,10 @@ class Oap1(SCEXAOTask):
     def __init__(self, position=None):
         super(Oap1, self).__init__('Oap1', position=position)
 
+class Palila_Parameters(SCEXAOTask):
+    def __init__(self, ndr=None):
+        super(Palila_Parameters, self).__init__('Palila_Parameters', ndr=ndr)
+
 class Pywfs_Filter(SCEXAOTask):
     def __init__(self, slot=None):
         super(Pywfs_Filter, self).__init__('Pywfs_Filter', slot=slot)
