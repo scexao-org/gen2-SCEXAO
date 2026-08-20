@@ -14,7 +14,7 @@
 :start
 
 # local function
-def execute_shutdown(){
+def execute_shutdown(x){
 # start text
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Shutting down...";
@@ -45,7 +45,7 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Shutting-down SCExAO";
 :main_start
 
     # must assign to variable to excetue local function
-    asn why_do_I_exist = @execute_shutdown()
+    asn why_do_I_exist = @execute_shutdown(x="NA")
 
 :main_end
 
