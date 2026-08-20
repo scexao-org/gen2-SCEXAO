@@ -14,7 +14,7 @@
 :start
 
 # local function
-def execute_on-sky(){
+def execute_shutdown(){
 # start text
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Shutting down...";
