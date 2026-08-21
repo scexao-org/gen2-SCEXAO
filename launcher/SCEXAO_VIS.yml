@@ -32,7 +32,7 @@ launchers:
     params:
       - [ VAL01, LIST, [ "AUTO","1", "2", "4", "8", "16", "32", "64", "128", "256", "600" ], "EM_Gain" ]
 
- -
+  -
     label: "EMGain_Reset"
     cmd: EMGAIN_RESET OBE_ID=SCEXAO OBE_MODE=VISIBLE EMGAIN_RESET
 
