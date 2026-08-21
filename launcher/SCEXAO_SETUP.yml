@@ -72,6 +72,6 @@ launchers:
     label: "SCExAO DM"
     cmd: SCEXAO_DM OBE_ID=SCEXAO OBE_MODE=SETUP STATE=$VAL01
     params:
-      - [ VAL01, LIST, [ "FLAT", "ZERO", "PINHOLES" ], "State" ]
+      - [ VAL01, LIST, [ "FLAT", "ZERO", "FOCUS_ON", "FOCUS_OFF" ], "State" ]
 
 

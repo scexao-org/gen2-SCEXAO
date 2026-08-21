@@ -9,7 +9,7 @@
 
 :Parameter
     STATE=PINHOLES
-    *STATE=FLAT,ZERO,PINHOLES
+    *STATE=FLAT,ZERO,FOCUS_ON,FOCUS_OFF
 
 ###############################
 # WITHOUT STATUS ALIAS
@@ -34,31 +34,11 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="SCEXAO DM" ObsInfo2=Clear 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="SCEXAO DM State Change" ObsInfo2=Clear ObsInfo3="CMD: State=$STATE" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
-    *IF "$STATE" == "J"
 
-        # must assign to variable to excetue local function
-        # 'none' to be filled in with value of status alias
-        asn why_do_I_exist = @execute_command(comparison="none")
+    # must assign to variable to excetue local function
+    # 'none' to be filled in with value of status alias
+    asn why_do_I_exist = @execute_command(comparison="none")
 
-    *ELIF "$STATE" == "H"
-
-        # must assign to variable to excetue local function
-        # 'none' to be filled in with value of status alias
-        asn why_do_I_exist = @execute_command(comparison="none")
-
-    *ELIF "$STATE" == "K"
-
-        # must assign to variable to excetue local function
-        # 'none' to be filled in with value of status alias
-        asn why_do_I_exist = @execute_command(comparison="none")
-
-    *ELIF "$STATE" == "OUT"
-
-        # must assign to variable to excetue local function
-        # 'none' to be filled in with value of status alias
-        asn why_do_I_exist = @execute_command(comparison="none")
-
-    *ENDIF
 :main_end
 
 #Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
