@@ -1,6 +1,6 @@
 :Header
     OBE_ID=SCEXAO
-    OBE_MODE=INFRA_RED
+    OBE_MODE=VISIBLE
     COMMAND=EMGAIN_RESET
     Script_ID=VISIBLE11
     Script_Version=2.0
@@ -8,23 +8,17 @@
     Script_Update=2026/08/21
 
 :Parameter
+# button
 
 :Command
 :start
-
-# local function
-def execute_command(x){
-    EXEC SCEXAO EMGAIN_RESET;
-}
 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="EM Gain Reset" ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
 
-    # must assign to variable to excetue local function
-    # unimplemented command
-    asn why_do_I_exist = @execute_command(x="NA")
+    EXEC SCEXAO EMGAIN_RESET;
 
 :main_end
 

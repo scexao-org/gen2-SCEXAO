@@ -34,7 +34,7 @@ launchers:
 
   -
     label: "EMGain_Reset"
-    cmd: EMGAIN_RESET OBE_ID=SCEXAO OBE_MODE=VISIBLE EMGAIN_RESET
+    cmd: EMGAIN_RESET OBE_ID=SCEXAO OBE_MODE=VISIBLE
 
   - sep
 
