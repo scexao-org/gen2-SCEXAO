@@ -23,7 +23,7 @@ def execute_command(comparison){
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
 
-    EXEC SCEXAO SCEXAO_DM SLOT=$SLOT;
+    EXEC SCEXAO SCEXAO_DM STATE=$STATE;
 
 #    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="status alias" COMPARISON>
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
@@ -31,7 +31,7 @@ def execute_command(comparison){
 }
 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="SCEXAO DM" ObsInfo2=Clear ObsInfo3="CMD: State=$STATE" ObsInfo4=Clear ObsInfo5=Clear; 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="SCEXAO DM State Change" ObsInfo2=Clear ObsInfo3="CMD: Slot=$SLOT" ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="SCEXAO DM State Change" ObsInfo2=Clear ObsInfo3="CMD: State=$STATE" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
     *IF "$STATE" == "J"
