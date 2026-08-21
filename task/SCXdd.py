@@ -340,8 +340,8 @@ class Set_Mult_Factor(SCEXAOTask):
         super(Set_Mult_Factor, self).__init__('Set_Mult_Factor', factor=factor)
 
 class Set_Modal_Gains(SCEXAOTask):
-    def __init__(self, gain=None):
-        super(Set_Modal_Gains, self).__init__('Set_Modal_Gains', gain=gain)
+    def __init__(self, untouched=None, total_modes=None, gain_alpha=None, mult_alpha=None, tt_gain_fact=None):
+        super(Set_Modal_Gains, self).__init__('Set_Modal_Gains', untouched=untouched, total_modes=total_modes, gain_alpha=gain_alpha, mult_alpha=mult_alpha, tt_gain_fact=tt_gain_fact)
 
 class Set_Mode(SCEXAOTask):
     def __init__(self, mode=None):

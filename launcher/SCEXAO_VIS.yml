@@ -54,7 +54,13 @@ launchers:
 
   -
     label: "Set_Modal_Gains"
-    cmd: SET_MODAL_GAINS OBE_ID=SCEXAO OBE_MODE=VISIBLE
+    cmd: SET_MODAL_GAINS OBE_ID=SCEXAO OBE_MODE=VISIBLE UNTOUCHED=$VAL01 TOTAL_MODES=$VAL02 GAIN_ALPHA=$VAL03 MULT_ALPHA=$VAL04 TT_GAIN_FACT=$VAL05
+    params:
+      - [ VAL01, INPUT, 6, 0, "Untouched"]
+      - [ VAL02, INPUT, 6, 0, "Total_Modes"]
+      - [ VAL03, INPUT, 6, 0, "Gain_Alpha"]
+      - [ VAL04, INPUT, 6, 0, "Mult_Alpha"]
+      - [ VAL05, INPUT, 6, 0, "TT_Gain_Fact"]
 
   -
     label: "Loop"

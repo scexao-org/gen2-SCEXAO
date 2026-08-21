@@ -8,7 +8,11 @@
     Script_Update=2026/08/14
 
 :Parameter
-    # button
+    UNTOUCHED=NOP
+    TOTAL_MODES=NOP
+    GAIN_ALPHA=NOP
+    MULT_ALPHA=NOP
+    TT_GAIN_FACT=NOP
 
 :Command
 :start
@@ -22,7 +26,7 @@ def execute_command(x){
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
 
-    EXEC SCEXAO PYWFS_PICKOFF;
+    EXEC SCEXAO SET_MODAL_GAINS UNTOUCHED=$UNTOUCHED TOTAL_MODES=$TOTAL_MODES GAIN_ALPHA=$GAIN_ALPHA MULT_ALPHA=$MULT_ALPHA TT_GAIN_FACT=$TT_GAIN_FACT;
 
 #    EXEC SCEXAO CHECK_STATUS_CHANGED TIMEOUT=100 STATUS_VAR="status alias";
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
@@ -30,7 +34,7 @@ def execute_command(x){
 }
 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing Modal Gains" ObsInfo2=Clear ObsInfo3="CMD: Button" ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing Modal Gains" ObsInfo2=Clear ObsInfo3="CMD: Untouched Modes: $UNTOUCHED, Total: $TOTAL_MODES," ObsInfo4="Alpha Gain: $GAIN_ALPHA, Mult Alpha: $MULT_ALPHA," ObsInfo5="TT Gain Factor: $TT_GAIN_FACT";
 
 :main_start
 
