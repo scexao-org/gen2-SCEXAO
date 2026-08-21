@@ -9,7 +9,7 @@
 
 # ask olivier for default
 :Parameter
-    STATE=NOP
+    STATE=OPEN
     *STATE=CLOSE,OPEN,ZERO
 
 :Command
