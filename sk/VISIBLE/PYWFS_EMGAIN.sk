@@ -1,11 +1,11 @@
 :Header
     OBE_ID=SCEXAO
     OBE_MODE=VISIBLE
-    COMMAND=PYWFS_GAIN
+    COMMAND=PYWFS_EMGAIN
     Script_ID=VISIBLE07
-    Script_Version=1.0
+    Script_Version=2.0
     Script_Author=Axel
-    Script_Update=2026/08/12
+    Script_Update=2026/08/21
 
 :Parameter
     EM_GAIN=1
@@ -18,7 +18,7 @@
 def execute_command(comparison){
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
-    EXEC SCEXAO PYWFS_GAIN EM_GAIN=$EM_GAIN;
+    EXEC SCEXAO PYWFS_EMGAIN EM_GAIN=$EM_GAIN;
     EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.GAIN" COMPARISON1="@comparison";
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Gain= !SCX.PYWFS.GAIN";

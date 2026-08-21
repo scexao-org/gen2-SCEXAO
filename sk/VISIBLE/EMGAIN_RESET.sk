@@ -1,28 +1,23 @@
 :Header
     OBE_ID=SCEXAO
     OBE_MODE=INFRA_RED
-    COMMAND=EM_GAIN_RESET
-    Script_ID=INFRA_RED15
-    Script_Version=1.0
+    COMMAND=EMGAIN_RESET
+    Script_ID=VISIBLE11
+    Script_Version=2.0
     Script_Author=Axel
-    Script_Update=2026/08/10
+    Script_Update=2026/08/21
 
 :Parameter
 
 :Command
 :start
 
-################################
-# UNIMPLEMENTED COMMAND
-################################
-
-
 # local function
 def execute_command(comparison){
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Resetting...";
 
-    EXEC SCEXAO EM_GAIN_RESET;
+    EXEC SCEXAO EMGAIN_RESET;
 
 #    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="status aliasL" COMPARISON1="@comparison";
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;

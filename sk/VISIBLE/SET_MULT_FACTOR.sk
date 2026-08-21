@@ -18,7 +18,7 @@
 #####################################
 
 # local function
-def execute_command(){
+def execute_command(x){
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
 
@@ -35,7 +35,7 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing Multiplication Fa
 :main_start
 
     # must assign to variable to excetue local function
-    asn why_do_I_exist = @execute_command()
+    asn why_do_I_exist = @execute_command(x="NA")
 
 :main_end
 

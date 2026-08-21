@@ -1,7 +1,7 @@
 :Header
     OBE_ID=SCEXAO
     OBE_MODE=VISIBLE
-    COMMAND=EM_GAIN_RESET
+    COMMAND=PYWFS_LOOP_GAIN_RESET
     Script_ID=VISIBLE05
     Script_Version=1.0
     Script_Author=Axel
@@ -18,11 +18,11 @@
 
 
 # local function
-def execute_command(){
+def execute_command(x){
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Resetting...";
 
-    EXEC SCEXAO PYWFS_GAIN_RESET;
+    EXEC SCEXAO PYWFS_LOOP_GAIN_RESET;
 
 #    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="status aliasL" COMPARISON1="@comparison";
 #    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
@@ -30,13 +30,13 @@ def execute_command(){
 }
 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="PyWFS Gain Reset" ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="PyWFS Loop Gain Reset" ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
 
     # must assign to variable to excetue local function
     # unimplemented command
-    asn why_do_I_exist = @execute_command()
+    asn why_do_I_exist = @execute_command(x="NA")
 
 :main_end
 

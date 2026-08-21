@@ -255,6 +255,10 @@ class Dm_Offload(SCEXAOTask):
     def __init__(self, state=None):
         super(Dm_Offload, self).__init__('Dm_Offload', state=state)
 
+class Emgain_Reset(SCEXAOTask):
+    def __init__(self):
+        super(Emgain_Reset, self).__init__('Emgain_Reset')
+
 class Field_Stop(SCEXAOTask):
     def __init__(self, position=None):
         super(Field_Stop, self).__init__('Field_Stop', position=position)
@@ -315,13 +319,13 @@ class Pywfs_Pickoff(SCEXAOTask):
     def __init__(self, slot=None):
         super(Pywfs_Pickoff, self).__init__('Pywfs_Pickoff', slot=slot)
 
-class Pywfs_Gain(SCEXAOTask):
+class Pywfs_Emgain(SCEXAOTask):
     def __init__(self, em_gain=None):
-        super(Pywfs_Gain, self).__init__('Pywfs_Gain', em_gain=em_gain)
+        super(Pywfs_Emgain, self).__init__('Pywfs_Emgain', em_gain=em_gain)
 
-class Pywfs_Gain_Reset(SCEXAOTask):
+class Pywfs_Loop_Gain_Reset(SCEXAOTask):
     def __init__(self):
-        super(Pywfs_Gain_Reset, self).__init__('Pywfs_Gain_Reset')
+        super(Pywfs_Loop_Gain_Reset, self).__init__('Pywfs_Loop_Gain_Reset')
 
 class Reach_Pickoff(SCEXAOTask):
     def __init__(self, position=None):
@@ -333,7 +337,7 @@ class Setup_Pywfs(SCEXAOTask):
 
 class Set_Pywfs_Loop_Gain(SCEXAOTask):
     def __init__(self, gain=None):
-        super(Set_Pywfs_Gain, self).__init__('Set_Pywfs_Gain', gain=gain)
+        super(Set_Pywfs_Loop_Gain, self).__init__('Set_Pywfs_Loop_Gain', gain=gain)
 
 class Set_Mult_Factor(SCEXAOTask):
     def __init__(self, factor=None):

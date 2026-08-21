@@ -24,21 +24,31 @@ launchers:
       - [ VAL01, LIST, [ "500","1000", "1500", "2000", "2500", "3000", "3500" ], "Frequency" ]
       - [ VAL02, LIST, [ "0.1", "0.2", "0.3", "0.4" ], "Mod_Amp" ]
 
+  - sep
+
   -
     label: "Pueo_EM_Gain"
-    cmd: PYWFS_GAIN OBE_ID=SCEXAO OBE_MODE=VISIBLE EM_GAIN=$VAL01
+    cmd: PYWFS_EMGAIN OBE_ID=SCEXAO OBE_MODE=VISIBLE EM_GAIN=$VAL01
     params:
       - [ VAL01, LIST, [ "AUTO","1", "2", "4", "8", "16", "32", "64", "128", "256", "600" ], "EM_Gain" ]
 
-  -
-    label: "PyWFS_Gain_Reset"
-    cmd: PYWFS_GAIN_RESET OBE_ID=SCEXAO OBE_MODE=VISIBLE
+ -
+    label: "EMGain_Reset"
+    cmd: EMGAIN_RESET OBE_ID=SCEXAO OBE_MODE=VISIBLE EMGAIN_RESET
+
+  - sep
 
   -
     label: "Set_PYWFS_Loop_Gain"
     cmd: SET_PYWFS_LOOP_GAIN OBE_ID=SCEXAO OBE_MODE=VISIBLE GAIN=$VAL01
     params:
       - [ VAL01, INPUT, 6, 0, "Gain"]
+
+  -
+    label: "PyWFS_Loop_Gain_Reset"
+    cmd: PYWFS_LOOP_GAIN_RESET OBE_ID=SCEXAO OBE_MODE=VISIBLE
+
+  - sep
 
   -
     label: "Set_Mult_Factor"
