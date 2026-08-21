@@ -44,6 +44,7 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing DM Offload State"
         # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="OFF")
 
+    *ENDIF
 :main_end
 
 #Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";

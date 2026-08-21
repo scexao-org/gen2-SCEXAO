@@ -1,7 +1,7 @@
 :Header
     OBE_ID=SCEXAO
     OBE_MODE=VISIBLE
-    COMMAND=SET_PYWFS_GAIN
+    COMMAND=SET_PYWFS_LOOP_GAIN
     Script_ID=VISIBLE06
     Script_Version=1.0
     Script_Author=Axel
@@ -18,22 +18,22 @@
 #####################################
 
 # local function
-def execute_command(){
+def execute_command(x){
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
-    EXEC SCEXAO SET_PYWFS_GAIN GAIN=$GAIN;
+    EXEC SCEXAO SET_PYWFS_LOOP_GAIN GAIN=$GAIN;
     EXEC SCEXAO CHECK_STATUS_CHANGED TIMEOUT=100 STATUS_VAR="SCX.PYWFS.GAIN";
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
     Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Gain= !SCX.PYWFS.GAIN";
 }
 
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing PyWFS Gain" ObsInfo2=Clear ObsInfo3="CMD: Gain=$GAIN" ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing PyWFS Loop Gain" ObsInfo2=Clear ObsInfo3="CMD: Gain=$GAIN" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
 
     # must assign to variable to excetue local function
-    asn why_do_I_exist = @execute_command()
+    asn why_do_I_exist = @execute_command(x="NA")
 
 :main_end
 

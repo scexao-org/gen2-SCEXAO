@@ -331,7 +331,7 @@ class Setup_Pywfs(SCEXAOTask):
     def __init__(self, frequency=None, mod_amp=None):
         super(Setup_Pywfs, self).__init__('Setup_Pywfs', frequency=frequency, mod_amp=mod_amp)
 
-class Set_Pywfs_Gain(SCEXAOTask):
+class Set_Pywfs_Loop_Gain(SCEXAOTask):
     def __init__(self, gain=None):
         super(Set_Pywfs_Gain, self).__init__('Set_Pywfs_Gain', gain=gain)
 

@@ -35,8 +35,8 @@ launchers:
     cmd: PYWFS_GAIN_RESET OBE_ID=SCEXAO OBE_MODE=VISIBLE
 
   -
-    label: "Set_PYWFS_Gain"
-    cmd: SET_PYWFS_GAIN OBE_ID=SCEXAO OBE_MODE=VISIBLE GAIN=$VAL01
+    label: "Set_PYWFS_Loop_Gain"
+    cmd: SET_PYWFS_LOOP_GAIN OBE_ID=SCEXAO OBE_MODE=VISIBLE GAIN=$VAL01
     params:
       - [ VAL01, INPUT, 6, 0, "Gain"]
 
