@@ -44,10 +44,6 @@ launchers:
     params:
       - [ VAL01, INPUT, 6, 0, "Gain"]
 
-  -
-    label: "PyWFS_Loop_Gain_Reset"
-    cmd: PYWFS_LOOP_GAIN_RESET OBE_ID=SCEXAO OBE_MODE=VISIBLE
-
   - sep
 
   -
