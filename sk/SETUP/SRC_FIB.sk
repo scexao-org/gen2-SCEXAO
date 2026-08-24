@@ -28,17 +28,17 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInf
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Source Fiber Change" ObsInfo2=Clear ObsInfo3="CMD: Position=$POSITION" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
-    *IF "$SLOT" == "IN"
+    *IF "$POSITION" == "IN"
 
         # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="IN")
 
-    *ELIF "$SLOT" == "OUT"
+    *ELIF "$POSITION" == "OUT"
 
         # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="OUT")
 
-    *ELIF "$SLOT" == "PINHOLE"
+    *ELIF "$POSITION" == "PINHOLE"
 
         # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="PINHOLE MASK")
