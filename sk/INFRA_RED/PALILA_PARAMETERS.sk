@@ -11,6 +11,10 @@
     NDR=NOP
     *NDR=1,2,4,8,16,32,64,128,255
 
+#########################
+# WITHOUT STATUS ALIAS
+#########################
+
 :Command
 :start
 
@@ -31,66 +35,10 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInf
 Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="PALILA Parameters Change" ObsInfo2=Clear ObsInfo3="CMD: NDR=$NDR" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
-    *IF "$NDR" == "1"
 
-        # must assign to variable to excetue local function
-        # fill in 'none' with value of status alias
-        asn why_do_I_exist = @execute_command(comparison="none")
+    # must assign to variable to excetue local function
+    asn why_do_I_exist = @execute_command(comparison="none")
 
-    *ELIF "$NDR" == "2"
-
-        # must assign to variable to excetue local function
-        # fill in 'none' with value of status alias
-        asn why_do_I_exist = @execute_command(comparison="none")
-
-    *ELIF "$NDR" == "4"
-
-        # must assign to variable to excetue local function
-        # fill in 'none' with value of status alias
-        asn why_do_I_exist = @execute_command(comparison="none")
-
-    *ELIF "$NDR" == "8"
-
-        # must assign to variable to excetue local function
-        # fill in 'none' with value of status alias
-        asn why_do_I_exist = @execute_command(comparison="none")
-
-    *ELIF "$NDR" == "16"
-
-        # must assign to variable to excetue local function
-        # fill in 'none' with value of status alias
-        asn why_do_I_exist = @execute_command(comparison="none")
-
-
-    *ELIF "$NDR" == "32"
-
-        # must assign to variable to excetue local function
-        # fill in 'none' with value of status alias
-        asn why_do_I_exist = @execute_command(comparison="none")
-
-
-    *ELIF "$NDR" == "64"
-
-        # must assign to variable to excetue local function
-        # fill in 'none' with value of status alias
-        asn why_do_I_exist = @execute_command(comparison="none")
-
-
-    *ELIF "$NDR" == "128"
-
-        # must assign to variable to excetue local function
-        # fill in 'none' with value of status alias
-        asn why_do_I_exist = @execute_command(comparison="none")
-
-
-    *ELIF "$NDR" == "256"
-
-        # must assign to variable to excetue local function
-        # fill in 'none' with value of status alias
-        asn why_do_I_exist = @execute_command(comparison="none")
-
-
-    *ENDIF
 :main_end
 
 #Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";

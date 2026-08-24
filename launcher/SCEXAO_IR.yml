@@ -12,6 +12,10 @@ launchers:
       - [ VAL01, LIST, [ "VVC", "OPEN", "LYOT78", "LYOT92", "LYOT113", "LYOT139", "LYOT165", "LYOT198", "LYOT228", "LYOT262", "LYOT310"], "Slot" ]
 
   -
+    label: "MOVE_FPM_SIDEWAYS"
+    cmd: FPM_SIDEWAYS OBE_ID=SCEXAO OBE_MODE=INFRA_RED
+
+  -
     label: "Coro Lyot"
     cmd: LYOT OBE_ID=SCEXAO OBE_MODE=INFRA_RED SLOT=$VAL01
     params:

@@ -271,6 +271,10 @@ class Fpm(SCEXAOTask):
     def __init__(self, slot=None):
         super(Fpm, self).__init__('Fpm', slot=slot)
 
+class Fpm_Sideways(SCEXAOTask):
+    def __init__(self):
+        super(Fpm_Sideways, self).__init__('Fpm_Sideways')
+
 class Ircam_Fcs(SCEXAOTask):
     def __init__(self, mode=None):
         super(Ircam_Fcs, self).__init__('Ircam_Fcs', mode=mode)

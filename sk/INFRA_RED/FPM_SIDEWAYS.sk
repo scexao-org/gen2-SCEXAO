@@ -1,0 +1,27 @@
+:Header
+    OBE_ID=SCEXAO
+    OBE_MODE=INFRA_RED
+    COMMAND=FPM_SIDEWAYS
+    Script_ID=INFRA_RED15
+    Script_Version=1.0
+    Script_Author=Axel
+    Script_Update=2026/08/21
+
+:Parameter
+#button
+
+:Command
+:start
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Moving FPM Sideways";
+
+:main_start
+
+    EXEC SCEXAO FPM_SIDEWAYS;
+
+:main_end
+
+Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+
+:end
