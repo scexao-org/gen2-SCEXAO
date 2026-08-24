@@ -4,7 +4,7 @@
     COMMAND=SETUP_PYWFS
     Script_ID=VISIBLE03
     Script_Version=1.0
-    Script_Author=Axel
+    Script_Author=Axel Reid
     Script_Update=2026/08/11
 
 :Parameter
@@ -16,22 +16,22 @@
 :Command
 :start
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Setting-up PyWFS" ObsInfo2=Clear ObsInfo3="CMD: Frequency=$FREQUENCY" ObsInfo4="Modulation Amplitude: $MOD_AMP" ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Setting-up PyWFS" ObsInfo2=Clear ObsInfo3="CMD: Frequency=$FREQUENCY" ObsInfo4="Modulation Amplitude: $MOD_AMP" ObsInfo5=Clear;
 
 # ADVISORY: for now, only frequency change verification is supported. Checking for changes in Mod_Amp requires further implementation
 
 :main_start
 
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Changing...";
     EXEC SCEXAO SETUP_PYWFS FREQUENCY=$FREQUENCY MOD_AMP=$MOD_AMP;
     EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.FREQ" COMPARISON1="$FREQUENCY";
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Frequency=!SCX.PYWFS.FREQ";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Result: Frequency=!SCX.PYWFS.FREQ";
 
 :main_end
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
 
 :end

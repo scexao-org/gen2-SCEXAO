@@ -4,7 +4,7 @@
     COMMAND=EMGAIN_RESET
     Script_ID=VISIBLE11
     Script_Version=2.0
-    Script_Author=Axel
+    Script_Author=Axel Reid
     Script_Update=2026/08/21
 
 :Parameter
@@ -13,8 +13,8 @@
 :Command
 :start
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="EM Gain Reset" ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="EM Gain Reset" ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
 

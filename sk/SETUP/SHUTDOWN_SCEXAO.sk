@@ -4,7 +4,7 @@
     COMMAND=SHUTDOWN_SCEXAO
     Script_ID=SETUP04
     Script_Version=2.0
-    Script_Author=Axel
+    Script_Author=Axel Reid
     Script_Update=2026/08/14
 
 :Parameter
@@ -16,8 +16,8 @@
 # local function
 def execute_shutdown(x){
 # start text
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Shutting down...";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Shutting down...";
 
 # commands    
     EXEC SCEXAO LOOP STATE="OPEN";
@@ -69,12 +69,12 @@ def execute_shutdown(x){
     # no status
 
 # end text
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Shutdown complete";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Shutdown complete";
 }
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Shutting-down SCExAO";
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Shutting-down SCExAO";
 
 :main_start
 

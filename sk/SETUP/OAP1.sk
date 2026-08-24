@@ -4,7 +4,7 @@
     COMMAND=OAP1
     Script_ID=SETUP02
     Script_Version=1.0
-    Script_Author=Axel
+    Script_Author=Axel Reid
     Script_Update=2026/08/05
 
 :Parameter

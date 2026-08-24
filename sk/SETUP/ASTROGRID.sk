@@ -4,7 +4,7 @@
     COMMAND=OAP1
     Script_ID=SETUP02
     Script_Version=1.0
-    Script_Author=Axel
+    Script_Author=Axel Reid
     Script_Update=2026/08/05
 
 :Parameter
@@ -20,18 +20,18 @@
 # local function
 def execute_command1(comparison1){
     EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.GRID.STAT" COMPARISON1="@comparison1";
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: State= !SCX.GRID.STAT";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Result: State= !SCX.GRID.STAT";
 }
 
 def execute_command2(comparison2){
     EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.GRID.SEP" COMPARISON1="@comparison2";
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo5=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo5="Result: Separation= !SCX.GRID.SEP lambda";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo5=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo5="Result: Separation= !SCX.GRID.SEP lambda";
 }
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing ASTROGRID" ObsInfo2=Clear ObsInfo3="CMD: State=$STATE" ObsInfo4="Amplitude= $AMPLITUDE nm" ObsInfo5="Mode= $MODE";
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing ASTROGRID" ObsInfo2=Clear ObsInfo3="CMD: State=$STATE" ObsInfo4="Amplitude= $AMPLITUDE nm" ObsInfo5="Mode= $MODE";
 
 :main_start
 
@@ -39,8 +39,8 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing ASTROGRID" ObsInf
     EXEC SCEXAO ASTROGRID STATE=$STATE AMPlITUDE=$AMPLITUDE MODE=$MODE;
 
     # change the screen
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing..." ObsInfo4="Changing..." ObsInfo5="Changing...";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Changing..." ObsInfo4="Changing..." ObsInfo5="Changing...";
 
     # state check
     *IF "$STATE" == "OFF"
@@ -54,8 +54,8 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing ASTROGRID" ObsInf
     # amplitude check
     asn amplitude = $AMPLITUDE / 1000
     EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.GRID.AMP" COMPARISON1="@amplitude";
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo4=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo4="Result: Amplitude= !SCX.GRID.AMP";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Result: Amplitude= !SCX.GRID.AMP";
 
     # mode check
     *IF "$MODE" == "PDI"
@@ -68,6 +68,6 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing ASTROGRID" ObsInf
 
 :main_end
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
 
 :end

@@ -4,7 +4,7 @@
     COMMAND=SET_MODAL_GAINS
     Script_ID=VISIBLE10
     Script_Version=1.0
-    Script_Author=Axel
+    Script_Author=Axel Reid
     Script_Update=2026/08/14
 
 :Parameter
@@ -23,18 +23,18 @@
 
 # local function
 def execute_command(x){
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Changing...";
 
     EXEC SCEXAO SET_MODAL_GAINS UNTOUCHED=$UNTOUCHED TOTAL_MODES=$TOTAL_MODES GAIN_ALPHA=$GAIN_ALPHA MULT_ALPHA=$MULT_ALPHA TT_GAIN_FACT=$TT_GAIN_FACT;
 
 #    EXEC SCEXAO CHECK_STATUS_CHANGED TIMEOUT=100 STATUS_VAR="status alias";
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Slot= !status alias";
+#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Result: Slot= !status alias";
 }
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing Modal Gains" ObsInfo2=Clear ObsInfo3="CMD: Untouched Modes: $UNTOUCHED, Total: $TOTAL_MODES," ObsInfo4="Alpha Gain: $GAIN_ALPHA, Mult Alpha: $MULT_ALPHA," ObsInfo5="TT Gain Factor: $TT_GAIN_FACT";
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing Modal Gains" ObsInfo2=Clear ObsInfo3="CMD: Untouched Modes: $UNTOUCHED, Total: $TOTAL_MODES," ObsInfo4="Alpha Gain: $GAIN_ALPHA, Mult Alpha: $MULT_ALPHA," ObsInfo5="TT Gain Factor: $TT_GAIN_FACT";
 
 :main_start
 
@@ -43,6 +43,6 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing Modal Gains" ObsI
 
 :main_end
 
-#Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+#Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
 
 :end

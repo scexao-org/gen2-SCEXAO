@@ -4,7 +4,7 @@
     COMMAND=STARTUP_SCEXAO
     Script_ID=SETUP10
     Script_Version=1.0
-    Script_Author=Axel
+    Script_Author=Axel Reid
     Script_Update=2026/08/14
 
 :Parameter
@@ -17,8 +17,8 @@
 # local function
 def execute_onsky(x){
 # start text
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Setting-up on-sky...";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Setting-up on-sky...";
 
 # commands    
     EXEC SCEXAO WFS_ACQUISITION MODE="START";
@@ -65,14 +65,14 @@ def execute_onsky(x){
     # no status
 
 # end text
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Setup complete";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Setup complete";
 }
 
 def execute_calibration(x){
 # start text
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Setting-up for Calibration...";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Setting-up for Calibration...";
 
 # commands    
     EXEC SCEXAO WFS_ACQUISITION MODE="START";
@@ -117,10 +117,14 @@ def execute_calibration(x){
     EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.REACH.PKO" COMPARISON1="OUT";
     EXEC SCEXAO PALILA_PARAMETERS NDR="255";
     # no status
+
+# end text
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Setup for Calibration complete";
 }
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Starting-up SCExAO" ObsInfo2=Clear ObsInfo3="CMD: Mode=$MODE" ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Starting-up SCExAO" ObsInfo2=Clear ObsInfo3="CMD: Mode=$MODE" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
     *IF "$MODE" == "CALIBRATION"
@@ -128,13 +132,14 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Starting-up SCExAO" ObsInf
         # must assign to variable to excetue local function
         # replace 'none' with the value of the status alias  
         asn why_do_I_exist = @execute_calibration(x="NA")
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
 
     *ELIF "$MODE" == "ONSKY"
 
         # must assign to variable to excetue local function
         # replace 'none' with the value of the status alias
         asn why_do_I_exist = @execute_onsky(x="NA")
-        Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
 
     *ENDIF
 

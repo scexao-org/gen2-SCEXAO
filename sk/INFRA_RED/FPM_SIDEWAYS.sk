@@ -4,7 +4,7 @@
     COMMAND=FPM_SIDEWAYS
     Script_ID=INFRA_RED15
     Script_Version=1.0
-    Script_Author=Axel
+    Script_Author=Axel Reid
     Script_Update=2026/08/21
 
 :Parameter
@@ -13,8 +13,8 @@
 :Command
 :start
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Moving FPM Sideways";
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Moving FPM Sideways";
 
 :main_start
 
@@ -22,6 +22,6 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Moving FPM Sideways";
 
 :main_end
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
 
 :end

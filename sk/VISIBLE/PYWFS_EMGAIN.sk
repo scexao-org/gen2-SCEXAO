@@ -4,7 +4,7 @@
     COMMAND=PYWFS_EMGAIN
     Script_ID=VISIBLE07
     Script_Version=2.0
-    Script_Author=Axel
+    Script_Author=Axel Reid
     Script_Update=2026/08/21
 
 :Parameter
@@ -16,16 +16,16 @@
 
 # local function
 def execute_command(comparison){
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Changing...";
     EXEC SCEXAO PYWFS_EMGAIN EM_GAIN=$EM_GAIN;
     EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.GAIN" COMPARISON1="@comparison";
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Gain= !SCX.PYWFS.GAIN";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Result: Gain= !SCX.PYWFS.GAIN";
 }
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing PyWFS EM Gain" ObsInfo2=Clear ObsInfo3="CMD: Gain=$EM_GAIN" ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing PyWFS EM Gain" ObsInfo2=Clear ObsInfo3="CMD: Gain=$EM_GAIN" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
 
@@ -34,6 +34,6 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing PyWFS EM Gain" Ob
 
 :main_end
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
 
 :end

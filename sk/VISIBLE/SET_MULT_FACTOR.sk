@@ -4,7 +4,7 @@
     COMMAND=SET_MULT_FACTOR
     Script_ID=VISIBLE09
     Script_Version=1.0
-    Script_Author=Axel
+    Script_Author=Axel Reid
     Script_Update=2026/08/13
 
 :Parameter
@@ -19,18 +19,18 @@
 
 # local function
 def execute_command(x){
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Changing...";
 
     EXEC SCEXAO SET_MULT_FACTOR FACTOR=$FACTOR;
 
 #    EXEC SCEXAO CHECK_STATUS_CHANGED TIMEOUT=100 STATUS_VAR="status alias";
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Factor= !status alias";
+#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Result: Factor= !status alias";
 }
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing Multiplication Factor" ObsInfo2=Clear ObsInfo3="CMD: Factor=$FACTOR" ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing Multiplication Factor" ObsInfo2=Clear ObsInfo3="CMD: Factor=$FACTOR" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
 
@@ -39,6 +39,6 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="Changing Multiplication Fa
 
 :main_end
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
 
 :end

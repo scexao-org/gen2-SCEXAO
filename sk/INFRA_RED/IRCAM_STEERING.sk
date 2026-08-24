@@ -4,7 +4,7 @@
     COMMAND=IRCAM_STEERING
     Script_ID=INFRA_RED06
     Script_Version=1.0
-    Script_Author=Axel
+    Script_Author=Axel Reid
     Script_Update=2026/08/10
 
 :Parameter
@@ -24,20 +24,20 @@
 
 # local function
 def execute_command(comparison){
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Changing...";
+#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Changing...";
 
     EXEC SCEXAO IRCAM_STEERING SLOT=$SLOT A=$A B=$B MOTION=$MOTION;
 
 # for now no status alias avaliable
 #    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="status alias" COMPARISON1="@comparison";
-#    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3=Clear;
+#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
 
-    Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo3="Result: Mode= $MODE" ObsInfo4="a=$A, b=$B" ObsInfo5="Motion=$MOTION";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Result: Mode= $MODE" ObsInfo4="a=$A, b=$B" ObsInfo5="Motion=$MOTION";
 }
 
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="IRcam Steering Mode Change" ObsInfo2=Clear ObsInfo3="CMD: Mode=$MODE" ObsInfo4="a=$A, b=$B" ObsInfo5="Motion=$MOTION";
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="IRcam Steering Mode Change" ObsInfo2=Clear ObsInfo3="CMD: Mode=$MODE" ObsInfo4="a=$A, b=$B" ObsInfo5="Motion=$MOTION";
 
 :main_start
     *IF "$MODE" == "ONAXIS"
@@ -67,6 +67,6 @@ Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo1="IRcam Steering Mode Change
     *ENDIF
 :main_end
 
-#Exec OBS Set_Message Instrument_Name=SCEXAO ObsInfo2="Done";
+#Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
 
 :end
