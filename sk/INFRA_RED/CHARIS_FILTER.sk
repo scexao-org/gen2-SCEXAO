@@ -19,15 +19,13 @@
 :start
 
 # local function
-def execute_command(comparison){
-#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
-#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Changing...";
-
+def execute_command(comparisonA, comparisonB){
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Changing...";
     EXEC SCEXAO CHARIS_FILTER SLOT=$SLOT;
-
-#    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="status alias" COMPARISON1="@comparison";
-#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
-#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Result: Slot= !status alias";
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PIAA1" COMPARISON1="@comparisonA" STATUS_VAR2="SCX.PIAA2" COMPARISON2="@comparisonB";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Result: Slot= $SLOT";
 }
 
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
@@ -37,22 +35,22 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="CHARIS FILTER 
     *IF "$SLOT" == "J"
 
         # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="j")
+        asn why_do_I_exist = @execute_command(comparisonA="F 1200nm bw10nm", comparisonB="Open")
 
     *ELIF "$SLOT" == "H"
 
         # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="h")
+        asn why_do_I_exist = @execute_command(comparisonA="F 1550nm bw10nm", comparisonB="Open")
 
     *ELIF "$SLOT" == "K"
 
         # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="k")
+        asn why_do_I_exist = @execute_command(comparisonA="Open", comparisonB="K-band narrowbd")
 
     *ELIF "$SLOT" == "OUT"
 
         # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="out")
+        asn why_do_I_exist = @execute_command(comparisonA="Open", comparisonB="Open")
 
     *ENDIF
 :main_end

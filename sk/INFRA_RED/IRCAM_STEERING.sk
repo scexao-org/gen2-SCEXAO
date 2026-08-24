@@ -27,7 +27,7 @@ def execute_command(comparison){
 #    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
 #    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Changing...";
 
-    EXEC SCEXAO IRCAM_STEERING SLOT=$SLOT A=$A B=$B MOTION=$MOTION;
+    EXEC SCEXAO IRCAM_STEERING MODE=$MODE A=$A B=$B MOTION=$MOTION;
 
 # for now no status alias avaliable
 #    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="status alias" COMPARISON1="@comparison";

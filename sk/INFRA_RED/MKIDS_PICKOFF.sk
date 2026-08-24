@@ -48,7 +48,7 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="MEC Pickoff Sl
         # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="T90/R10")
 
-    *ELIF "$SLOT" == "1.35UMSP
+    *ELIF "$SLOT" == "1.35UMSP"
 
         # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_command(comparison="J-band dichiro")
