@@ -84,6 +84,7 @@ class check_status_changed(SCXTask):
             raise g2Task.g2TaskError(f"command 'check_status_changed' {timeout} must be a number")
         if timeout <= 0 or timeout > 10000:
             raise g2Task.g2TaskError("error: timeout must be greater than 0 and less than or equal to 10,000")
+        timeout = timeout * 10
 
         status_var = self.params["status_var"]
         status_var_val0 = self.fetchOne(status_var)
@@ -129,6 +130,7 @@ class check_status(SCXTask):
             raise g2Task.g2TaskError(f"command 'check_status' {timeout_counter} must be a number")
         if timeout_counter <= 0 or timeout_counter > 10000:
             raise g2Task.g2TaskError("error: timeout_counter must be greater than 0 and less than or equal to 10,000")
+        timeout_counter = timeout_counter * 10
 
         # check comparison parameter
         comparison1 = self.params["comparison1"]
