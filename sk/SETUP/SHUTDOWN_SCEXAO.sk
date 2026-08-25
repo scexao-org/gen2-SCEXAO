@@ -13,6 +13,28 @@
 :Command
 :start
 
+# imports
+from "SCEXAO_Helpers" import strip
+
+# remove whitespaces from current status
+asn loop_status = @strip("!SCX.PYWFS.LOOP")
+asn pywfs_flt = @strip("!SCX.PYWFS.FLT")
+asn superk_status = @strip("!SCX.SRC.EN")
+asn astrogrid_state = @strip("!SCX.GRID.STAT")
+asn src_pos = @strip("!SCX.SRC.FIB")
+asn oap1_pos = @strip("!SCX.OAP1")
+asn fpm_slot = @strip("!SCX.FPM")
+asn lyot_slot = @strip("!SCX.LYOT")
+asn charis_pko_slot = @strip("!SCX.CHARIS.PKO")
+asn ircam_flt_slot = @strip("!SCX.IRCAM.FLT")
+asn ircam_fcs_mode = @strip("!SCX.IRCAM.FCS")
+asn apapane_pko_slot = @strip("!SCX.APAPANE.PKO")
+asn field_stop_pos = @strip("!SCX.FSTOP")
+asn charis_wol_pos = @strip("!SCX.CHARIS.WOL")
+asn ircam_wol_pos = @strip("!SCX.IRCAM.WOL")
+asn reach_pko_pos @strip("!SCX.REACH.PKO")
+
+
 # local function
 def execute_shutdown(x){
 # start text
@@ -20,50 +42,129 @@ def execute_shutdown(x){
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Shutting down...";
 
 # commands    
+#    IF @loop_status == "OPEN"
+#        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+#        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Loop already in position";
+#    ELSE 
     EXEC SCEXAO LOOP STATE="OPEN";
-    # status needs fixing
-#    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.LOOP" COMPARISON1="OPEN";
+        # status needs fixing
+#        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.LOOP" COMPARISON1="OPEN";
+    ENDIF
     EXEC SCEXAO LOOP STATE="ZERO";
-    # status needs fixing
-#    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.LOOP" COMPARISON1="ZERO";
+    # no status
     EXEC SCEXAO PYWFS_EMGAIN EM_GAIN="1";
     # no status
     EXEC SCEXAO SETUP_PYWFS FREQUENCY="1000" MOD_AMP="0.1";
     EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.FREQ" COMPARISON1="1000";
-    EXEC SCEXAO PYWFS_FILTER SLOT="BLOCK";
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.FLT" COMPARISON1="BLOCK";
-    EXEC SCEXAO SUPERK POWER="OFF";
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.EN" COMPARISON1="OFF";
+    IF @pywfs_flt == "BLOCK"    
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="PyWFS filter already in position";
+    ELSE
+        EXEC SCEXAO PYWFS_FILTER SLOT="BLOCK";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.FLT" COMPARISON1="BLOCK";
+    ENDIF
+    IF @superk_status == "OFF"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Source already turned off";
+    ELSE
+        EXEC SCEXAO SUPERK POWER="OFF";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.EN" COMPARISON1="OFF";
+    ENDIF
     EXEC SCEXAO SRC_FLUX MODE="DEFAULT";
     # no status
-    EXEC SCEXAO ASTROGRID STATE="OFF" AMPlITUDE="0.05" MODE="PDI";
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.GRID.STAT" COMPARISON1="OFF";
+    IF @astrogrid_state == "OFF"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="astrogrid already turned off";
+    ELSE
+        EXEC SCEXAO ASTROGRID STATE="OFF" AMPlITUDE="0.05" MODE="PDI";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.GRID.STAT" COMPARISON1="OFF";
+    ENDIF
     EXEC SCEXAO SCEXAO_DM STATE="FLAT";
     # no status
-    EXEC SCEXAO SRC_FIB POSITION="IN";
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.FIB" COMPARISON1="IN";
-    EXEC SCEXAO OAP1 POSITION="INT";
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.OAP1" COMPARISON1="INT";
-    EXEC SCEXAO FPM SLOT="OPEN";
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.FPM" COMPARISON1="OPEN";
-    EXEC SCEXAO LYOT SLOT="OPEN";
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.LYOT" COMPARISON1="OPEN";
-    EXEC SCEXAO CHARIS_PICKOFF SLOT="MIRROR";
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.CHARIS.PKO" COMPARISON1="Gold mirror";
-    EXEC SCEXAO IRCAM_FILTER SLOT="H";
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.IRCAM.FLT" COMPARISON1="H";
-    EXEC SCEXAO IRCAM_FCS MODE="PALILA";
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.IRCAM.FCS" COMPARISON1="PALILA";
-    EXEC SCEXAO APAPANE_PICKOFF SLOT="OUT";
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.APAPANE.PKO" COMPARISON1="OUT";
-    EXEC SCEXAO FIELD_STOP POSITION="OUT";
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.FSTOP" COMPARISON1="OUT";
-    EXEC SCEXAO CHARIS_WOLLASTON POSITION="OUT";
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.CHARIS.WOL" COMPARISON1="OUT";
-    EXEC SCEXAO IRCAM_WOLLASTON POSITION="OUT";
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.IRCAM.WOL" COMPARISON1="OUT";
-    EXEC SCEXAO REACH_PICKOFF POSITION="OUT";
-    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.REACH.PKO" COMPARISON1="OUT";
+    IF @src_pos == "IN"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Source Fib already in position";
+    ELSE
+        EXEC SCEXAO SRC_FIB POSITION="IN";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.FIB" COMPARISON1="IN";
+    ENDIF
+    IF @oap1_pos == "INT"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="OAP1 already in position";
+    ELSE
+        EXEC SCEXAO OAP1 POSITION="INT";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.OAP1" COMPARISON1="INT";
+    ENDIF
+    IF @fpm_slot == "OPEN"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="FPM already in position";
+    ELSE
+        EXEC SCEXAO FPM SLOT="OPEN";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.FPM" COMPARISON1="OPEN";
+    ENDIF
+    IF @lyot_slot == "OPEN"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Lyot already in position";
+    ELSE
+        EXEC SCEXAO LYOT SLOT="OPEN";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.LYOT" COMPARISON1="OPEN";
+    ENDIF
+    IF @charis_pko_slot == "Gold mirror"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="CHARIS Pickoff already in position";
+    ELSE
+        EXEC SCEXAO CHARIS_PICKOFF SLOT="MIRROR";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.CHARIS.PKO" COMPARISON1="Gold mirror";
+    ENDIF
+    IF @ircam_flt_slot == "H-band"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="IRCam filter already in position";
+    ELSE
+        EXEC SCEXAO IRCAM_FILTER SLOT="H";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.IRCAM.FLT" COMPARISON1="H-band";
+    ENDIF
+    IF @ircam_fcs_mode == "Palila focus"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="IRCam Focus already in position";
+    ELSE
+        EXEC SCEXAO IRCAM_FCS MODE="PALILA";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.IRCAM.FCS" COMPARISON1="Palila focus";
+    ENDIF
+    IF @apapane_pko_slot == "OUT"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Apapane pickoff already in position";
+    ELSE
+        EXEC SCEXAO APAPANE_PICKOFF SLOT="OUT";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.APAPANE.PKO" COMPARISON1="OUT";
+    ENDIF
+    IF @field_stop_pos == "OUT"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Field stop already in position";
+    ELSE
+        EXEC SCEXAO FIELD_STOP POSITION="OUT";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.FSTOP" COMPARISON1="OUT";
+    ENDIF
+    IF @charis_wol_pos == "OUT"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="CHARIS Wollaston already in position";
+    ELSE
+        EXEC SCEXAO CHARIS_WOLLASTON POSITION="OUT";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.CHARIS.WOL" COMPARISON1="OUT";
+    ENDIF
+    IF @ircam_wol_pos == "OUT"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="IRCam Wollaston already in position";
+    ELSE
+        EXEC SCEXAO IRCAM_WOLLASTON POSITION="OUT";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.IRCAM.WOL" COMPARISON1="OUT";
+    ENDIF
+    IF @reach_pko_pos == "OUT"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Reach Pickoff already in position";
+    ELSE
+        EXEC SCEXAO REACH_PICKOFF POSITION="OUT";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.REACH.PKO" COMPARISON1="OUT";
+    ENDIF
     EXEC SCEXAO PALILA_PARAMETERS NDR="1";
     # no status
     EXEC SCEXAO WFS_ACQUISITION MODE="STOP";
