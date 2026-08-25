@@ -14,6 +14,8 @@
 :Command
 :start
 
+from "Helpers" import strip
+
 # local function
 def execute_command(comparison){
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
@@ -28,8 +30,9 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing OAP1" ObsInfo2=Clear ObsInfo3="CMD: Position=$POSITION" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
+    asn status = @strip("!SCX.OAP1")
     *IF "$POSITION" == "CWFS"
-        *IF "!SCX.OAP1" == "AO188-CWFS"
+        *IF @status == "AO188-CWFS"
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
         *ELSE
@@ -38,7 +41,7 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing OAP1"
         *ENDIF
 
     *ELIF "$POSITION" == "NIRWFS"
-        *IF "!SCX.OAP1" == "AO3k-NIRWFS"
+        *IF @status == "AO3k-NIRWFS"
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
         *ELSE
@@ -47,7 +50,7 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing OAP1"
         *ENDIF
 
     *ELIF "$POSITION" == "INT"
-        *IF "!SCX.OAP1" == "INT"
+        *IF @status == "INT"
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
         *ELSE
