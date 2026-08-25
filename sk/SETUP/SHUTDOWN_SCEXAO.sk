@@ -32,7 +32,7 @@ asn apapane_pko_slot = @strip("!SCX.APAPANE.PKO")
 asn field_stop_pos = @strip("!SCX.FSTOP")
 asn charis_wol_pos = @strip("!SCX.CHARIS.WOL")
 asn ircam_wol_pos = @strip("!SCX.IRCAM.WOL")
-asn reach_pko_pos @strip("!SCX.REACH.PKO")
+asn reach_pko_pos = @strip("!SCX.REACH.PKO")
 
 
 # local function
@@ -49,7 +49,7 @@ def execute_shutdown(x){
     EXEC SCEXAO LOOP STATE="OPEN";
         # status needs fixing
 #        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.LOOP" COMPARISON1="OPEN";
-    ENDIF
+#    ENDIF
     EXEC SCEXAO LOOP STATE="ZERO";
     # no status
     EXEC SCEXAO PYWFS_EMGAIN EM_GAIN="1";
@@ -168,10 +168,18 @@ def execute_shutdown(x){
     EXEC SCEXAO PALILA_PARAMETERS NDR="1";
     # no status
     EXEC SCEXAO WFS_ACQUISITION MODE="STOP";
-    # no status
+    # no status    
+    EXEC SCEXAO SUPERK POWER="ON";
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.EN" COMPARISON1="ON";
+
+    # dialogue
+    EXEC OBS CONFIRMATION INSTRUMENT_NAME=!FITS.SBR.MAINOBCP TITLE="Align PSF on the hotspot" DIALOG=OK;
+
+    EXEC SCEXAO SUPERK POWER="OFF";
+    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.EN" COMPARISON1="OFF";
 
 # end text
-    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear ObsInfo4=Clear;
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Shutdown complete";
 }
 
