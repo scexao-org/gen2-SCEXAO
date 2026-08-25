@@ -33,12 +33,6 @@ launchers:
       - [ VAL01, LIST, [ "'IN'", "OUT", "PINHOLE" ], "Position" ]
 
   -
-    label: "WFS Acquisition"
-    cmd: WFS_ACQUISITION OBE_ID=SCEXAO OBE_MODE=SETUP MODE=$VAL01
-    params:
-      - [ VAL01, LIST, [ "START", "STOP" ], "Mode" ]
-
-  -
     label: "OAP1"
     cmd: OAP1 OBE_ID=SCEXAO OBE_MODE=SETUP POSITION=$VAL01
     params:

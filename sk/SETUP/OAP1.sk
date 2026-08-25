@@ -29,19 +29,31 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing OAP1"
 
 :main_start
     *IF "$POSITION" == "CWFS"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="AO188-CWFS")
+        *IF "!SCX.OAP1" == "AO188-CWFS"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        *ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="AO188-CWFS")
+        *ENDIF
 
     *ELIF "$POSITION" == "NIRWFS"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="AO3k-NIRWFS")
+        *IF "!SCX.OAP1" == "AO3k-NIRWFS"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        *ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="AO3k-NIRWFS")
+        *ENDIF
 
     *ELIF "$POSITION" == "INT"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="INT")
+        *IF "!SCX.OAP1" == "INT"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        *ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="INT")
+        *ENDIF
 
     *ENDIF
 :main_end

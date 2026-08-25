@@ -5,6 +5,13 @@
 
 tabname: "SCEXAO Vis"
 launchers:
+
+  -
+    label: "WFS Acquisition"
+    cmd: WFS_ACQUISITION OBE_ID=SCEXAO OBE_MODE=VISIBLE MODE=$VAL01
+    params:
+      - [ VAL01, LIST, [ "START", "STOP" ], "Mode" ]
+
   -
     label: "PYWFS_Pickoff"
     cmd: PYWFS_PICKOFF OBE_ID=SCEXAO OBE_MODE=VISIBLE SLOT=$VAL01
@@ -24,8 +31,6 @@ launchers:
       - [ VAL01, LIST, [ "500","1000", "1500", "2000", "2500", "3000", "3500" ], "Frequency" ]
       - [ VAL02, LIST, [ "0.1", "0.2", "0.3", "0.4" ], "Mod_Amp" ]
 
-  - sep
-
   -
     label: "Pueo_EM_Gain"
     cmd: PYWFS_EMGAIN OBE_ID=SCEXAO OBE_MODE=VISIBLE EM_GAIN=$VAL01
@@ -43,8 +48,6 @@ launchers:
     cmd: SET_PYWFS_LOOP_GAIN OBE_ID=SCEXAO OBE_MODE=VISIBLE GAIN=$VAL01
     params:
       - [ VAL01, INPUT, 6, 0, "Gain"]
-
-  - sep
 
   -
     label: "Set_Mult_Factor"
