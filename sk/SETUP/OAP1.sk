@@ -14,7 +14,8 @@
 :Command
 :start
 
-from "Helpers" import strip
+from "SCEXAO_Helpers" import strip
+asn mystatus = @strip("!SCX.OAP1")
 
 # local function
 def execute_command(comparison){
@@ -30,35 +31,34 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing OAP1" ObsInfo2=Clear ObsInfo3="CMD: Position=$POSITION" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
-    asn status = @strip("!SCX.OAP1")
-    *IF "$POSITION" == "CWFS"
-        *IF @status == "AO188-CWFS"
+    IF "$POSITION" == "CWFS"
+        IF @mystatus == "AO188-CWFS"
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
-        *ELSE
+        ELSE
             # must assign to variable to excetue local function
             asn why_do_I_exist = @execute_command(comparison="AO188-CWFS")
-        *ENDIF
+        ENDIF
 
-    *ELIF "$POSITION" == "NIRWFS"
-        *IF @status == "AO3k-NIRWFS"
+    ELIF "$POSITION" == "NIRWFS"
+        IF @mystatus == "AO3k-NIRWFS"
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
-        *ELSE
+        ELSE
             # must assign to variable to excetue local function
             asn why_do_I_exist = @execute_command(comparison="AO3k-NIRWFS")
-        *ENDIF
+        ENDIF
 
-    *ELIF "$POSITION" == "INT"
-        *IF @status == "INT"
+    ELIF "$POSITION" == "INT"
+        IF @mystatus == "INT"
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
-        *ELSE
+        ELSE
             # must assign to variable to excetue local function
             asn why_do_I_exist = @execute_command(comparison="INT")
-        *ENDIF
+        ENDIF
 
-    *ENDIF
+    ENDIF
 :main_end
 
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";

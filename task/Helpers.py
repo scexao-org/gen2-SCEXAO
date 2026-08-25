@@ -1,4 +1,4 @@
 # python functions to use in skeleton files
 
-def strip(s)
+def strip(s):
     return s.strip()
