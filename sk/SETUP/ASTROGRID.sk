@@ -21,6 +21,7 @@ from "SCEXAO_Helpers" import strip
 asn mystatus1 = @strip("!SCX.GRID.STAT")
 asn mystatus2 = @strip("!SCX.GRID.AMP")
 asn mystatus3 = @strip("!SCX.GRID.SEP")
+asn amplitude = $AMPLITUDE / 1000
 
 # local function
 def execute_command1(comparison1){
@@ -45,11 +46,17 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing ASTRO
     ELIF "$MODE" == "IMAGING"
         asn mode = "15.5"
     ENDIF
+    
+    IF  "$STATE" == "ON"
+        asn state = "XYgrid"
+    ELSE 
+        asn state = "OFF"
+    ENDIF
 
     IF @mystatus1 == "OFF" AND $STATE == "OFF"
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
-    ELIF @mystatus1 == $STATE AND @mystatus2 == $AMPLITUDE AND @mystatus3 == @mode
+    ELIF @mystatus1 == "@state" AND @mystatus2 == "@amplitude" AND @mystatus3 == "@mode"
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
     ELSE
@@ -62,16 +69,15 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing ASTRO
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Changing...";
 
         # state check
-        IF "$STATE" == "OFF"
+        IF "@state" == "OFF"
             # must assign to variable to excetue local function
             asn why_do_I_exist1 = @execute_command1(comparison1="OFF")
         ELSE
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Changing..." ObsInfo5="Changing...";
             # must assign to variable to excetue local function
-            aSTATEsn why_do_I_exist1 = @execute_command1(comparison1="ON")
+            asn why_do_I_exist1 = @execute_command1(comparison1="XYgrid")
 
             # amplitude check
-            asn amplitude = $AMPLITUDE / 1000
             EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.GRID.AMP" COMPARISON1="@amplitude";
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Result: Amplitude= !SCX.GRID.AMP";
