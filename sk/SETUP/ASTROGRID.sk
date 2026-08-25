@@ -66,9 +66,9 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing ASTRO
             # must assign to variable to excetue local function
             asn why_do_I_exist1 = @execute_command1(comparison1="OFF")
         ELSE
-            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Changing..." ObsInfo5="Changing...;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Changing..." ObsInfo5="Changing...";
             # must assign to variable to excetue local function
-            asn why_do_I_exist1 = @execute_command1(comparison1="ON")
+            aSTATEsn why_do_I_exist1 = @execute_command1(comparison1="ON")
 
             # amplitude check
             asn amplitude = $AMPLITUDE / 1000
@@ -91,3 +91,4 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing ASTRO
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
 
 :end
+
