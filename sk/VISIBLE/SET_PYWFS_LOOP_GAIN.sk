@@ -13,14 +13,21 @@
 :Command
 :start
 
+##############################
+# STATUS ALIAS DISFUNCTIONAL
+##############################
+
 # local function
 def execute_command(x){
-    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Changing...";
+#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+#    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Changing...";
+
     EXEC SCEXAO SET_PYWFS_LOOP_GAIN GAIN=$GAIN;
-    EXEC SCEXAO CHECK_STATUS_CHANGED TIMEOUT=100 STATUS_VAR="SCX.PYWFS.GAIN";
+
+#    EXEC SCEXAO CHECK_STATUS_CHANGED TIMEOUT=100 STATUS_VAR="SCX.PYWFS.GAIN";
+
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Result: Gain= !SCX.PYWFS.GAIN";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Result: Gain= $GAIN";
 }
 
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
@@ -33,6 +40,6 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing PyWFS
 
 :main_end
 
-Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
+#Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
 
 :end
