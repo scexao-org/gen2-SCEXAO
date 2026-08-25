@@ -62,24 +62,26 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing ASTRO
         IF "$STATE" == "OFF"
             # must assign to variable to excetue local function
             asn why_do_I_exist1 = @execute_command1(comparison1="OFF")
-        ELIF "$STATE" == "ON"
-            # must assign to variable to excetue local function
-            asn why_do_I_exist1 = @execute_command1(comparison1="ON")
-        ENDIF
+        ELSE
+            IF "$STATE" == "ON"
+                # must assign to variable to excetue local function
+                asn why_do_I_exist1 = @execute_command1(comparison1="ON")
+            ENDIF
 
-        # amplitude check
-        asn amplitude = $AMPLITUDE / 1000
-        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.GRID.AMP" COMPARISON1="@amplitude";
-        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
-        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Result: Amplitude= !SCX.GRID.AMP";
+            # amplitude check
+            asn amplitude = $AMPLITUDE / 1000
+            EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.GRID.AMP" COMPARISON1="@amplitude";
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Result: Amplitude= !SCX.GRID.AMP";
 
-        # mode check
-        IF "$MODE" == "PDI"
-            # must assign to variable to excetue local function
-            asn why_do_I_exist2 = @execute_command2(comparison2="10.3")
-        ELIF "$MODE" == "IMAGING"
-            # must assign to variable to excetue local function
-            asn why_do_I_exist2 = @execute_command2(comparison2="15.5")
+            # mode check
+            IF "$MODE" == "PDI"
+                # must assign to variable to excetue local function
+                asn why_do_I_exist2 = @execute_command2(comparison2="10.3")
+            ELIF "$MODE" == "IMAGING"
+                # must assign to variable to excetue local function
+                asn why_do_I_exist2 = @execute_command2(comparison2="15.5")
+            ENDIF
         ENDIF
     ENDIF
 :main_end

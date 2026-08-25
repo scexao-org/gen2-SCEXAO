@@ -84,7 +84,7 @@ class check_status_changed(SCXTask):
             raise g2Task.g2TaskError(f"command 'check_status_changed' {timeout} must be a number")
         if timeout <= 0 or timeout > 10000:
             raise g2Task.g2TaskError("error: timeout must be greater than 0 and less than or equal to 10,000")
-        timeout = timeout * 10
+        timeout = timeout * 2
 
         status_var = self.params["status_var"]
         status_var_val0 = self.fetchOne(status_var)
@@ -92,7 +92,7 @@ class check_status_changed(SCXTask):
         status_var_val = status_var_val0
         while status_var_val == status_var_val0 and timeout > 0:
             # sleep for one second
-            self.sleep(1)
+            self.sleep(0.5)
             timeout = timeout - 1
             # check status of alias
             status_var_val = self.fetchOne(status_var)
@@ -130,7 +130,7 @@ class check_status(SCXTask):
             raise g2Task.g2TaskError(f"command 'check_status' {timeout_counter} must be a number")
         if timeout_counter <= 0 or timeout_counter > 10000:
             raise g2Task.g2TaskError("error: timeout_counter must be greater than 0 and less than or equal to 10,000")
-        timeout_counter = timeout_counter * 10
+        timeout_counter = timeout_counter * 2
 
         # check comparison parameter
         comparison1 = self.params["comparison1"]
@@ -157,7 +157,7 @@ class check_status(SCXTask):
             if condition == 'equals':
                 while status_var1_val != comparison1 and timeout_counter > 0:
                     # sleep for one second
-                    self.sleep(0.1)
+                    self.sleep(0.5)
                     timeout_counter = timeout_counter - 1
                     # check status of alias
                     status_var1_val = self.fetchOne(status_var1)
@@ -171,7 +171,7 @@ class check_status(SCXTask):
             elif condition == 'notequals':
                 while status_var1_val == comparison1 and timeout_counter > 0:
                     # sleep for one second
-                    self.sleep(0.1)
+                    self.sleep(0.5)
                     timeout_counter = timeout_counter - 1
                     # check status of alias
                     status_var1_val = self.fetchOne(status_var1)
@@ -190,7 +190,7 @@ class check_status(SCXTask):
             if condition == 'equals':
                 while (status_var1_val != comparison1 or status_var2_val != comparison2) and timeout_counter > 0:
                     # sleep for one second
-                    self.sleep(0.1)
+                    self.sleep(0.5)
                     timeout_counter = timeout_counter - 1
                     # check status of both alias'
                     status_var1_val = self.fetchOne(status_var1)
@@ -206,7 +206,7 @@ class check_status(SCXTask):
             elif condition == 'notequals':
                 while (status_var1_val == comparison1 or status_var2_val == comparison2) and timeout_counter > 0:
                     # sleep for one second
-                    self.sleep(0.1)
+                    self.sleep(0.5)
                     timeout_counter = timeout_counter - 1
                     # check status of both alias'
                     status_var1_val = self.fetchOne(status_var1)
