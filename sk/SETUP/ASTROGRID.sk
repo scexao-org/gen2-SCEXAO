@@ -46,8 +46,11 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing ASTRO
         asn mode = "15.5"
     ENDIF
 
-    IF @mystatus1 == $STATE AND @mystatus2 == $AMPLITUDE AND @mystatus3 == @mode
-        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+    IF @mystatus1 == "OFF" AND $STATE == "OFF"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+    ELIF @mystatus1 == $STATE AND @mystatus2 == $AMPLITUDE AND @mystatus3 == @mode
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
     ELSE
 
@@ -56,17 +59,16 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing ASTRO
 
         # change the screen
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
-        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Changing..." ObsInfo4="Changing..." ObsInfo5="Changing...";
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Changing...";
 
         # state check
         IF "$STATE" == "OFF"
             # must assign to variable to excetue local function
             asn why_do_I_exist1 = @execute_command1(comparison1="OFF")
         ELSE
-            IF "$STATE" == "ON"
-                # must assign to variable to excetue local function
-                asn why_do_I_exist1 = @execute_command1(comparison1="ON")
-            ENDIF
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Changing..." ObsInfo5="Changing...;
+            # must assign to variable to excetue local function
+            asn why_do_I_exist1 = @execute_command1(comparison1="ON")
 
             # amplitude check
             asn amplitude = $AMPLITUDE / 1000
