@@ -39,19 +39,19 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="APAPANE Parameters Change" ObsInfo2=Clear ObsInfo3="CMD: WINDOW=$WINDOW" ObsInfo4=FPS HZ:$FPS_HZ ObsInfo5=EM GAIN:$EM_GAIN;
 
 :main_start
-    *IF "$WINDOW" == "FULL"
+    IF "$WINDOW" == "FULL"
 
         # must assign to variable to excetue local function
         # fill in 'none' with value of status alias
         asn why_do_I_exist = @execute_command(comparison="none")
 
-    *ELIF "$WINDOW" == "PDI"
+    ELIF "$WINDOW" == "PDI"
 
         # must assign to variable to excetue local function
         # fill in 'none' with value of status alias
         asn why_do_I_exist = @execute_command(comparison="none")
 
-    *ENDIF
+    ENDIF
 :main_end
 
 #Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";

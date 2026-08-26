@@ -32,31 +32,35 @@ launchers:
       - [ VAL02, LIST, [ "0.1", "0.2", "0.3", "0.4" ], "Mod_Amp" ]
 
   -
-    label: "Pueo_EM_Gain"
+    label: "~ Pueo EMGain ~"
+# squiggles indicate without status
     cmd: PYWFS_EMGAIN OBE_ID=SCEXAO OBE_MODE=VISIBLE EM_GAIN=$VAL01
     params:
       - [ VAL01, LIST, [ "AUTO","1", "2", "4", "8", "16", "32", "64", "128", "256", "600" ], "EM_Gain" ]
 
   -
-    label: "EMGain_Reset"
+    label: "EMGain Reset"
     cmd: EMGAIN_RESET OBE_ID=SCEXAO OBE_MODE=VISIBLE
 
   - sep
 
   -
-    label: "Set_PYWFS_Loop_Gain"
+    label: "~ Set Loop Gain ~"
+# squiggles indicate without status
     cmd: SET_PYWFS_LOOP_GAIN OBE_ID=SCEXAO OBE_MODE=VISIBLE GAIN=$VAL01
     params:
       - [ VAL01, INPUT, 6, 0, "Gain"]
 
   -
-    label: "Set_Mult_Factor"
+    label: "~ Mult Factor ~"
+# squiggles indicate without status
     cmd: SET_MULT_FACTOR OBE_ID=SCEXAO OBE_MODE=VISIBLE FACTOR=$VAL01
     params:
       - [ VAL01, INPUT, 6, 0, "Factor"]
 
   -
-    label: "Set_Modal_Gains"
+    label: "~ Modal Gains ~"
+# squiggles indicate without status
     cmd: SET_MODAL_GAINS OBE_ID=SCEXAO OBE_MODE=VISIBLE UNTOUCHED=$VAL01 TOTAL_MODES=$VAL02 GAIN_ALPHA=$VAL03 MULT_ALPHA=$VAL04 TT_GAIN_FACT=$VAL05
     params:
       - [ VAL01, INPUT, 6, 0, "Untouched"]
@@ -66,13 +70,15 @@ launchers:
       - [ VAL05, INPUT, 6, 0, "TT_Gain_Fact"]
 
   -
-    label: "Loop"
+    label: "~ Loop ~"
+# squiggles indicate without status
     cmd: LOOP OBE_ID=SCEXAO OBE_MODE=VISIBLE STATE=$VAL01
     params:
       - [ VAL01, LIST, [ "CLOSE", "OPEN", "ZERO"], "State"]
 
   -
-    label: "DM_Offload"
+    label: "X DM Offload X"
+# Xs indicate command broken/unimplemented
     cmd: DM_OFFLOAD OBE_ID=SCEXAO OBE_MODE=VISIBLE STATE=$VAL01
     params:
       - [ VAL01, LIST, [ "ON", "OFF"], "State"]

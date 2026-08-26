@@ -12,7 +12,8 @@ launchers:
       - [ VAL01, LIST, [ "VVC", "OPEN", "LYOT78", "LYOT92", "LYOT113", "LYOT139", "LYOT165", "LYOT198", "LYOT228", "LYOT262", "LYOT310"], "Slot" ]
 
   -
-    label: "MOVE_FPM_SIDEWAYS"
+    label: "X FPM SIDEWAYS X"
+# Xs indicate command is broken/unimplemented
     cmd: FPM_SIDEWAYS OBE_ID=SCEXAO OBE_MODE=INFRA_RED
 
   -
@@ -24,7 +25,8 @@ launchers:
   - sep
 
   -
-    label: "IRCam Steering"
+    label: "X IRCam Steering X"
+# Xs indicate command is broken/unimplemented
     cmd: IRCAM_STEERING OBE_ID=SCEXAO OBE_MODE=INFRA_RED MODE=$VAL01 A=$VAL02 B=$VAL03 MOTION=$VAL04
     params:
       - [ VAL01, LIST, [ "ONAXIS", "PALILAXY", "PALILAANGLE", "SKYANGLE"], "Mode" ]
@@ -100,16 +102,16 @@ launchers:
 
 
   -
-    label: "Palila Parameters"
+    label: "~ Palila Params ~"
+# squiggles indicate without status
     cmd: PALILA_PARAMETERS OBE_ID=SCEXAO OBE_MODE=INFRA_RED NDR=$VAL01
-# ask Garima or Olivier for default
     params:
       - [ VAL01, LIST, [ "1", "2", "4", "8", "16", "32", "64", "128", "255" ], "NDR" ]
 
   -
-    label: "Apapane Parameters"
+    label: "X Apapane Params X"
+# Xs indicate command is broken/unimplemented
     cmd: APAPANE_PARAMETERS OBE_ID=SCEXAO OBE_MODE=INFRA_RED WINDOW=$VAL01 FPS_HZ=$VAL02 EM_GAIN=$VAL03
-# ask Garima or Olivier for defaults
     params:
       - [ VAL01, LIST, [ "FULL", "PDI" ], "Window" ]
       - [ VAL01, LIST, [ "MAX", "2000", "1000", "500", "200", "100", "50", "20", "10", "5", "2" ], "FPS_HZ" ]

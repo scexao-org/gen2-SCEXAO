@@ -19,7 +19,6 @@ launchers:
 
   -
     label: "Set Mode"
-# ask Olivier/Garima what to put for default
     cmd: SET_MODE OBE_ID=SCEXAO OBE_MODE=SETUP MODE=$VAL01
     params:
       - [ VAL01, LIST, ["CHARIS", "CHARISPDI", "CHARISPDI+FPDI", "REACH" ], "Mode" ]
@@ -47,7 +46,8 @@ launchers:
       - [ VAL01, LIST, [ "ON","OFF" ], "Power" ]
 
   -
-    label: "Source Flux"
+    label: "~ Source Flux ~"
+# squiggles indicate without status
     cmd: SRC_FLUX OBE_ID=SCEXAO OBE_MODE=SETUP MODE=$VAL01
     params:
       - [ VAL01, LIST, [ "DEFAULT","CHARIS", "MIN" ], "Mode" ]
@@ -63,7 +63,8 @@ launchers:
       - [ VAL03, LIST, [ "PDI", "IMAGING" ], "Mode" ]
 
   -
-    label: "SCExAO DM"
+    label: "~ SCExAO DM ~"
+# squiggles indicate without status
     cmd: SCEXAO_DM OBE_ID=SCEXAO OBE_MODE=SETUP STATE=$VAL01
     params:
       - [ VAL01, LIST, [ "FLAT", "ZERO", "FOCUS_ON", "FOCUS_OFF" ], "State" ]

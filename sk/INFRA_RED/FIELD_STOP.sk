@@ -14,6 +14,11 @@
 :Command
 :start
 
+# import
+from "SCEXAO_Helpers" import strip
+# status with no following spaces
+asn mystatus = @strip("!SCX.FSTOP")
+
 # local function
 def execute_command(comparison){
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
@@ -29,8 +34,13 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="IR Field Stop 
 
 :main_start
 
-    # must assign to variable to excetue local function
-    asn why_do_I_exist = @execute_command(comparison="$POSITION")
+    IF @mystatus == "$POSITION"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+    ELSE
+        # must assign to variable to excetue local function
+        asn why_do_I_exist = @execute_command(comparison="$POSITION")
+    ENDIF
 
 :main_end
 

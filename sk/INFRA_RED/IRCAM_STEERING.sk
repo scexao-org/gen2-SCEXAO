@@ -40,31 +40,31 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="IRcam Steering Mode Change" ObsInfo2=Clear ObsInfo3="CMD: Mode=$MODE" ObsInfo4="a=$A, b=$B" ObsInfo5="Motion=$MOTION";
 
 :main_start
-    *IF "$MODE" == "ONAXIS"
+    IF "$MODE" == "ONAXIS"
 
         # must assign to variable to excetue local function
         # 'none' to be filled in with value of status alias
         asn why_do_I_exist = @execute_command(comparison="none")
 
-    *ELIF "$MODE" == "PALILAXY"
+    ELIF "$MODE" == "PALILAXY"
 
         # must assign to variable to excetue local function
         # 'none' to be filled in with value of status alias
         asn why_do_I_exist = @execute_command(comparison="none")
 
-    *ELIF "$MODE" == "PALILAANGLE"
+    ELIF "$MODE" == "PALILAANGLE"
 
         # must assign to variable to excetue local function
         # 'none' to be filled in with value of status alias
         asn why_do_I_exist = @execute_command(comparison="none")
 
-    *ELIF "$MODE" == "SKYANGLE"
+    ELIF "$MODE" == "SKYANGLE"
 
         # must assign to variable to excetue local function
         # 'none' to be filled in with value of status alias
         asn why_do_I_exist = @execute_command(comparison="none")
 
-    *ENDIF
+    ENDIF
 :main_end
 
 #Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
