@@ -14,6 +14,11 @@
 :Command
 :start
 
+# import
+from "SCEXAO_Helpers" import strip
+# status with no following spaces
+asn mystatus = @strip("!SCX.FPM")
+
 # local function
 def execute_command(comparison){
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
@@ -28,62 +33,106 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Coronograph FPM Slot Change" ObsInfo2=Clear ObsInfo3="CMD: Slot=$SLOT" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
-    *IF "$SLOT" == "VVC"
+    IF "$SLOT" == "VVC"
+        IF @mystatus == "Vect vortex msk"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="Vect vortex msk")
+        ENDIF
 
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="Vect vortex msk")
+    ELIF "$SLOT" == "OPEN"
+        IF @mystatus == "Open"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="Open")
+        ENDIF
 
-    *ELIF "$SLOT" == "OPEN"
+    ELIF "$SLOT" == "LYOT78"
+        IF @mystatus == "Occulter 78mas"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="Occulter 78mas")
+        ENDIF
 
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="Open")
+    ELIF "$SLOT" == "LYOT92"
+        IF @mystatus == "Occulter 92mas"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="Occulter 92mas")
+        ENDIF
 
-    *ELIF "$SLOT" == "LYOT78"
+    ELIF "$SLOT" == "LYOT113"
+        IF @mystatus == "Occulter 113mas"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="Occulter 113mas")
+        ENDIF
 
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="Occulter 78mas")
+    ELIF "$SLOT" == "LYOT139"
+        IF @mystatus == "Occulter 139mas"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="Occulter 139mas")
+        ENDIF
 
-    *ELIF "$SLOT" == "LYOT92"
+    ELIF "$SLOT" == "LYOT165"
+        IF @mystatus == "Occulter 165mas"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="Occulter 165mas")
+        ENDIF
 
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="Occulter 92mas")
+    ELIF "$SLOT" == "LYOT198"
+        IF @mystatus == "Occulter 198mas"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="Occulter 198mas")
+        ENDIF
 
-    *ELIF "$SLOT" == "LYOT113"
+    ELIF "$SLOT" == "LYOT228"
+        IF @mystatus == "Occulter 228mas"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="Occulter 228mas")
+        ENDIF
 
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="Occulter 113mas")
+    ELIF "$SLOT" == "LYOT262"
+        IF @mystatus == "Occulter 262mas"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="Occulter 262mas")
+        ENDIF
 
-    *ELIF "$SLOT" == "LYOT139"
+    ELIF "$SLOT" == "LYOT310"
+        IF @mystatus == "Occulter 310mas"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="Occulter 310mas")
+        ENDIF
 
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="Occulter 139mas")
-
-    *ELIF "$SLOT" == "LYOT165"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="Occulter 165mas")
-
-    *ELIF "$SLOT" == "LYOT198"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="Occulter 198mas")
-
-    *ELIF "$SLOT" == "LYOT228"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="Occulter 228mas")
-
-    *ELIF "$SLOT" == "LYOT262"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="Occulter 262mas")
-
-    *ELIF "$SLOT" == "LYOT310"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="Occulter 310mas")
-
-    *ENDIF
+    ENDIF
 :main_end
 
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
