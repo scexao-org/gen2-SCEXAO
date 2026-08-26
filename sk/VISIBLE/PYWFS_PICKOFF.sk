@@ -14,6 +14,11 @@
 :Command
 :start
 
+# import
+from "SCEXAO_Helpers" import strip
+# status with no following spaces
+asn mystatus = @strip("!SCX.PYWFS.PKO")
+
 # local function
 def execute_command(comparison){
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
@@ -28,27 +33,43 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing PyWFS Pickoff" ObsInfo2=Clear ObsInfo3="CMD: Slot=$SLOT" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
-    *IF "$SLOT" == "MIRROR"
+    IF "$SLOT" == "MIRROR"
+        IF @mystatus == "Silver mirror"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="Silver mirror")
+        ENDIF
 
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="Silver mirror")
+    ELIF "$SLOT" == "700NMSP"
+        IF @mystatus == "700 nm SP"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="700 nm SP")
+        ENDIF
 
-    *ELIF "$SLOT" == "700NMSP"
+    ELIF "$SLOT" == "750NMSP"
+        IF @mystatus == "750 nm SP"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="750 nm SP")
+        ENDIF
 
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="700 nm SP")
+    ELIF "$SLOT" == "800NMSP"
+        IF @mystatus == "800 nm SP"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="800 nm SP")
+        ENDIF
 
-    *ELIF "$SLOT" == "750NMSP"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="750 nm SP")
-
-    *ELIF "$SLOT" == "800NMSP"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="800 nm SP")
-
-    *ENDIF
+    ENDIF
 :main_end
 
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";

@@ -13,18 +13,23 @@
 :Command
 :start
 
+# import
+from "SCEXAO_Helpers" import strip
+# status with no following spaces
+asn mystatus = @strip("!SCX.PYWFS.GAIN")
+
 ##############################
 # STATUS ALIAS DISFUNCTIONAL
 ##############################
 
 # local function
-def execute_command(x){
+def execute_command(comparison){
 #    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
 #    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Changing...";
 
     EXEC SCEXAO SET_PYWFS_LOOP_GAIN GAIN=$GAIN;
 
-#    EXEC SCEXAO CHECK_STATUS_CHANGED TIMEOUT=100 STATUS_VAR="SCX.PYWFS.GAIN";
+#    EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.PYWFS.GAIN" COMPARISON1="@comparison";
 
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Result: Gain= $GAIN";
@@ -34,9 +39,13 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing PyWFS Loop Gain" ObsInfo2=Clear ObsInfo3="CMD: Gain=$GAIN" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
-
-    # must assign to variable to excetue local function
-    asn why_do_I_exist = @execute_command(x="NA")
+#    IF @mystatus == "$GAIN"
+#        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+#        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+#    ELSE
+        # must assign to variable to excetue local function
+    asn why_do_I_exist = @execute_command(comparison="$GAIN")
+#    ENDIF
 
 :main_end
 

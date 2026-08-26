@@ -15,6 +15,11 @@
 :Command
 :start
 
+# import
+from "SCEXAO_Helpers" import strip
+# status with no following spaces
+asn mystatus = @strip("!SCX.PYWFS.LOOP")
+
 ##############################
 # STATUS ALIAS DISFUNCTIONAL
 ##############################
@@ -37,8 +42,13 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Changing PyWFS
 
 :main_start
 
-    # must assign to variable to excetue local function
+#    IF @mystatus == "$STATE"
+#        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+#        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+#    ELSE
+        # must assign to variable to excetue local function
     asn why_do_I_exist = @execute_command(comparison="$STATE")
+#    ENDIF
 
 :main_end
 

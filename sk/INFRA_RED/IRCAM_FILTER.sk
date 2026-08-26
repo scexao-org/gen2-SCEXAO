@@ -14,6 +14,11 @@
 :Command
 :start
 
+# import
+from "SCEXAO_Helpers" import strip
+# status with no following spaces
+asn mystatus = @strip("!SCX.IRCAM.FLT")
+
 # local function
 def execute_command(comparison){
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
@@ -28,39 +33,61 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="IRCam Filter Slot Change" ObsInfo2=Clear ObsInfo3="CMD: Slot=$SLOT" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
-    *IF "$SLOT" == "OPEN"
+    IF "$SLOT" == "OPEN"
+        IF @mystatus == "OPEN"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="OPEN")
+        ENDIF
 
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="OPEN")
+    ELIF "$SLOT" == "Y"
+        IF @mystatus == "y-band"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="y-band")
+        ENDIF
 
-    *ELIF "$SLOT" == "Y"
+    ELIF "$SLOT" == "1550NM25NM"
+        IF @mystatus == "1550nm, 25nm BW"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="1550nm, 25nm BW")
+        ENDIF
 
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="y-band")
+    ELIF "$SLOT" == "1550NM50NM"
+        IF @mystatus == "1550nm, 50nm BW"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="1550nm, 50nm BW")
+        ENDIF
 
-    *ELIF "$SLOT" == "1550NM25NM"
+    ELIF "$SLOT" == "J"
+        IF @mystatus == "J-band"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="J-band")
+        ENDIF
 
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="1550nm, 25nm BW")
+    ELIF "$SLOT" == "H"
+        IF @mystatus == "H-band"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="H-band")
+        ENDIF
 
-    *ELIF "$SLOT" == "1550NM50NM"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="1550nm, 50nm BW")
-
-    *ELIF "$SLOT" == "J"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="J-band")
-
-
-    *ELIF "$SLOT" == "H"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="H-band")
-
-
-    *ENDIF
+    ENDIF
 :main_end
 
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";

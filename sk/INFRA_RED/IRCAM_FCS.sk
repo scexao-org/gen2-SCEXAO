@@ -14,6 +14,11 @@
 :Command
 :start
 
+# import
+from "SCEXAO_Helpers" import strip
+# status with no following spaces
+asn mystatus = @strip("!SCX.IRCAM.FCS")
+
 # local function
 def execute_command(comparison){
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
@@ -28,17 +33,25 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="IRCam Focus Mode Change" ObsInfo2=Clear ObsInfo3="CMD: Mode=$MODE" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
-    *IF "$MODE" == "PALILA"
+    IF "$MODE" == "PALILA"
+        IF @mystatus == "Palila focus"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="Palila focus")
+        ENDIF
 
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="Palila focus")
+    ELIF "$MODE" == "APAPANE"
+        IF @mystatus == "Apapane focus"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparison="Apapane focus")
+        ENDIF
 
-    *ELIF "$MODE" == "APAPANE"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparison="Apapane focus")
-
-    *ENDIF
+    ENDIF
 :main_end
 
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";

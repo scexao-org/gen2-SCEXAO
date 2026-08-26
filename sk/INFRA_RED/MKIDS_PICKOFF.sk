@@ -17,7 +17,7 @@
 # import
 from "SCEXAO_Helpers" import strip
 # status with no following spaces
-asn mystatus = @strip("!SCX.OAP1")
+asn mystatus = @strip("!SCX.MKIDS.PKO")
 
 # local function
 def execute_command(comparison){

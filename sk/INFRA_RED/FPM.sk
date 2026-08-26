@@ -43,12 +43,12 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Coronograph FP
         ENDIF
 
     ELIF "$SLOT" == "OPEN"
-        IF @mystatus == "Open"
+        IF @mystatus == "OPEN"
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
             Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
         ELSE
             # must assign to variable to excetue local function
-            asn why_do_I_exist = @execute_command(comparison="Open")
+            asn why_do_I_exist = @execute_command(comparison="OPEN")
         ENDIF
 
     ELIF "$SLOT" == "LYOT78"

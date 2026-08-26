@@ -303,22 +303,18 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Starting-up SCExAO" ObsInfo2=Clear ObsInfo3="CMD: Mode=$MODE" ObsInfo4=Clear ObsInfo5=Clear;
 
 :main_start
-    *IF "$MODE" == "CALIBRATION"
+
+    IF "$MODE" == "CALIBRATION"
 
         # must assign to variable to excetue local function
-        # replace 'none' with the value of the status alias  
         asn why_do_I_exist = @execute_calibration(x="NA")
-        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
 
-    *ELIF "$MODE" == "ONSKY"
+    ELIF "$MODE" == "ONSKY"
 
         # must assign to variable to excetue local function
-        # replace 'none' with the value of the status alias
         asn why_do_I_exist = @execute_onsky(x="NA")
-        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo2="Done";
 
-    *ENDIF
-
+    ENDIF
 :main_end
 
 :end

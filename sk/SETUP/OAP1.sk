@@ -14,7 +14,9 @@
 :Command
 :start
 
+# import
 from "SCEXAO_Helpers" import strip
+# status with no following spaces
 asn mystatus = @strip("!SCX.OAP1")
 
 # local function
