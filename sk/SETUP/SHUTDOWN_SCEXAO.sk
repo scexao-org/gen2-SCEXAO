@@ -28,7 +28,7 @@ asn lyot_slot = @strip("!SCX.LYOT")
 asn charis_pko_slot = @strip("!SCX.CHARIS.PKO")
 asn ircam_flt_slot = @strip("!SCX.IRCAM.FLT")
 asn ircam_fcs_mode = @strip("!SCX.IRCAM.FCS")
-asn apapane_pko_slot = @strip("!SCX.APAPANE.PKO")
+asn apapane_pko_pos = @strip("!SCX.APAPANE.PKO")
 asn field_stop_pos = @strip("!SCX.FSTOP")
 asn charis_wol_pos = @strip("!SCX.CHARIS.WOL")
 asn ircam_wol_pos = @strip("!SCX.IRCAM.WOL")
@@ -130,11 +130,11 @@ def execute_shutdown(x){
         EXEC SCEXAO IRCAM_FCS MODE="PALILA";
         EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.IRCAM.FCS" COMPARISON1="Palila focus";
     ENDIF
-    IF @apapane_pko_slot == "OUT"
+    IF @apapane_pko_pos == "OUT"
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Apapane pickoff already in position";
     ELSE
-        EXEC SCEXAO APAPANE_PICKOFF SLOT="OUT";
+        EXEC SCEXAO APAPANE_PICKOFF POSITION="OUT";
         EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.APAPANE.PKO" COMPARISON1="OUT";
     ENDIF
     IF @field_stop_pos == "OUT"
