@@ -9,7 +9,7 @@
 
 :Parameter
     MODE=NOP
-    *MODE=CHARIS,CHARISPDI,CHARISPDI+FPDI,REACH
+    *MODE=CHARIS,CHARISPDI,CHARISPDI_FPDI,REACH
 
 :Command
 :start
@@ -87,7 +87,7 @@ def execute_CHARIS(x){
 
 # end text
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear ObsInfo4=Clear;
-    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="CHARIS mode applied!";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="CHARIS mode applied";
 }
 
 def execute_CHARISPDI(x){
@@ -150,13 +150,13 @@ def execute_CHARISPDI(x){
 
 # end text
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear ObsInfo4=Clear;
-    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="CHARISPDI mode applied!";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="CHARISPDI mode applied";
 }
 
 def execute_CHARISPDI_PLUS_FPDI(x){
 # start text
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
-    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Applying CHARISPDI+FDI mode...";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Applying CHARISPDI_FDI mode...";
 
 # commands    
     IF @ircam_flt_slot == "OPEN"
@@ -213,7 +213,7 @@ def execute_CHARISPDI_PLUS_FPDI(x){
 
 # end text
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear ObsInfo4=Clear;
-    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="CHARISPDI+FPDI mode applied!";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="CHARISPDI_FPDI mode applied";
 }
 
 def execute_REACH(x){
@@ -276,7 +276,7 @@ def execute_REACH(x){
 
 # end text
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear ObsInfo4=Clear;
-    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="REACH mode applied!";
+    Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="REACH mode applied";
 }
 
 Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1=Clear ObsInfo2=Clear ObsInfo3=Clear ObsInfo4=Clear ObsInfo5=Clear;
@@ -290,7 +290,7 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="Set Mode" ObsI
     ELIF "$MODE" == "CHARISPDI"
         # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_CHARISPDI(x="NA")
-    ELIF "$MODE" == "CHARISPDI+FPDI"
+    ELIF "$MODE" == "CHARISPDI_FPDI"
         # must assign to variable to excetue local function
         asn why_do_I_exist = @execute_CHARISPDI_PLUS_FPDI(x="NA")
     ELIF "$MODE" == "REACH"

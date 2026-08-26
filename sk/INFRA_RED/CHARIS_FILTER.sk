@@ -14,6 +14,12 @@
 :Command
 :start
 
+# import
+from "SCEXAO_Helpers" import strip
+# status with no following spaces
+asn mystatus1 = @strip("!SCX.PIAA1")
+asn mystatus2 = @strip("!SCX.PIAA2")
+
 # local function
 def execute_command(comparisonA, comparisonB){
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
@@ -29,24 +35,40 @@ Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo1="CHARIS FILTER 
 
 :main_start
     IF "$SLOT" == "J"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparisonA="F 1200nm bw10nm", comparisonB="OPEN")
+        IF @mystatus1 == "F 1200nm bw10nm" AND @mystatus2 == "OPEN"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparisonA="F 1200nm bw10nm", comparisonB="OPEN")
+        ENDIF
 
     ELIF "$SLOT" == "H"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparisonA="F 1550nm bw10nm", comparisonB="OPEN")
+        IF @mystatus1 == "F 1550nm bw10nm" AND @mystatus2 == "OPEN"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparisonA="F 1550nm bw10nm", comparisonB="OPEN")
+        ENDIF
 
     ELIF "$SLOT" == "K"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparisonA="OPEN", comparisonB="K-band narrowbd")
+        IF @mystatus1 == "OPEN" AND @mystatus2 == "K-band narrowbd"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparisonA="OPEN", comparisonB="K-band narrowbd")
+        ENDIF
 
     ELIF "$SLOT" == "OUT"
-
-        # must assign to variable to excetue local function
-        asn why_do_I_exist = @execute_command(comparisonA="OPEN", comparisonB="Open")
+        IF @mystatus1 == "OPEN" AND @mystatus2 == "OPEN"
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear;
+            Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Already in Position";
+        ELSE
+            # must assign to variable to excetue local function
+            asn why_do_I_exist = @execute_command(comparisonA="OPEN", comparisonB="OPEN")
+        ENDIF
 
     ENDIF
 :main_end

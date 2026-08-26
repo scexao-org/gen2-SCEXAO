@@ -21,7 +21,7 @@ launchers:
     label: "Set Mode"
     cmd: SET_MODE OBE_ID=SCEXAO OBE_MODE=SETUP MODE=$VAL01
     params:
-      - [ VAL01, LIST, ["CHARIS", "CHARISPDI", "CHARISPDI+FPDI", "REACH" ], "Mode" ]
+      - [ VAL01, LIST, ["CHARIS", "CHARISPDI", "CHARISPDI_FPDI", "REACH" ], "Mode" ]
 
   - sep
 
