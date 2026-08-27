@@ -25,12 +25,12 @@ The first is labelled 'VISIBLE' and it contains skeleton files corresponding to 
 The skeleton files are organized in three folders in the same format as the launchers, with SETUP, INFRA_RED, and VISIBLE directories
 The STARTUP_SCEXAO.sk, SHUTDOWN_SCEXAO.sk, and SET_MODE.sk scripts in particular are unique in that they are not a commmand themselves that are defined with their own constructor in SCXdd.py, or have their own PARA file and g2cam definition in SCEXAO.py.
 Instead, just as the others, the launcher button calls the skeleton file, and the skeleton file contains various command calls which are implemented with their own constructor, para file, and g2cam definition. 
-To implement checks before each one of these command calls, so that every command in the entire script wouldn't run innecessarily every time the button was pressed, the available status aliases for every command had to be stored in a separate variable locally defined in the skeleton script and stripped of their leading and following spaces, which would otherwise interfere in the checks.
+To implement checks before each one of these command calls, so that every command in the entire script wouldn't run unnecessarily every time the button was pressed, the available status aliases for every command had to be stored in a separate variable locally defined in the skeleton script and stripped of their leading and following spaces, which would otherwise interfere in the checks.
 Some of these settings/buttons, such as SHUTDOWN_SCEXAO.sk and STARTUP_SCEXAO.sk (calibration), contain OBS commands that prompt the user to check something before continuing with the other command calls.
-This makes some of these buttons nto entirely automatic, but it was necessary to implement for all procedures to be properly executed. Apart from these few examples, the rest of the scripts are compeltely automated and require no further actions by the user to execute.
+This makes some of these buttons not entirely automatic, but it was necessary to implement for all procedures to be properly executed. Apart from these few examples, the rest of the scripts are compeltely automated and require no further actions by the user to execute.
 
 # SCEXAO CHECK_STATUS
-Because the OBS command for CHECK_STATUS is very rudementary and doesn't allow for checking status aliases that contain spaces, I was forced to make a new CEHCK_STATUS function for SCEXAO that allowed for such alias return values since most status sent by SCEXAO contains spaces. 
+Because the OBS command for CHECK_STATUS is very rudimentary and doesn't allow for checking status aliases that contain spaces, I was forced to make a new CEHCK_STATUS function for SCEXAO that allowed for such alias return values since most status sent by SCEXAO contains spaces. 
 The SCEXAO CHECK_STATUS is defined in the python file SCXdd.py, which can be found in the task directory. The function definition is long, and can certainly be simplified and made more efficient in the future, but is nice because it allows for direct modifications to the function in case the user wants to change something, without modifying OBS functions that every other SUBARU instrument uses and introduce the risk of breaking something.
 Also included in SCXdd.py is a CHECK_STATUS_CHANGED function that allows for checking when a status alias has changed instead of directly comparing it to a value.
 This is purely for future use and has not as of yet been implemented into any skeleton scripts. 
@@ -45,11 +45,12 @@ Thus, things can get slightly complicated, especially when some command paths re
 Additionally, I encountered some issues with the return values of some commands, as sometimes a 1 would be returned when a 0 should have been, making g2cam think an error occured and crashing the program when the command in reality ran smoothly
 To work around these issues, I imported shlex, which allows for joining parts of a command path string that require quotes, effectively producing the same effect as if one were to type quotation marks into the command call directly in a terminal
 Additionally, I included another argument for commands that return abnormal values, even when there is no error. Thus, as long as some type of text indicating that the command was sucessful is returned, and that value is passed as an argument to the run_remote_command call, the program will not crash, even if a non-zero integer value is returned
-Use this format for any future implementation of commands through ssh:
 
-For executable with arguments: use separate list elements (including brakets)
+Use this format for any future implementation of commands through ssh:
+For executable with arguments: use separate list elements (including brackets)
 ["/path/program", "argument1", "argument2"] 
-For shell operators such as &&, cd, pipes, or redirects: use one string (without brakets)
+For shell operators such as &&, cd, pipes, or redirects: use one string (without brackets)
 "cd /some/directory && program argument1"
 
-These four folders communicate starting first with the YAML file that launches the commands for a given meduim (setup/IR/Vis), then the SCXdd.py file runs in the 'task' foler that reads the PARA file of the desired command to be run, and performs the requested SCExAO operation, communicating directly with the hardware
+# Concluding,
+These four folders communicate starting first with the YAML file that launches the commands for a given medium (setup/IR/Vis), then the SCXdd.py file runs in the 'task' foler that reads the PARA file of the desired command to be run, and performs the requested SCExAO operation, communicating directly with the hardware.
