@@ -23,7 +23,7 @@ The first is labelled 'VISIBLE' and it contains skeleton files corresponding to 
 
 # Skeleton Scripts
 The skeleton files are organized in three folders in the same format as the launchers, with SETUP, INFRA_RED, and VISIBLE directories
-The STARTUP_SCEXAO.sk, SHUTDOWN_SCEXAO.sk, and SET_MODE.sk scripts in particular are unique in that they are not a commmand themselves that are defined with their own constructor in SCXdd.py, or have their own PARA file and g2cam definition in SCEXAO.py.
+The STARTUP_SCEXAO.sk, SHUTDOWN_SCEXAO.sk, and SET_MODE.sk scripts in particular are unique in that they are not a commmand themselves that are defined with their own constructor in SCXdd.py, or have their own g2cam definition in SCEXAO.py.
 Instead, just as the others, the launcher button calls the skeleton file, and the skeleton file contains various command calls which are implemented with their own constructor, para file, and g2cam definition. 
 To implement checks before each one of these command calls, so that every command in the entire script wouldn't run unnecessarily every time the button was pressed, the available status aliases for every command had to be stored in a separate variable locally defined in the skeleton script and stripped of their leading and following spaces, which would otherwise interfere in the checks.
 Some of these settings/buttons, such as SHUTDOWN_SCEXAO.sk and STARTUP_SCEXAO.sk (calibration), contain OBS commands that prompt the user to check something before continuing with the other command calls.

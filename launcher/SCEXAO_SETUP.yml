@@ -6,7 +6,6 @@
 tabname: "SCEXAO Setup"
 launchers:
 
-
   -
     label: "Startup SCExAO"
     cmd: STARTUP_SCEXAO OBE_ID=SCEXAO OBE_MODE=SETUP MODE=$VAL01
@@ -21,7 +20,7 @@ launchers:
     label: "Set Mode"
     cmd: SET_MODE OBE_ID=SCEXAO OBE_MODE=SETUP MODE=$VAL01
     params:
-      - [ VAL01, LIST, ["CHARIS", "CHARISPDI", "CHARISPDI_FPDI", "REACH" ], "Mode" ]
+      - [ VAL01, LIST, ["CHARIS", "CHARISPDI", "CHARISPDI_FPDI", "REACH", "FIRST_PL" ], "Mode" ]
 
   - sep
 
