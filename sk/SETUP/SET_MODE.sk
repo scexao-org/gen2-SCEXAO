@@ -18,6 +18,9 @@
 from "SCEXAO_Helpers" import strip
 
 # remove whitespaces from current status
+asn superk_status = @strip("!SCX.SRC.EN")
+asn src_pos = @strip("!SCX.SRC.FIB")
+asn oap1_pos = @strip("!SCX.OAP1")
 asn ircam_flt_slot = @strip("!SCX.IRCAM.FLT")
 asn ircam_fcs_mode = @strip("!SCX.IRCAM.FCS")
 asn apapane_pko_pos = @strip("!SCX.APAPANE.PKO")
@@ -35,6 +38,27 @@ def execute_CHARIS(x){
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Applying CHARIS mode...";
 
 # commands    
+    IF @superk_status == "OFF"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Source already turned off";
+    ELSE
+        EXEC SCEXAO SUPERK POWER="OFF";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.EN" COMPARISON1="OFF";
+    ENDIF
+    IF @src_pos == "OUT"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Source Fib already in position";
+    ELSE
+        EXEC SCEXAO SRC_FIB POSITION="OUT";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.FIB" COMPARISON1="OUT";
+    ENDIF
+    IF @oap1_pos == "AO3k-NIRWFS"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="OAP1 already in position";
+    ELSE
+        EXEC SCEXAO OAP1 POSITION="NIRWFS";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.OAP1" COMPARISON1="AO3k-NIRWFS";
+    ENDIF
     IF @ircam_flt_slot == "OPEN"
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="IRCam filter already in position";
@@ -112,6 +136,27 @@ def execute_CHARISPDI(x){
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Applying CHARISPDI mode...";
 
 # commands    
+    IF @superk_status == "OFF"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Source already turned off";
+    ELSE
+        EXEC SCEXAO SUPERK POWER="OFF";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.EN" COMPARISON1="OFF";
+    ENDIF
+    IF @src_pos == "OUT"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Source Fib already in position";
+    ELSE
+        EXEC SCEXAO SRC_FIB POSITION="OUT";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.FIB" COMPARISON1="OUT";
+    ENDIF
+    IF @oap1_pos == "AO3k-NIRWFS"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="OAP1 already in position";
+    ELSE
+        EXEC SCEXAO OAP1 POSITION="NIRWFS";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.OAP1" COMPARISON1="AO3k-NIRWFS";
+    ENDIF
     IF @ircam_flt_slot == "OPEN"
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="IRCam filter already in position";
@@ -177,7 +222,10 @@ def execute_CHARISPDI(x){
         EXEC SCEXAO FIRSTPL_PICKOFF POSITION="OUT";
         EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.VISPL.PKO" COMPARISON1="OUT";
     ENDIF
-
+    EXEC OBS CONFIRMATION INSTRUMENT_NAME=!FITS.SBR.MAINOBCP TITLE="GARDE started?" DIALOG=OK
+    EXEC WAVEPLAT SHW MOVE=56.000000 WAIT=YES ACTION=MOVE
+    EXEC OBS CONFIRMATION INSTRUMENT_NAME=!FITS.SBR.MAINOBCP TITLE="Put HWP in ADI mode?" DIALOG=OK
+    EXEC WAVEPLAT HWP MOVE=0.000000 SYNCHRO=ADI
 
 # end text
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3=Clear ObsInfo4=Clear;
@@ -190,6 +238,27 @@ def execute_CHARISPDI_PLUS_FPDI(x){
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Applying CHARISPDI_FDI mode...";
 
 # commands    
+    IF @superk_status == "OFF"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Source already turned off";
+    ELSE
+        EXEC SCEXAO SUPERK POWER="OFF";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.EN" COMPARISON1="OFF";
+    ENDIF
+    IF @src_pos == "OUT"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Source Fib already in position";
+    ELSE
+        EXEC SCEXAO SRC_FIB POSITION="OUT";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.FIB" COMPARISON1="OUT";
+    ENDIF
+    IF @oap1_pos == "AO3k-NIRWFS"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="OAP1 already in position";
+    ELSE
+        EXEC SCEXAO OAP1 POSITION="NIRWFS";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.OAP1" COMPARISON1="AO3k-NIRWFS";
+    ENDIF
     IF @ircam_flt_slot == "OPEN"
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="IRCam filter already in position";
@@ -255,6 +324,10 @@ def execute_CHARISPDI_PLUS_FPDI(x){
         EXEC SCEXAO FIRSTPL_PICKOFF POSITION="OUT";
         EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.VISPL.PKO" COMPARISON1="OUT";
     ENDIF
+    EXEC OBS CONFIRMATION INSTRUMENT_NAME=!FITS.SBR.MAINOBCP TITLE="GARDE started?" DIALOG=OK
+    EXEC WAVEPLAT SHW MOVE=56.000000 WAIT=YES ACTION=MOVE
+    EXEC OBS CONFIRMATION INSTRUMENT_NAME=!FITS.SBR.MAINOBCP TITLE="Put HWP in ADI mode?" DIALOG=OK
+    EXEC WAVEPLAT HWP MOVE=0.000000 SYNCHRO=ADI
 
 
 # end text
@@ -268,6 +341,27 @@ def execute_REACH(x){
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Applying REACH mode...";
 
 # commands    
+    IF @superk_status == "OFF"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Source already turned off";
+    ELSE
+        EXEC SCEXAO SUPERK POWER="OFF";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.EN" COMPARISON1="OFF";
+    ENDIF
+    IF @src_pos == "OUT"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Source Fib already in position";
+    ELSE
+        EXEC SCEXAO SRC_FIB POSITION="OUT";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.FIB" COMPARISON1="OUT";
+    ENDIF
+    IF @oap1_pos == "AO3k-NIRWFS"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="OAP1 already in position";
+    ELSE
+        EXEC SCEXAO OAP1 POSITION="NIRWFS";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.OAP1" COMPARISON1="AO3k-NIRWFS";
+    ENDIF
     IF @ircam_flt_slot == "OPEN"
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="IRCam filter already in position";
@@ -346,6 +440,27 @@ def execute_FIRST_PL(x){
     Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo3="Applying FIRST_PL mode...";
 
 # commands    
+    IF @superk_status == "OFF"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Source already turned off";
+    ELSE
+        EXEC SCEXAO SUPERK POWER="OFF";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.EN" COMPARISON1="OFF";
+    ENDIF
+    IF @src_pos == "OUT"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Source Fib already in position";
+    ELSE
+        EXEC SCEXAO SRC_FIB POSITION="OUT";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.SRC.FIB" COMPARISON1="OUT";
+    ENDIF
+    IF @oap1_pos == "AO3k-NIRWFS"
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
+        Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="OAP1 already in position";
+    ELSE
+        EXEC SCEXAO OAP1 POSITION="NIRWFS";
+        EXEC SCEXAO CHECK_STATUS TIMEOUT_COUNTER=100 CONDITION="EQUALS" STATUS_VAR1="SCX.OAP1" COMPARISON1="AO3k-NIRWFS";
+    ENDIF
     IF @ircam_flt_slot == "H-band"
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="IRCam filter already in position";

@@ -81,6 +81,7 @@ def execute_shutdown(x){
     ENDIF
     EXEC SCEXAO SCEXAO_DM STATE="FLAT";
     # no status
+    EXEC CHARIS SHUTTER POS=closed
     IF @src_pos == "IN"
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4=Clear;
         Exec OBS Set_Message Instrument_Name=!FITS.SBR.MAINOBCP ObsInfo4="Source Fib already in position";
