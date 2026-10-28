@@ -12,8 +12,7 @@ launchers:
       - [ VAL01, LIST, [ "VVC", "OPEN", "LYOT78", "LYOT92", "LYOT113", "LYOT139", "LYOT165", "LYOT198", "LYOT228", "LYOT262", "LYOT310"], "Slot" ]
 
   -
-    label: "X FPM SIDEWAYS X"
-# Xs indicate command is broken/unimplemented
+    label: "FPM SIDEWAYS"
     cmd: FPM_SIDEWAYS OBE_ID=SCEXAO OBE_MODE=INFRA_RED
 
   -
